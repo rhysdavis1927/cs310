@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="app_name">Logic Proof Builder</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Logic Proof Builder</string>
+    <string name="title_activity_input_sentence">InputSentenceActivity</string>
+    <string name="submit_formula"><font face="Symbol"> somt</font></string>
+    <string name="formula_input">Enter a sentence...</string>
+    <string name="input_formula_button">Submit</string>
+    <string name="forall"></string>
+    <string name="thereexists">there exists</string>
+    <string name="dialog_title">Title</string>
+    <string name="dialog_message"> Message</string>
+    <string name="left_bracket"> (</string>
+    <string name="right_bracket"> )</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_proof_builder">ProofBuilderActivity</string>
+
+</resources>
