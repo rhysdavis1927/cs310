@@ -15,5 +15,22 @@
     <string name="right_bracket"> )</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_proof_builder">ProofBuilderActivity</string>
+    <string name="rule_prompt">Choose a rule..</string>
+    <string name="justification_prompt">Select one..</string>
+    
+    <string-array name="rules_array">
+        <item>And introduction</item>
+        <item>And elimination-1</item>
+        <item>And elimination-2</item>        
+        <item>Or introduction-1</item>
+        <item>Or introduction-2</item>
+        <item>Or elimination</item>
+        <item>Implies introduction</item>
+        <item>Modus Ponens</item>
+        <item>Negation introduction</item>
+        <item>Negation elimination</item>
+    </string-array>
+    
+ 
 
 </resources>

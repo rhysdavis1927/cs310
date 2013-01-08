@@ -39,6 +39,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="logic.proof.builder.gui.MainActivity" />
         </activity>
+        <activity
+            android:name=".ChooseRuleActivity"            
+            android:screenOrientation="landscape"
+            android:label="@string/title_activity_proof_builder" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="logic.proof.builder.gui.ProofBuilderActivity" />
+        </activity>
     </application>
 
 </manifest>

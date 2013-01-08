@@ -28,27 +28,29 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        android:weightSum="2">
 
         <ListView
             android:id="@+id/list"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
 
         </ListView>
 
         <TableLayout
             
             android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" >
+            android:layout_width="fill_parent"            
+            android:layout_height="fill_parent"
+            android:stretchColumns="1" >
 
             <TableRow>
 
                 <Button
                     android:id="@+id/addPredicateButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickAddPredicateButton"
@@ -59,28 +61,28 @@
 
                 <Button
                     android:id="@+id/andButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickAndButton" />
 
                 <Button
                     android:id="@+id/orButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickOrButton" />
 
                 <Button
                     android:id="@+id/notButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickNotButton" />
                 
                 <Button
                     android:id="@+id/impliesButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickImpliesButton" />
@@ -90,14 +92,14 @@
 
                 <Button
                     android:id="@+id/equivalentButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickEquivalentButton" />
 
                 <Button
                     android:id="@+id/leftBracketButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickLeftBracketButton"
@@ -105,7 +107,7 @@
 
                 <Button
                     android:id="@+id/rightBracketButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickRightBracketButton"
@@ -113,54 +115,47 @@
 
                 <Button
                     android:id="@+id/backspaceButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickBackspaceButton" />
             </TableRow>
             
-            <!-- 
+            
             <TableRow>
 
                 <Button
-                    android:id="@+id/equivalentButton"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/bottomButton"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="clickEquivalentButton" />
+                    android:onClick="clickBottomButton" />
 
                 <Button
-                    android:id="@+id/leftBracketButton"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/topButton"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="clickLeftBracketButton"
+                    android:onClick="clickTopButton"
                     android:text="@string/left_bracket" />
 
                 <Button
-                    android:id="@+id/rightBracketButton"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/forAllButton"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickRightBracketButton"
                     android:text="@string/right_bracket" />
 
                 <Button
-                    android:id="@+id/notButton"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/thereExistsButton"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="clickNotButton" />
 
-                <Button
-                    android:id="@+id/backspaceButton"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:onClick="clickBackspaceButton" />
             </TableRow>
-             -->
-            
+                       
         </TableLayout>
     </LinearLayout>
 

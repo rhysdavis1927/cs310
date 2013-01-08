@@ -19,13 +19,13 @@ public interface ParserConstants {
   /** RegularExpression Id. */
   int OR = 4;
   /** RegularExpression Id. */
-  int PREDICATE = 5;
+  int NOT = 5;
   /** RegularExpression Id. */
-  int NOT = 6;
+  int LBRACKET = 6;
   /** RegularExpression Id. */
-  int LBRACKET = 7;
+  int RBRACKET = 7;
   /** RegularExpression Id. */
-  int RBRACKET = 8;
+  int PREDICATE = 8;
 
   /** Literal token values. */
   String[] tokenImage = {
@@ -34,10 +34,10 @@ public interface ParserConstants {
     "<EQUIVALENT>",
     "<AND>",
     "<OR>",
-    "<PREDICATE>",
     "<NOT>",
     "<LBRACKET>",
     "<RBRACKET>",
+    "<PREDICATE>",
   };
 
 }

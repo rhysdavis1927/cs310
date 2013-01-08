@@ -8,8 +8,8 @@ public interface ParserTreeConstants
   public int JJTEQUIVALENT = 2;
   public int JJTAND = 3;
   public int JJTOR = 4;
-  public int JJTPREDICATE = 5;
-  public int JJTNOT = 6;
+  public int JJTNOT = 5;
+  public int JJTPREDICATE = 6;
 
 
   public String[] jjtNodeName = {
@@ -18,8 +18,8 @@ public interface ParserTreeConstants
     "Equivalent",
     "And",
     "Or",
-    "Predicate",
     "Not",
+    "Predicate",
   };
 }
-/* JavaCC - OriginalChecksum=3fd9c6ab8dff7be02a85340832aab6e3 (do not edit this line) */
+/* JavaCC - OriginalChecksum=bd94f3c4f8154418311366d36138b4dc (do not edit this line) */

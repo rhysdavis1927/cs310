@@ -38,13 +38,16 @@ public class InputSentenceActivity extends Activity {
     private static final String AND = Html.fromHtml("&and;").toString();
     private static final String NOT = Html.fromHtml("&not;").toString();
     private static final String EQUIVALENT = Html.fromHtml("&hArr;").toString();
+    private static final String BOTTOM = Html.fromHtml("&bot;").toString();
 
-    EditText formulaTextView;
-    TokenCollector tc = new TokenCollector();
-    Parser parser  = new Parser(tc);
-    ArrayAdapter<String> listAdapter;
-    ListView predicateList;
-    ArrayList<String> predicates;
+    static EditText formulaTextView;
+    static TokenCollector tc = new TokenCollector();
+    static Parser parser  = new Parser(tc);
+    static ArrayAdapter<String> listAdapter;
+    static ListView predicateList;
+    static ArrayList<String> predicates;
+    
+    //possible optimisation: change methods to static
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,13 @@ public class InputSentenceActivity extends Activity {
 
 	Button backspaceButton = (Button) findViewById(R.id.backspaceButton);
 	backspaceButton.setText(Html.fromHtml("&larr;"));
+	
+	Button bottomButton = (Button) findViewById(R.id.bottomButton);
+	bottomButton.setText(BOTTOM);
+	
+	Button topButton = (Button) findViewById(R.id.topButton);
+	topButton.setText("T");
+	
 
 	predicates = new ArrayList<String>();
 	predicateList = (ListView) findViewById(R.id.list);
@@ -167,10 +177,6 @@ public class InputSentenceActivity extends Activity {
 		String value = input.getText().toString();
 		listAdapter.add(value);
 		predicateList.setAdapter(listAdapter);
-		// Token pred = new Token();
-		// pred.kind = ParserConstants.PREDICATE;
-		// pred.image = value;
-		// insertOperator(view, value, pred);
 	    }
 	});
 
@@ -233,6 +239,20 @@ public class InputSentenceActivity extends Activity {
 	token.image = NOT;
 	insertOperator(view, token);
     }
+    
+    public void clickBottomButton(View view) {
+	Token token = new Token();
+	token.kind = ParserConstants.PREDICATE;
+	token.image = BOTTOM;
+	insertOperator(view, token);
+    }
+
+    public void clickTopButton(View view) {
+	Token token = new Token();
+	token.kind = ParserConstants.PREDICATE;
+	token.image = "T";
+	insertOperator(view, token);
+    }    
 
     public void clickBackspaceButton(View view) {
 	int cursorIndex = formulaTextView.getSelectionStart();
@@ -249,7 +269,7 @@ public class InputSentenceActivity extends Activity {
 
     }
 
-    public void insertOperator(View view, Token token) {
+    public static void insertOperator(View view, Token token) {
 	int cursorIndex = formulaTextView.getSelectionStart();
 	int tokenIndex = getTokenIndex(cursorIndex);
 	tc.list.add(tokenIndex, token);
@@ -261,7 +281,7 @@ public class InputSentenceActivity extends Activity {
 	formulaTextView.setSelection(cursorIndex + token.image.length());
     }
 
-    private int getTokenIndex(int cursorIndex) {
+    private static int getTokenIndex(int cursorIndex) {
 	int tokenIndex = 0;
 	if (cursorIndex > 0) {
 	    int i = 0;
