@@ -19,11 +19,11 @@ public interface ParserConstants {
   /** RegularExpression Id. */
   int OR = 4;
   /** RegularExpression Id. */
-  int NOT = 5;
+  int LBRACKET = 5;
   /** RegularExpression Id. */
-  int LBRACKET = 6;
+  int RBRACKET = 6;
   /** RegularExpression Id. */
-  int RBRACKET = 7;
+  int NOT = 7;
   /** RegularExpression Id. */
   int PREDICATE = 8;
 
@@ -34,9 +34,9 @@ public interface ParserConstants {
     "<EQUIVALENT>",
     "<AND>",
     "<OR>",
-    "<NOT>",
     "<LBRACKET>",
     "<RBRACKET>",
+    "<NOT>",
     "<PREDICATE>",
   };
 

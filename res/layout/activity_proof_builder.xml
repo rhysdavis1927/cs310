@@ -2,34 +2,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#000044"
     android:orientation="horizontal" >
 
     <ListView
-        android:id="@+id/formulaList"
+        android:id="@+id/proofList"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="4" >
-    </ListView>
-    <ListView
-        android:id="@+id/justificationList"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="4" >
+        android:layout_weight="3" >
     </ListView>
 
     <TableLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" >
 
         <TableRow>
+            
 
             <Button
                 android:id="@+id/newFormula"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:onClick="newFormula"
                 android:text="New Line" />
         </TableRow>
@@ -38,9 +32,9 @@
 
             <Button
                 android:id="@+id/deleteLine"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:onClick="deleteLine"
                 android:text="Delete Line" />
         </TableRow>
@@ -49,22 +43,22 @@
 
             <Button
                 android:id="@+id/beginSubproof"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:onClick="newSubproof"
                 android:text="New subproof" />
         </TableRow>
-        
-        <TableRow >
-        <Button
+
+        <TableRow>
+
+            <Button
                 android:id="@+id/endSubproof"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:onClick="endSubproof"
                 android:text="End subproof" />
-    
         </TableRow>
     </TableLayout>
 

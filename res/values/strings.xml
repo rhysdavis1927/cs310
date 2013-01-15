@@ -19,6 +19,7 @@
     <string name="justification_prompt">Select one..</string>
     
     <string-array name="rules_array">
+        <item>Premise</item>
         <item>And introduction</item>
         <item>And elimination-1</item>
         <item>And elimination-2</item>        

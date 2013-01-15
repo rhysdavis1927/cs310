@@ -12,82 +12,69 @@ import logic.proof.builder.parser.SimpleNode;
 
 public class Proof {
 
-    int proofLength;
     Stack<ProofStep> parents;
-    public ArrayList<String> justifications;
-    public ArrayList<String> formulae;
     public ArrayList<ProofStep> lines;
+    public int currentLevel;
 
     public Proof(Context context) {
 	lines = new ArrayList<ProofStep>();
 	parents = new Stack<ProofStep>();
-	ProofStep rootNode = new ProofStep(new SimpleNode(0),0,0);
-	proofLength =0;
+	ProofStep rootNode = new ProofStep(new SimpleNode(0),0,0,"");
 	parents.add(rootNode);
-	
-	justifications = new ArrayList<String>();	
-	formulae = new ArrayList<String>();
+	currentLevel =0;
+	rootNode.justification= "root node";
     }
 
-    public int addStepAsNewLine(SimpleNode formula) {
-	proofLength++;
+    public ProofStep addStepAsNewLine(SimpleNode node,String formula) {
 	ProofStep parentNode = parents.pop();
-	ProofStep l = new ProofStep(formula,proofLength,parentNode.level);
+	ProofStep l = new ProofStep(node,lines.size(),currentLevel,formula);
 	lines.add(l);	
 	l.parent = parentNode;
 	parentNode.next = l;
 	parents.push(l);
-	return l.level;
+	return l;
     }
 
-    public int addStepAsStartOfSubproof(SimpleNode formula) {
-	proofLength++;
+    public ProofStep addStepAsStartOfSubproof(SimpleNode node,String formula) {
 	ProofStep parentNode = parents.peek();
-	ProofStep l = new ProofStep(formula,proofLength,
-		parentNode.level+1);
-	lines.add(l);
-	
+	ProofStep l = new ProofStep(node,lines.size(),
+		++currentLevel, formula);
+	lines.add(l);	
 	l.parent = parentNode;
 	parentNode.subproofs.add(l);
 	parents.push(l);
-	return l.level;
+	l.justification = "Assumption";
+	return l;
     }
 
-    public int addStepAsEndOfSubproof(SimpleNode formula) {
-	proofLength++;
+    public ProofStep addStepAsEndOfSubproof(SimpleNode node,String formula) {
 	ProofStep parentNode = parents.pop();
-	ProofStep l = new ProofStep(formula,proofLength,parentNode.level -1);
-	lines.add(l);
-	
+	ProofStep l = new ProofStep(node,lines.size(),currentLevel--,formula);
+	lines.add(l);	
 	parentNode.next = l;
 	l.parent = parentNode;
-	return l.level;
+	l.endOfSubproof=true;
+	return l;
     }
     
-    public void add(String formula,int level) {
-	StringBuffer s = new StringBuffer();
-	for(int i =0; i <level;i++) {
-	    s.append("  ");
+    public void removeStep() {
+	ProofStep step =lines.remove(lines.size()-1);
+	if(step.endOfSubproof) {
+	    currentLevel++;
+	    parents.push(step.parent);
+	    step.parent.next =null;
 	}
-	s.append(formula);
-	formulae.add(s.toString());
-    }
-
-    public class ProofStep {
-
-	public ProofStep parent = null;
-	public List<ProofStep> subproofs;
-	public ProofStep next = null;
-	public SimpleNode formula;
-	public Integer lineNumber;
-	public int level;
-
-	ProofStep(SimpleNode formula, int lineNumber, int level) {
-	    subproofs = new ArrayList<ProofStep>();
-	    this.formula = formula;
-	    this.lineNumber=lineNumber;
-	    this.level = level;
+	else {
+	    parents.pop();
+	    if (step.parent.level < step.level) {
+		currentLevel--;
+		step.parent.subproofs.remove(step);
+	    }
+	    else{
+		parents.push(step.parent);
+		step.parent.next = null;
+	    }
 	}
-
     }
+    
 }

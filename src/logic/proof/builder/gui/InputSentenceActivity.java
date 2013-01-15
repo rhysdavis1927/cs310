@@ -17,7 +17,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
-import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +28,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import static logic.proof.builder.gui.ProofBuilderActivity.predicates;;
 
 public class InputSentenceActivity extends Activity {
 
@@ -45,7 +45,6 @@ public class InputSentenceActivity extends Activity {
     static Parser parser  = new Parser(tc);
     static ArrayAdapter<String> listAdapter;
     static ListView predicateList;
-    static ArrayList<String> predicates;
     
     //possible optimisation: change methods to static
 
@@ -169,6 +168,7 @@ public class InputSentenceActivity extends Activity {
 
 	// Set an EditText view to get user input
 	final EditText input = new EditText(this);
+	input.setAllCaps(true);
 	alert.setView(input);
 
 	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
