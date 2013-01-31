@@ -27,5 +27,27 @@ public class ParserState {
 	}
 	return str.append(n.toString()).toString();
     }
+    
+    public static void bindTree(SimpleNode n, Variable x) {
+	if (n.id == ParserTreeConstants.JJTPREDICATE) {
+	    ((Predicate) n.value).bind(x);
+	}
+	else {
+	    for(int i=0; i< n.jjtGetNumChildren(); i++) {
+		bindTree((SimpleNode) n.jjtGetChild(i),x);
+	    }
+	}
+    }
+    
+    public static void findQuantifiers(SimpleNode n) {
+	if ((n.id == ParserTreeConstants.JJTFORALL)  || (n.id ==ParserTreeConstants.JJTTHEREEXISTS)) {
+	    bindTree((SimpleNode) n.jjtGetChild(0),(Variable)n.value);
+	}
+	else{
+	    for(int i=0; i< n.jjtGetNumChildren(); i++) {
+		findQuantifiers((SimpleNode) n.jjtGetChild(i));
+	    }
+	}
+    }
 
 }

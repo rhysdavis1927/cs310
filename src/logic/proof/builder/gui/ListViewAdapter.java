@@ -3,7 +3,7 @@ package logic.proof.builder.gui;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import logic.proof.builder.ROI.ProofStep;
+import logic.proof.builder.proof.ProofStep;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,59 +59,54 @@ public class ListViewAdapter extends BaseAdapter {
 	LayoutInflater inflater = activity.getLayoutInflater();
 	ProofStep step = list.get(position);
 
-	    switch (step.level) {
-	    case 0:
-		convertView = inflater.inflate(R.layout.row0, null);
-		break;
-	    case 1:
-		convertView = inflater.inflate(R.layout.row1, null);
-		break;
-	    case 2:
-		convertView = inflater.inflate(R.layout.row2, null);
-		break;
-	    case 3:
-		convertView = inflater.inflate(R.layout.row3, null);
-		break;
-	    }
+	switch (step.level) {
+	case 0:
+	    convertView = inflater.inflate(R.layout.row0, null);
+	    break;
+	case 1:
+	    convertView = inflater.inflate(R.layout.row1, null);
+	    break;
+	case 2:
+	    convertView = inflater.inflate(R.layout.row2, null);
+	    break;
+	case 3:
+	    convertView = inflater.inflate(R.layout.row3, null);
+	    break;
+	case 4:
+	    convertView = inflater.inflate(R.layout.row4, null);
+	    break;
+	}
 
-	    /*
-	    holder = new ViewHolder();
-	    holder.topDivider = (View) convertView
-		    .findViewById(R.id.topDivider);
+	/*
+	 * holder = new ViewHolder(); holder.topDivider = (View) convertView
+	 * .findViewById(R.id.topDivider);
+	 * 
+	 * holder.bottomDivider = (View) convertView
+	 * .findViewById(R.id.bottomDivider);
+	 * 
+	 * holder.leftDivider = (View) convertView
+	 * .findViewById(R.id.leftDivider);
+	 * 
+	 * holder.txtFormula = (TextView) convertView
+	 * .findViewById(R.id.formulaView); holder.txtJustification = (TextView)
+	 * convertView .findViewById(R.id.justificationView);
+	 * holder.txtLineNumber = (TextView) convertView
+	 * .findViewById(R.id.lineView); convertView.setTag(holder);
+	 */
+	topDivider = (View) convertView.findViewById(R.id.topDivider);
 
-	    holder.bottomDivider = (View) convertView
-		    .findViewById(R.id.bottomDivider);
+	bottomDivider = (View) convertView.findViewById(R.id.bottomDivider);
 
-	    holder.leftDivider = (View) convertView
-		    .findViewById(R.id.leftDivider);
-
-	    holder.txtFormula = (TextView) convertView
-		    .findViewById(R.id.formulaView);
-	    holder.txtJustification = (TextView) convertView
-		    .findViewById(R.id.justificationView);
-	    holder.txtLineNumber = (TextView) convertView
-		    .findViewById(R.id.lineView);
-	    convertView.setTag(holder);
-	    */
-	    topDivider = (View) convertView
-		    .findViewById(R.id.topDivider);
-
-	    bottomDivider = (View) convertView
-		    .findViewById(R.id.bottomDivider);
-
-	    txtFormula = (TextView) convertView
-		    .findViewById(R.id.formulaView);
-	    txtJustification = (TextView) convertView
-		    .findViewById(R.id.justificationView);
-	    txtLineNumber = (TextView) convertView
-		    .findViewById(R.id.lineView);
-
+	txtFormula = (TextView) convertView.findViewById(R.id.formulaView);
+	txtJustification = (TextView) convertView
+		.findViewById(R.id.justificationView);
+	txtLineNumber = (TextView) convertView.findViewById(R.id.lineView);
 
 	if (step.level == step.parent.level) {
 	    topDivider.setVisibility(View.GONE);
 	} else {
-	   topDivider.setVisibility(View.VISIBLE);
-	   topDivider.setTranslationX(PADDING * step.level + 56);
+	    topDivider.setVisibility(View.VISIBLE);
+	    topDivider.setTranslationX(PADDING * step.level + 56);
 	}
 	if (!step.endOfSubproof) {
 	    bottomDivider.setVisibility(View.GONE);

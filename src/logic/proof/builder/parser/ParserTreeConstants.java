@@ -9,7 +9,9 @@ public interface ParserTreeConstants
   public int JJTAND = 3;
   public int JJTOR = 4;
   public int JJTNOT = 5;
-  public int JJTPREDICATE = 6;
+  public int JJTFORALL = 6;
+  public int JJTTHEREEXISTS = 7;
+  public int JJTPREDICATE = 8;
 
 
   public String[] jjtNodeName = {
@@ -19,7 +21,9 @@ public interface ParserTreeConstants
     "And",
     "Or",
     "Not",
+    "ForAll",
+    "ThereExists",
     "Predicate",
   };
 }
-/* JavaCC - OriginalChecksum=bd94f3c4f8154418311366d36138b4dc (do not edit this line) */
+/* JavaCC - OriginalChecksum=1175686729c62cee50bdbb1cab366006 (do not edit this line) */

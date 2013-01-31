@@ -2,9 +2,9 @@ package logic.proof.builder.gui;
 
 import java.util.ArrayList;
 
-import logic.proof.builder.ROI.ProofStep;
-import logic.proof.builder.ROI.RulesOfInference;
 import logic.proof.builder.parser.SimpleNode;
+import logic.proof.builder.proof.ProofStep;
+import logic.proof.builder.proof.RulesOfInference;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,15 +30,11 @@ public class ChooseRuleActivity extends Activity {
     private static final int MODUS_PONENS = 8;
     private static final int NEGATION_INTRODUCTION = 9;
     private static final int NEGATION_ELIMINATION = 10;
-    private static final int DOUBLE_NEGATION_INTRODUCTION =11;
+    private static final int DOUBLE_NEGATION_INTRODUCTION = 11;
     private static final int DOUBLE_NEGATION_ELIMINATION = 12;
     private static final int BOTTOM_ELIMINATION = 13;
     private static final int COPY = 14;
-    
-    
-    
-    
-    
+
     static public ArrayAdapter<String> lineJustificationListAdapter;
     static public ArrayAdapter<String> subproofJustificationListAdapter;
     Spinner spinner1;
@@ -72,9 +68,12 @@ public class ChooseRuleActivity extends Activity {
 	chooseRuleSpinner.setAdapter(ruleAdapter);
 
 	lineJustificationListAdapter = new ArrayAdapter<String>(this,
-		android.R.layout.simple_dropdown_item_1line);
+		android.R.layout.simple_spinner_item);
 	subproofJustificationListAdapter = new ArrayAdapter<String>(this,
-		android.R.layout.simple_expandable_list_item_1);
+		android.R.layout.simple_spinner_item);
+	
+	lineJustificationListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	subproofJustificationListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 	ProofStep step = proof.lines.get(lineNumber - 1);
 	while (step.parent.node.toString() != "void") {
@@ -117,6 +116,20 @@ public class ChooseRuleActivity extends Activity {
 			    label2.setVisibility(View.GONE);
 			    label3.setVisibility(View.GONE);
 			    spinner1.setVisibility(View.GONE);
+			    spinner2.setVisibility(View.GONE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
+			case COPY:
+
+			    setAdapter(spinner1, lineJustificationListAdapter);
+			    label1.setText("P:");
+
+			    label1.setVisibility(View.VISIBLE);
+			    label2.setVisibility(View.GONE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.VISIBLE);
 			    spinner2.setVisibility(View.GONE);
 			    spinner3.setVisibility(View.GONE);
 
@@ -189,6 +202,112 @@ public class ChooseRuleActivity extends Activity {
 
 			    break;
 
+			case IMPLIES_INTRODUCTION:
+			    setAdapter(spinner1,
+				    subproofJustificationListAdapter);
+
+			    label1.setText("Subproof");
+
+			    label1.setVisibility(View.VISIBLE);
+			    label2.setVisibility(View.GONE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.VISIBLE);
+			    spinner2.setVisibility(View.GONE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
+
+			case MODUS_PONENS:
+			    setAdapter(spinner1, lineJustificationListAdapter);
+			    setAdapter(spinner2, lineJustificationListAdapter);
+
+			    label1.setText("P:");
+			    label2.setText("Implication:");
+
+			    label1.setVisibility(View.VISIBLE);
+			    label2.setVisibility(View.VISIBLE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.VISIBLE);
+			    spinner2.setVisibility(View.VISIBLE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
+			case NEGATION_INTRODUCTION:
+			    setAdapter(spinner1,
+				    subproofJustificationListAdapter);
+
+			    label1.setText("Subproof");
+
+			    label1.setVisibility(View.VISIBLE);
+			    label2.setVisibility(View.GONE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.VISIBLE);
+			    spinner2.setVisibility(View.GONE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
+			case NEGATION_ELIMINATION:
+			    setAdapter(spinner1, lineJustificationListAdapter);
+			    setAdapter(spinner2, lineJustificationListAdapter);
+
+			    label1.setText("P:");
+			    label2.setText("not P:");
+
+			    label1.setVisibility(View.VISIBLE);
+			    label2.setVisibility(View.VISIBLE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.VISIBLE);
+			    spinner2.setVisibility(View.VISIBLE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
+
+			case DOUBLE_NEGATION_INTRODUCTION:
+			    setAdapter(spinner1, lineJustificationListAdapter);
+
+			    label1.setText("P:");
+
+			    label1.setVisibility(View.VISIBLE);
+			    label2.setVisibility(View.GONE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.VISIBLE);
+			    spinner2.setVisibility(View.GONE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
+			case DOUBLE_NEGATION_ELIMINATION:
+			    setAdapter(spinner1, lineJustificationListAdapter);
+
+			    label1.setText("P:");
+
+			    label1.setVisibility(View.VISIBLE);
+			    label2.setVisibility(View.GONE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.VISIBLE);
+			    spinner2.setVisibility(View.GONE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
+			case BOTTOM_ELIMINATION:
+			    setAdapter(spinner1, lineJustificationListAdapter);
+
+			    label1.setText("Bottom:");
+
+			    label1.setVisibility(View.VISIBLE);
+			    label2.setVisibility(View.GONE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.VISIBLE);
+			    spinner2.setVisibility(View.GONE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
 			}
 
 		    }
@@ -216,6 +335,7 @@ public class ChooseRuleActivity extends Activity {
 	ArrayList<SimpleNode> subproof2 = new ArrayList<SimpleNode>();
 
 	switch (chooseRuleSpinner.getSelectedItemPosition()) {
+
 	case PREMISE:
 	    String previousJustification = proof.lines.get(lineNumber - 1).parent.justification;
 	    if (previousJustification.equals("Premise")
@@ -227,6 +347,25 @@ public class ChooseRuleActivity extends Activity {
 		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 	    }
 	    break;
+	case COPY:
+	    if (spinner1.getSelectedItem() == "No justification available") {
+		CharSequence text = "Please choose a rule and provide the evidence";
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    } else {
+
+		lineNumber1 = getLineNumber(spinner1);
+		p = proof.lines.get(lineNumber1 - 1).node;
+
+		try {
+		    RulesOfInference.copy(p, conclusion);
+		    strb.append(lineNumber1);
+		    validRule = true;
+		} catch (Exception ex) {
+		    CharSequence text = ex.getMessage();
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}
+		break;
+	    }
 	case AND_INTRODUCTION:
 	    if ((spinner1.getSelectedItem() == "No justification available")
 		    || (spinner2.getSelectedItem() == "No justification available")) {
@@ -300,7 +439,8 @@ public class ChooseRuleActivity extends Activity {
 		lineNumber1 = getLineNumber(spinner1);
 		p = proof.lines.get(lineNumber1 - 1).node;
 
-		try {RulesOfInference.orIntroduction1(p, conclusion);
+		try {
+		    RulesOfInference.orIntroduction1(p, conclusion);
 		    strb.append(lineNumber1);
 		    validRule = true;
 
@@ -361,17 +501,171 @@ public class ChooseRuleActivity extends Activity {
 		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 		}
 	    }
+	    break;
+	case IMPLIES_INTRODUCTION:
+	    if ((spinner1.getSelectedItem() == "No justification available")) {
+		CharSequence text = "Please choose a rule and provide the evidence";
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    } else {
+
+		lineNumber1 = getLineNumber(spinner1);
+		subproof1.add(proof.lines.get(lineNumber1 - 1).node);
+		subproof1
+			.add(proof.lines.get(getFinalLineNumer(spinner1) - 1).node);
+
+		try {
+		    RulesOfInference.impliesIntroduction(subproof1, conclusion);
+		    strb.append(spinner1.getSelectedItem());
+		    validRule = true;
+
+		} catch (Exception e) {
+		    CharSequence text = e.getMessage();
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}
+	    }
+	    break;
+	case MODUS_PONENS:
+	    if ((spinner1.getSelectedItem() == "No justification available")
+		    || (spinner2.getSelectedItem() == "No justification available")) {
+		CharSequence text = "Please choose a rule and provide the evidence";
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    } else {
+
+		lineNumber1 = getLineNumber(spinner1);
+		lineNumber2 = getLineNumber(spinner2);
+		p = proof.lines.get(lineNumber1 - 1).node;
+		q = proof.lines.get(lineNumber1 - 1).node;
+
+		try {
+		    RulesOfInference.modusPonens(p, q, conclusion);
+		    strb.append(lineNumber1 + ", " + lineNumber2);
+		    validRule = true;
+
+		} catch (Exception e) {
+		    CharSequence text = e.getMessage();
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}
+	    }
 
 	    break;
 
+	case NEGATION_INTRODUCTION:
+	    if ((spinner1.getSelectedItem() == "No justification available")) {
+		CharSequence text = "Please choose a rule and provide the evidence";
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    } else {
+
+		lineNumber1 = getLineNumber(spinner1);
+		subproof1.add(proof.lines.get(lineNumber1 - 1).node);
+		subproof1
+			.add(proof.lines.get(getFinalLineNumer(spinner1) - 1).node);
+
+		try {
+		    RulesOfInference
+			    .negationIntroduction(subproof1, conclusion);
+		    strb.append(spinner1.getSelectedItem());
+		    validRule = true;
+
+		} catch (Exception e) {
+		    CharSequence text = e.getMessage();
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}
+	    }
+	    break;
+
+	case NEGATION_ELIMINATION:
+	    if ((spinner1.getSelectedItem() == "No justification available")
+		    || (spinner2.getSelectedItem() == "No justification available")) {
+		CharSequence text = "Please choose a rule and provide the evidence";
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    } else {
+
+		lineNumber1 = getLineNumber(spinner1);
+		lineNumber2 = getLineNumber(spinner2);
+		p = proof.lines.get(lineNumber1 - 1).node;
+		q = proof.lines.get(lineNumber1 - 1).node;
+
+		try {
+		    RulesOfInference.negationElimination(p, q, conclusion);
+		    strb.append(lineNumber1 + ", " + lineNumber2);
+		    validRule = true;
+
+		} catch (Exception e) {
+		    CharSequence text = e.getMessage();
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}
+	    }
+	    break;
+	case DOUBLE_NEGATION_INTRODUCTION:
+	    if ((spinner1.getSelectedItem() == "No justification available")) {
+		CharSequence text = "Please choose a rule and provide the evidence";
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    } else {
+
+		lineNumber1 = getLineNumber(spinner1);
+		p = proof.lines.get(lineNumber1 - 1).node;
+
+		try {
+		    RulesOfInference.doubleNegationIntroduction(p, conclusion);
+		    strb.append(spinner1.getSelectedItem());
+		    validRule = true;
+
+		} catch (Exception e) {
+		    CharSequence text = e.getMessage();
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}
+	    }
+	    break;
+	case DOUBLE_NEGATION_ELIMINATION:
+	    if ((spinner1.getSelectedItem() == "No justification available")) {
+		CharSequence text = "Please choose a rule and provide the evidence";
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    } else {
+
+		lineNumber1 = getLineNumber(spinner1);
+		p = proof.lines.get(lineNumber1 - 1).node;
+
+		try {
+		    RulesOfInference.doubleNegationElimination(p, conclusion);
+		    strb.append(spinner1.getSelectedItem());
+		    validRule = true;
+
+		} catch (Exception e) {
+		    CharSequence text = e.getMessage();
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}
+	    }
+	    break;
+	case BOTTOM_ELIMINATION:
+	    if ((spinner1.getSelectedItem() == "No justification available")) {
+		CharSequence text = "Please choose a rule and provide the evidence";
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    } else {
+
+		lineNumber1 = getLineNumber(spinner1);
+		p = proof.lines.get(lineNumber1 - 1).node;
+
+		try {
+		    RulesOfInference.bottomElimination(p, conclusion);
+		    strb.append(spinner1.getSelectedItem());
+		    validRule = true;
+
+		} catch (Exception e) {
+		    CharSequence text = e.getMessage();
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}
+	    }
+	    break;
+
 	}
+
 	if (validRule) {
 	    intent.putExtra("justification", strb.toString());
 	    setResult(RESULT_OK, intent);
 	    finish();
 	}
     }
-    
+
     public void clickCancelButton(View view) {
 	setResult(RESULT_CANCELED);
 	finish();

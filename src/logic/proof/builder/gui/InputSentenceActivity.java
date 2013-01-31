@@ -1,6 +1,5 @@
 package logic.proof.builder.gui;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import logic.proof.builder.parser.ParseException;
@@ -29,7 +28,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import static logic.proof.builder.gui.ProofBuilderActivity.predicates;;
+import static logic.proof.builder.gui.ProofBuilderActivity.proof;
+
 
 public class InputSentenceActivity extends Activity {
 
@@ -87,7 +87,6 @@ public class InputSentenceActivity extends Activity {
 	topButton.setText("T");
 	
 
-	predicates = new ArrayList<String>();
 	predicateList = (ListView) findViewById(R.id.list);
 	predicateList.setOnItemClickListener(new OnItemClickListener() {
 	    public void onItemClick(AdapterView<?> parent, View view,
@@ -101,8 +100,7 @@ public class InputSentenceActivity extends Activity {
 	    }
 	});
 	listAdapter = new ArrayAdapter<String>(this,
-		android.R.layout.simple_list_item_1, predicates);
-	listAdapter.add("P");
+		android.R.layout.simple_list_item_1,proof.predicates);
 	predicateList.setAdapter(listAdapter);
 
     }
@@ -118,12 +116,16 @@ public class InputSentenceActivity extends Activity {
 	// Calling parser.Formula() consumes all the tokens in the linked list
 	// if parsing fails then backup is used to recover the tokens so
 	// the user may edit the sentence and try again.
-
+	for(Token t : tc.list) {
+	    t.next = null;	    
+	}
 	LinkedList<Token> backup = (LinkedList<Token>) tc.list.clone();
+	
 	parser.ReInit(tc);
 	try {
 	    parser.Formula();
 	    ParserState.saveTree(parser);
+	    ParserState.findQuantifiers(ParserState.getTree());
 	    Intent intent = new Intent();
 	    intent.putExtra("Formula", formulaTextView.getText().toString());
 	    setResult(RESULT_OK,intent);
@@ -177,6 +179,11 @@ public class InputSentenceActivity extends Activity {
 		String value = input.getText().toString();
 		listAdapter.add(value);
 		predicateList.setAdapter(listAdapter);
+		Token predicate = new Token();
+		predicate.kind = ParserConstants.PREDICATE;
+		predicate.image = value;
+		InputSentenceActivity.insertOperator(null, predicate);
+		
 	    }
 	});
 
@@ -254,7 +261,7 @@ public class InputSentenceActivity extends Activity {
 	insertOperator(view, token);
     }    
 
-    public void clickBackspaceButton(View view) {
+    public static void clickBackspaceButton(View view) {
 	int cursorIndex = formulaTextView.getSelectionStart();
 	int tokenIndex = getTokenIndex(cursorIndex);
 	if (tokenIndex > 0) {

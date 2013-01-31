@@ -25,7 +25,11 @@ public interface ParserConstants {
   /** RegularExpression Id. */
   int NOT = 7;
   /** RegularExpression Id. */
-  int PREDICATE = 8;
+  int FORALL = 8;
+  /** RegularExpression Id. */
+  int THEREEXISTS = 9;
+  /** RegularExpression Id. */
+  int PREDICATE = 10;
 
   /** Literal token values. */
   String[] tokenImage = {
@@ -37,6 +41,8 @@ public interface ParserConstants {
     "<LBRACKET>",
     "<RBRACKET>",
     "<NOT>",
+    "<FORALL>",
+    "<THEREEXISTS>",
     "<PREDICATE>",
   };
 

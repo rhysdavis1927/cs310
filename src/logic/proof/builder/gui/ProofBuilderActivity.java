@@ -1,33 +1,19 @@
 package logic.proof.builder.gui;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-
-import logic.proof.builder.ROI.Proof;
-import logic.proof.builder.ROI.ProofStep;
-import logic.proof.builder.parser.ParserConstants;
 import logic.proof.builder.parser.ParserState;
 import logic.proof.builder.parser.SimpleNode;
-import logic.proof.builder.parser.Token;
-import android.os.Bundle;
+import logic.proof.builder.proof.Proof;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.view.LayoutInflater;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import android.support.v4.app.NavUtils;
+import android.widget.ListView;
+import android.widget.Toast;
 
 public class ProofBuilderActivity extends Activity {
 
@@ -41,7 +27,6 @@ public class ProofBuilderActivity extends Activity {
     static final int END_SUBPROOF = 3;
     static final int CHANGE_JUSTIFICATION = 4;
     static ListViewAdapter adapter;
-    static ArrayList<String> predicates;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
