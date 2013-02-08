@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,10 +27,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import static logic.proof.builder.gui.ProofBuilderActivity.proof;
-
 
 public class InputSentenceActivity extends Activity {
 
@@ -39,19 +42,26 @@ public class InputSentenceActivity extends Activity {
     private static final String NOT = Html.fromHtml("&not;").toString();
     private static final String EQUIVALENT = Html.fromHtml("&hArr;").toString();
     private static final String BOTTOM = Html.fromHtml("&bot;").toString();
+    private static final String FORALL = Html.fromHtml("&forall;").toString();
+    private static final String THEREEXISTS = Html.fromHtml("&exist;")
+	    .toString();
+    private static final String EQUALS = "=";
 
     static EditText formulaTextView;
     static TokenCollector tc = new TokenCollector();
-    static Parser parser  = new Parser(tc);
+    static Parser parser = new Parser(tc);
     static ArrayAdapter<String> listAdapter;
     static ListView predicateList;
-    
-    //possible optimisation: change methods to static
+    static AlertDialog.Builder alert;
+
+    // possible optimisation: change methods to static
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_input_sentence);
+
+	alert = new AlertDialog.Builder(this);
 
 	formulaTextView = (EditText) findViewById(R.id.formulaTextView);
 	formulaTextView.setOnClickListener(new OnClickListener() {
@@ -79,13 +89,21 @@ public class InputSentenceActivity extends Activity {
 
 	Button backspaceButton = (Button) findViewById(R.id.backspaceButton);
 	backspaceButton.setText(Html.fromHtml("&larr;"));
-	
+
 	Button bottomButton = (Button) findViewById(R.id.bottomButton);
 	bottomButton.setText(BOTTOM);
-	
+
 	Button topButton = (Button) findViewById(R.id.topButton);
 	topButton.setText("T");
-	
+
+	Button forAllButton = (Button) findViewById(R.id.forAllButton);
+	forAllButton.setText(FORALL);
+
+	Button thereExistsButton = (Button) findViewById(R.id.thereExistsButton);
+	thereExistsButton.setText(THEREEXISTS);
+
+	Button equalsButton = (Button) findViewById(R.id.equalsButton);
+	equalsButton.setText(EQUALS);
 
 	predicateList = (ListView) findViewById(R.id.list);
 	predicateList.setOnItemClickListener(new OnItemClickListener() {
@@ -100,11 +118,10 @@ public class InputSentenceActivity extends Activity {
 	    }
 	});
 	listAdapter = new ArrayAdapter<String>(this,
-		android.R.layout.simple_list_item_1,proof.predicates);
+		android.R.layout.simple_list_item_1, proof.predicates);
 	predicateList.setAdapter(listAdapter);
 
     }
-    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -116,20 +133,21 @@ public class InputSentenceActivity extends Activity {
 	// Calling parser.Formula() consumes all the tokens in the linked list
 	// if parsing fails then backup is used to recover the tokens so
 	// the user may edit the sentence and try again.
-	for(Token t : tc.list) {
-	    t.next = null;	    
+	for (Token t : tc.list) {
+	    t.next = null;
 	}
 	LinkedList<Token> backup = (LinkedList<Token>) tc.list.clone();
-	
+
 	parser.ReInit(tc);
 	try {
 	    parser.Formula();
 	    ParserState.saveTree(parser);
+	    //parser.variables
 	    ParserState.findQuantifiers(ParserState.getTree());
 	    Intent intent = new Intent();
 	    intent.putExtra("Formula", formulaTextView.getText().toString());
-	    setResult(RESULT_OK,intent);
-	    finish();  	    
+	    setResult(RESULT_OK, intent);
+	    finish();
 
 	} catch (ParseException e) {
 	    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -157,16 +175,13 @@ public class InputSentenceActivity extends Activity {
 	    alertDialog.show();
 
 	    tc.list = backup;
-	    e.printStackTrace();
 
 	}
     }
 
     public void clickAddPredicateButton(final View view) {
-	AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-	alert.setTitle("Title");
-	alert.setMessage("Message");
+	alert.setTitle("Predicate input");
 
 	// Set an EditText view to get user input
 	final EditText input = new EditText(this);
@@ -183,7 +198,7 @@ public class InputSentenceActivity extends Activity {
 		predicate.kind = ParserConstants.PREDICATE;
 		predicate.image = value;
 		InputSentenceActivity.insertOperator(null, predicate);
-		
+
 	    }
 	});
 
@@ -246,7 +261,7 @@ public class InputSentenceActivity extends Activity {
 	token.image = NOT;
 	insertOperator(view, token);
     }
-    
+
     public void clickBottomButton(View view) {
 	Token token = new Token();
 	token.kind = ParserConstants.PREDICATE;
@@ -259,7 +274,59 @@ public class InputSentenceActivity extends Activity {
 	token.kind = ParserConstants.PREDICATE;
 	token.image = "T";
 	insertOperator(view, token);
-    }    
+    }
+    
+    public void clickEqualsButton(View view) {
+
+	alert.setTitle("Title");
+
+	// Set an EditText view to get user input
+	/*
+	final EditText t1 = new EditText(this);
+	final TextView label = new TextView(this);
+	final EditText t2 = new EditText(this);
+	final LinearLayout layout = new LinearLayout(this);
+	layout.addView(t1);
+	layout.addView(label);
+	layout.addView(t2,new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.MATCH_PARENT));
+	
+	*/
+	LayoutInflater inflater = this.getLayoutInflater();
+	final LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.equals_input, null);
+	alert.setView(layout);
+
+	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+	    public void onClick(DialogInterface dialog, int whichButton) {
+		String value = ((EditText) layout.getChildAt(0)).getText().toString();
+		Token token = new Token();
+		token.kind = ParserConstants.VARIABLE;
+		token.image = value;
+		insertOperator(null, token);
+		
+		Token token2 = new Token();
+		token2.kind = ParserConstants.EQUALS;
+		token2.image = EQUALS;
+		insertOperator(null, token2);
+		
+		value = ((EditText) layout.getChildAt(2)).getText().toString();
+		Token token3 = new Token();
+		token3.kind = ParserConstants.VARIABLE;
+		token3.image = value;
+		insertOperator(null, token3);
+
+	    }
+	});
+
+	alert.setNegativeButton("Cancel",
+		new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int whichButton) {
+			// Canceled.
+		    }
+		});
+
+	alert.show();
+    }
 
     public static void clickBackspaceButton(View view) {
 	int cursorIndex = formulaTextView.getSelectionStart();
@@ -276,6 +343,66 @@ public class InputSentenceActivity extends Activity {
 
     }
 
+    public void clickForAllButton(View view) {
+	alert.setTitle(null);
+	alert.setMessage("Type the variable name to be quantified");
+
+	// Set an EditText view to get user input
+	final EditText input = new EditText(this);
+	alert.setView(input);
+
+	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+	    public void onClick(DialogInterface dialog, int whichButton) {
+		String value = input.getText().toString();
+		Token token = new Token();
+		token.kind = ParserConstants.FORALL;
+		token.image = FORALL + value;
+		insertOperator(null, token);
+
+	    }
+	});
+
+	alert.setNegativeButton("Cancel",
+		new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int whichButton) {
+			// Canceled.
+		    }
+		});
+
+	alert.show();
+    }
+
+    public void clickThereExistsButton(View view) {
+	alert.setTitle("Title");
+
+	// Set an EditText view to get user input
+	final EditText input = new EditText(this);
+	alert.setView(input);
+
+	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+	    public void onClick(DialogInterface dialog, int whichButton) {
+		String value = input.getText().toString();
+		Token token = new Token();
+		token.kind = ParserConstants.THEREEXISTS;
+		token.image = THEREEXISTS + value;
+		insertOperator(null, token);
+
+	    }
+	});
+
+	alert.setNegativeButton("Cancel",
+		new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int whichButton) {
+			// Canceled.
+		    }
+		});
+
+	alert.show();
+    }
+    
+    
     public static void insertOperator(View view, Token token) {
 	int cursorIndex = formulaTextView.getSelectionStart();
 	int tokenIndex = getTokenIndex(cursorIndex);

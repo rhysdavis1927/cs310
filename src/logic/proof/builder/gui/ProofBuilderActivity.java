@@ -1,8 +1,10 @@
 package logic.proof.builder.gui;
 
+import logic.proof.builder.parser.Parser;
 import logic.proof.builder.parser.ParserState;
 import logic.proof.builder.parser.SimpleNode;
 import logic.proof.builder.proof.Proof;
+import logic.proof.builder.proof.ProofStep;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ public class ProofBuilderActivity extends Activity {
     static final int END_SUBPROOF = 3;
     static final int CHANGE_JUSTIFICATION = 4;
     static ListViewAdapter adapter;
+    private ProofStep proofStep;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,36 +107,41 @@ public class ProofBuilderActivity extends Activity {
 	if (requestCode == NEW_LINE) {
 	    if (resultCode == RESULT_OK) {
 		SimpleNode rootNode = (SimpleNode) ParserState.getTree();
-		proof.addStepAsNewLine(rootNode, data.getStringExtra("Formula"));
+		proofStep = proof.addStepAsNewLine(rootNode,
+			data.getStringExtra("Formula"));
+		proofStep.freeVariables = Parser.variables;
 		adapter.notifyDataSetChanged();
-	    } 
+
+	    }
 	} else if (requestCode == NEW_SUBPROOF) {
 	    if (resultCode == RESULT_OK) {
 		SimpleNode rootNode = (SimpleNode) ParserState.getTree();
 		proof.addStepAsStartOfSubproof(rootNode,
 			data.getStringExtra("Formula"));
+
+		proofStep.freeVariables = Parser.variables;
 		adapter.notifyDataSetChanged();
-	    } 
+	    }
 
 	} else if (requestCode == END_SUBPROOF) {
 	    if (resultCode == RESULT_OK) {
 		SimpleNode rootNode = (SimpleNode) ParserState.getTree();
 		proof.addStepAsEndOfSubproof(rootNode,
 			data.getStringExtra("Formula"));
+
+		proofStep.freeVariables = Parser.variables;
 		adapter.notifyDataSetChanged();
-	    } 
+	    }
 	} else if (requestCode == CHANGE_JUSTIFICATION) {
 	    if (resultCode == RESULT_OK) {
 		String justification = data.getStringExtra("justification");
 		proof.lines.get(lineNumber - 1).justification = justification;
 		adapter.notifyDataSetChanged();
-	    } 
+	    }
 	}
     }
 
     public void onStart() {
 	super.onStart();
-	// formulaList.setAdapter(proof.formulae);
-	// justificationList.setAdapter(proof.justifications);
     }
 }

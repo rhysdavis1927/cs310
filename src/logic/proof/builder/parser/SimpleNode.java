@@ -58,7 +58,7 @@ class SimpleNode implements Node {
      you need to do. */
 
   public String toString() { 
-      if (id == ParserTreeConstants.JJTPREDICATE) {
+      if (id == ParserTreeConstants.JJTPREDICATE || id == ParserTreeConstants.JJTVARIABLE) {
 	  return value.toString();
       }
       return ParserTreeConstants.jjtNodeName[id]; 

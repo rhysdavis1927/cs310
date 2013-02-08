@@ -7,8 +7,6 @@
     <string name="submit_formula"><font face="Symbol"> somt</font></string>
     <string name="formula_input">Enter a sentence...</string>
     <string name="input_formula_button">Submit</string>
-    <string name="forall"></string>
-    <string name="thereexists">there exists</string>
     <string name="dialog_title">Title</string>
     <string name="dialog_message"> Message</string>
     <string name="left_bracket"> (</string>
@@ -34,6 +32,12 @@
         <item>Double negation elimination</item>
         <item>Bottom elimination</item>
         <item>Copy</item>
+        <item>Equals introduction</item>
+        <item>Equals elimination</item>
+        <item>For-all introduction</item>
+        <item>For-all elimination </item>
+        <item>There-exists introduction</item>
+        <item>There-exists elimination</item>
     </string-array>
     
  

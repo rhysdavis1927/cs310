@@ -3,9 +3,11 @@ package logic.proof.builder.parser;
 public class ParserState {
 
     static SimpleNode rootNode;
+    static Parser parser;
 
     public static void saveTree(Parser p) {
 	rootNode = (SimpleNode) p.jjtree.rootNode();
+	parser= p;
     }
     
     public static SimpleNode getTree(Parser p) {
@@ -41,7 +43,7 @@ public class ParserState {
     
     public static void findQuantifiers(SimpleNode n) {
 	if ((n.id == ParserTreeConstants.JJTFORALL)  || (n.id ==ParserTreeConstants.JJTTHEREEXISTS)) {
-	    bindTree((SimpleNode) n.jjtGetChild(0),(Variable)n.value);
+	    bindTree((SimpleNode) n.jjtGetChild(0),new Variable((String)n.value));
 	}
 	else{
 	    for(int i=0; i< n.jjtGetNumChildren(); i++) {

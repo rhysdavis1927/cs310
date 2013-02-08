@@ -3,6 +3,7 @@ package logic.proof.builder.gui;
 import java.util.ArrayList;
 
 import logic.proof.builder.parser.SimpleNode;
+import logic.proof.builder.parser.Variable;
 import logic.proof.builder.proof.ProofStep;
 import logic.proof.builder.proof.RulesOfInference;
 import android.app.Activity;
@@ -34,6 +35,12 @@ public class ChooseRuleActivity extends Activity {
     private static final int DOUBLE_NEGATION_ELIMINATION = 12;
     private static final int BOTTOM_ELIMINATION = 13;
     private static final int COPY = 14;
+    protected static final int EQUALS_INTRODUCTION = 15;
+    protected static final int EQUALS_ELIMINATION = 16;
+    protected static final int FOR_ALL_INTRODUCTION = 17;
+    protected static final int FOR_ALL_ELIMINATION = 18;
+    protected static final int THERE_EXISTS_INTRODUCTION = 19;
+    protected static final int THERE_EXISTS_ELIMINATION = 20;
 
     static public ArrayAdapter<String> lineJustificationListAdapter;
     static public ArrayAdapter<String> subproofJustificationListAdapter;
@@ -45,6 +52,7 @@ public class ChooseRuleActivity extends Activity {
     TextView label2;
     TextView label3;
 
+    String string = new String("kd");
     int lineNumber;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -71,9 +79,11 @@ public class ChooseRuleActivity extends Activity {
 		android.R.layout.simple_spinner_item);
 	subproofJustificationListAdapter = new ArrayAdapter<String>(this,
 		android.R.layout.simple_spinner_item);
-	
-	lineJustificationListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	subproofJustificationListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+	lineJustificationListAdapter
+		.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	subproofJustificationListAdapter
+		.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 	ProofStep step = proof.lines.get(lineNumber - 1);
 	while (step.parent.node.toString() != "void") {
@@ -295,6 +305,88 @@ public class ChooseRuleActivity extends Activity {
 
 			    break;
 			case BOTTOM_ELIMINATION:
+			    setAdapter(spinner1, lineJustificationListAdapter);
+
+			    label1.setText("Bottom:");
+
+			    label1.setVisibility(View.VISIBLE);
+			    label2.setVisibility(View.GONE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.VISIBLE);
+			    spinner2.setVisibility(View.GONE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
+			case EQUALS_INTRODUCTION:
+
+			    label1.setVisibility(View.GONE);
+			    label2.setVisibility(View.GONE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.GONE);
+			    spinner2.setVisibility(View.GONE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
+			case EQUALS_ELIMINATION:
+			    setAdapter(spinner1, lineJustificationListAdapter);
+			    setAdapter(spinner2, lineJustificationListAdapter);
+
+			    label1.setText("Bottom:");
+
+			    label1.setVisibility(View.VISIBLE);
+			    label2.setVisibility(View.VISIBLE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.VISIBLE);
+			    spinner2.setVisibility(View.VISIBLE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
+			case FOR_ALL_INTRODUCTION:
+			    setAdapter(spinner1, lineJustificationListAdapter);
+
+			    label1.setText("Bottom:");
+
+			    label1.setVisibility(View.VISIBLE);
+			    label2.setVisibility(View.GONE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.VISIBLE);
+			    spinner2.setVisibility(View.GONE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
+			case FOR_ALL_ELIMINATION:
+			    setAdapter(spinner1, lineJustificationListAdapter);
+
+			    label1.setText("Bottom:");
+
+			    label1.setVisibility(View.VISIBLE);
+			    label2.setVisibility(View.GONE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.VISIBLE);
+			    spinner2.setVisibility(View.GONE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
+			case THERE_EXISTS_INTRODUCTION:
+			    setAdapter(spinner1, lineJustificationListAdapter);
+
+			    label1.setText("Bottom:");
+
+			    label1.setVisibility(View.VISIBLE);
+			    label2.setVisibility(View.GONE);
+			    label3.setVisibility(View.GONE);
+
+			    spinner1.setVisibility(View.VISIBLE);
+			    spinner2.setVisibility(View.GONE);
+			    spinner3.setVisibility(View.GONE);
+
+			    break;
+			case THERE_EXISTS_ELIMINATION:
 			    setAdapter(spinner1, lineJustificationListAdapter);
 
 			    label1.setText("Bottom:");
@@ -651,6 +743,47 @@ public class ChooseRuleActivity extends Activity {
 		    validRule = true;
 
 		} catch (Exception e) {
+		    CharSequence text = e.getMessage();
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}
+	    }
+	    break;
+	case EQUALS_INTRODUCTION:
+
+	    try {
+		RulesOfInference.equalsIntroduction(conclusion);
+		validRule = true;
+
+	    } catch (Exception e) {
+		CharSequence text = e.getMessage();
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    }
+	    break;
+	case EQUALS_ELIMINATION:
+	    if ((spinner1.getSelectedItem() == "No justification available")
+		    && (spinner2.getSelectedItem() == "No justification available")) {
+		CharSequence text = "Please choose a rule and provide the evidence";
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    } else {
+
+		lineNumber1 = getLineNumber(spinner1);
+		p = proof.lines.get(lineNumber1 - 1).node;
+		lineNumber2 = getLineNumber(spinner2);
+		q = proof.lines.get(lineNumber2 - 1).node;
+		
+		
+
+		try {
+		    Variable v = proof.lines.get(lineNumber2 - 1).freeVariables
+			.get(((SimpleNode) (p.jjtGetChild(0))).jjtGetValue());
+		    RulesOfInference.equalsElimination(p, q, v, conclusion);
+		    strb.append(spinner1.getSelectedItem() + ", " + spinner2.getSelectedItem());
+		    validRule = true;
+
+		} catch (NullPointerException e) {
+		    CharSequence text = "Justification must must be of the form t1 = t2";
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}catch (Exception e) {
 		    CharSequence text = e.getMessage();
 		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 		}

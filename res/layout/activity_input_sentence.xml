@@ -143,16 +143,22 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="clickRightBracketButton"
-                    android:text="@string/right_bracket" />
+                    android:onClick="clickForAllButton" />
 
                 <Button
                     android:id="@+id/thereExistsButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="clickNotButton" />
+                    android:onClick="clickThereExistsButton" />
 
+                 <Button
+                    android:id="@+id/equalsButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickEqualsButton" />
+                
             </TableRow>
                        
         </TableLayout>

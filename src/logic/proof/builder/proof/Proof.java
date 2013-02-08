@@ -22,6 +22,7 @@ public class Proof {
 	predicates = new ArrayList<String>();
 	predicates.add("P");
 	predicates.add("P(x)");
+	predicates.add("P(y)");
 	predicates.add("P(x,y)");
 	predicates.add("Q");
 	predicates.add("Q(x)");

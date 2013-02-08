@@ -8,6 +8,7 @@ import logic.proof.builder.parser.JJTParserState;
 import logic.proof.builder.parser.Node;
 import logic.proof.builder.parser.ParserConstants;
 import logic.proof.builder.parser.ParserTreeConstants;
+import logic.proof.builder.parser.Predicate;
 import logic.proof.builder.parser.SimpleNode;
 import logic.proof.builder.parser.Variable;
 
@@ -274,11 +275,104 @@ public class RulesOfInference {
 	}
     }
 
-    public static SimpleNode forAllElimination(SimpleNode forAll,String variableName) {
+    public static void equalsIntroduction(SimpleNode conclusion)
+	    throws Exception {
+	SimpleNode t1 = (SimpleNode) conclusion.jjtGetChild(0);
+	SimpleNode t2 = (SimpleNode) conclusion.jjtGetChild(1);
+	if (!conclusion.toString().equals(
+		ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTEQUALS])) {
+	    throw new Exception(
+		    "The line you are trying to justify must be of the form t = t");
+	}
+	if (!compareAST(t1, t2)) {
+	    throw new Exception(
+		    "The line you are trying to justify must be of the form t = t");
+	}
+
+    }
+
+    public static void equalsElimination(SimpleNode equals,
+	    SimpleNode statement, Variable variable, SimpleNode conclusion)
+	    throws Exception {
+	if (!equals.toString().equals(
+		ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTEQUALS])) {
+	    throw new Exception(
+		    "Justification must must be of the form t1 = t2");
+	}
+	String originalName = variable.getName();
+	String newName = (String) ((SimpleNode) equals.jjtGetChild(1))
+		.jjtGetValue();
+	if (!compareAST2(statement, conclusion, variable, newName)) {
+	    throw new Exception("Conclusion...");
+	}
+
+    }
+
+    public static boolean compareAST2(SimpleNode a, SimpleNode b,
+	    Variable subVariable, String newName) {
+	if ((a.jjtGetValue() instanceof Predicate)
+		&& (b.jjtGetValue() instanceof Predicate)) {
+	    Predicate p = ((Predicate) a.jjtGetValue());
+	    Predicate q = ((Predicate) b.jjtGetValue());
+	    if(!p.getName().equals(q.getName())) {
+		return false;
+	    }
+	    for (int i = 0; i < p.parameters.size(); i++) {
+		if (!q.parameters.get(i).equals(p.parameters.get(i))) {
+		    if (!(p.parameters.get(i) == subVariable && q.parameters
+			    .get(i).getName().equals(newName))) {
+			return false;
+		    }
+		}
+	    }
+	} else if (!a.toString().equals(b.toString())) {
+	    return false;
+	} else if (a.jjtGetNumChildren() != b.jjtGetNumChildren()) {
+	    return false;
+	}
+	int numberOfChildren = a.jjtGetNumChildren();
+	for (int i = 0; i < numberOfChildren; i++) {
+	    if (!compareAST2((SimpleNode) a.jjtGetChild(i),
+		    (SimpleNode) b.jjtGetChild(i), subVariable, newName))
+		return false;
+	}
+	return true;
+    }
+
+    public static void forAllIntroduction(List<SimpleNode> subproof,
+	    Variable variable, SimpleNode conclusion) {
+	// Intro of new variable, this variable in proof
+	SimpleNode s = subproof.get(subproof.size() - 1);
+	String origVarName = variable.getName();
+	String quantifiedVarName = ((Variable) conclusion.jjtGetValue())
+		.getName();
+	variable.setName(quantifiedVarName);
+	compareAST(s, conclusion);
+    }
+
+    public static void forAllElimination(SimpleNode forAll,
+	    String variableName, SimpleNode conclusion) {
 	Variable v = ((Variable) forAll.jjtGetValue());
 	v.setName(variableName);
-    // while (int index = predicate.parameters.indexOf(variable) !=1) {
-    // predicate.parameters.set(replacementVariable,index);
+	compareAST(forAll, conclusion);
+    }
+
+    public static void thereExistsIntroduction(List<SimpleNode> subproof,
+	    Variable variable, SimpleNode conclusion) {
+	// Intro of new variable, this variable in proof
+	SimpleNode s = subproof.get(subproof.size() - 1);
+	String origVarName = variable.getName();
+	String quantifiedVarName = ((Variable) conclusion.jjtGetValue())
+		.getName();
+	variable.setName(quantifiedVarName);
+	compareAST(s, conclusion);
+    }
+
+    public static void thereExistsElimination(SimpleNode forAll,
+	    String variableName, SimpleNode conclusion) {
+	Variable v = ((Variable) forAll.jjtGetValue());
+	v.setName(variableName);
+	compareAST(forAll, conclusion);
     }
 
     public static boolean compareAST(SimpleNode a, SimpleNode b) {
