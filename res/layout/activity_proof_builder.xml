@@ -17,13 +17,12 @@
         android:layout_weight="1" >
 
         <TableRow>
-            
 
             <Button
                 android:id="@+id/newFormula"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:onClick="newFormula"
                 android:text="New Line" />
         </TableRow>
@@ -32,9 +31,9 @@
 
             <Button
                 android:id="@+id/deleteLine"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:onClick="deleteLine"
                 android:text="Delete Line" />
         </TableRow>
@@ -43,9 +42,9 @@
 
             <Button
                 android:id="@+id/beginSubproof"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:onClick="newSubproof"
                 android:text="New subproof" />
         </TableRow>
@@ -54,11 +53,33 @@
 
             <Button
                 android:id="@+id/endSubproof"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:onClick="endSubproof"
                 android:text="End subproof" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/introduceVar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="introduceVar"
+                android:text="Introduce variable" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/checkProof"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="checkProof"
+                android:text="Check proof" />
         </TableRow>
     </TableLayout>
 

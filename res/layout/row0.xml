@@ -31,6 +31,23 @@
             android:layout_width="2.5dp"
             android:layout_height="fill_parent"
             android:background="@android:color/white" />
+         
+
+        <TextView
+            android:id="@+id/variableView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:paddingLeft="10dp"            
+            android:paddingRight="10dp"
+            android:textSize="25sp" />
+        
+        <View            
+            android:id="@+id/boxedVariableDivider"
+            android:layout_weight="0"
+            android:layout_width="2.5dp"
+            android:layout_height="fill_parent"
+            android:background="@android:color/white" />
 
         <TextView
             android:id="@+id/formulaView"

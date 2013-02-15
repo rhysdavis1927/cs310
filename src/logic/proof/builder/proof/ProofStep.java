@@ -18,6 +18,7 @@ public class ProofStep {
     public String justification;
     public boolean endOfSubproof;
     public HashMap<String, Variable> freeVariables;
+    public String introducedVariable;
 
     ProofStep(SimpleNode node, int currentSize, int level, String formula) {
 	subproofs = new ArrayList<ProofStep>();
@@ -27,6 +28,29 @@ public class ProofStep {
 	this.formula = formula;
 	this.justification = "No justification given";
 	freeVariables= new HashMap<String, Variable>();
+	introducedVariable=null;
+    }
+    
+    ProofStep(String name, int currentSize, int level) {
+	subproofs = new ArrayList<ProofStep>();
+	this.node = new SimpleNode(0);
+	this.lineNumber = currentSize+1;
+	this.level = level;	
+	this.formula = "";
+	this.justification = "";
+	freeVariables= new HashMap<String, Variable>();
+	introducedVariable=name;
+    }
+    
+    ProofStep(SimpleNode node,String name, int currentSize, int level,String formula) {
+	subproofs = new ArrayList<ProofStep>();
+	this.node = node;
+	this.lineNumber = currentSize+1;
+	this.level = level;	
+	this.formula = formula;
+	this.justification = "Assumption";
+	freeVariables= new HashMap<String, Variable>();
+	introducedVariable=name;
     }
 
 }

@@ -55,6 +55,8 @@ public class ListViewAdapter extends BaseAdapter {
 	TextView txtLineNumber;
 	View topDivider;
 	View bottomDivider;
+	TextView txtVariable;
+	View variableDivider;
 
 	LayoutInflater inflater = activity.getLayoutInflater();
 	ProofStep step = list.get(position);
@@ -102,6 +104,9 @@ public class ListViewAdapter extends BaseAdapter {
 		.findViewById(R.id.justificationView);
 	txtLineNumber = (TextView) convertView.findViewById(R.id.lineView);
 
+	variableDivider = convertView.findViewById(R.id.boxedVariableDivider);
+	txtVariable = (TextView) convertView.findViewById(R.id.variableView);
+
 	if (step.level == step.parent.level) {
 	    topDivider.setVisibility(View.GONE);
 	} else {
@@ -113,6 +118,17 @@ public class ListViewAdapter extends BaseAdapter {
 	} else {
 	    bottomDivider.setVisibility(View.VISIBLE);
 	    bottomDivider.setTranslationX(PADDING * step.level + 56);
+	}
+
+	if (step.introducedVariable != null) {
+	    variableDivider.setVisibility(View.VISIBLE);
+	    txtVariable.setText(step.introducedVariable);
+	    txtVariable.setVisibility(View.VISIBLE);
+	    //bottomDivider.setVisibility(View.VISIBLE);
+	    //bottomDivider.setTranslationX(PADDING * step.level + 56);
+	} else {
+	    variableDivider.setVisibility(View.GONE);
+	    txtVariable.setVisibility(View.GONE);
 	}
 
 	// holder.leftDivider.setTranslationX(PADDING*step.level+10);

@@ -3,9 +3,10 @@ package logic.proof.builder.parser;
 import java.util.HashMap;
 
 public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConstants {/*@bgen(jjtree)*/
-  protected JJTParserState jjtree = new JJTParserState();public static HashMap < String, Variable > variables = new HashMap < String, Variable > ();
+  protected JJTParserState jjtree = new JJTParserState();public static HashMap < String, Variable > variables;
 
   final public void Formula() throws ParseException {
+ variables = new HashMap < String, Variable > ();
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case LBRACKET:
     case NOT:
@@ -303,38 +304,38 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
   }
 
   final public void Quantifier() throws ParseException {
- Token t;
+  Token t;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case FORALL:
       t = jj_consume_token(FORALL);
       f3();
-                         ASTForAll jjtn001 = new ASTForAll(JJTFORALL);
-                         boolean jjtc001 = true;
-                         jjtree.openNodeScope(jjtn001);
+      ASTForAll jjtn001 = new ASTForAll(JJTFORALL);
+      boolean jjtc001 = true;
+      jjtree.openNodeScope(jjtn001);
       try {
-                         jjtree.closeNodeScope(jjtn001,  1);
-                         jjtc001 = false;
-    jjtn001.jjtSetValue(t.image.substring(1));
+      jjtree.closeNodeScope(jjtn001,  1);
+      jjtc001 = false;
+      jjtn001.jjtSetValue(new Variable(t.image.substring(1)));
       } finally {
-                         if (jjtc001) {
-                           jjtree.closeNodeScope(jjtn001,  1);
-                         }
+      if (jjtc001) {
+        jjtree.closeNodeScope(jjtn001,  1);
+      }
       }
       break;
     case THEREEXISTS:
       t = jj_consume_token(THEREEXISTS);
       f3();
-                            ASTThereExists jjtn002 = new ASTThereExists(JJTTHEREEXISTS);
-                            boolean jjtc002 = true;
-                            jjtree.openNodeScope(jjtn002);
+    ASTThereExists jjtn002 = new ASTThereExists(JJTTHEREEXISTS);
+    boolean jjtc002 = true;
+    jjtree.openNodeScope(jjtn002);
       try {
-                            jjtree.closeNodeScope(jjtn002,  1);
-                            jjtc002 = false;
-    jjtn002.jjtSetValue(t.image.substring(1));
+    jjtree.closeNodeScope(jjtn002,  1);
+    jjtc002 = false;
+    jjtn002.jjtSetValue(new Variable(t.image.substring(1)));
       } finally {
-                            if (jjtc002) {
-                              jjtree.closeNodeScope(jjtn002,  1);
-                            }
+    if (jjtc002) {
+      jjtree.closeNodeScope(jjtn002,  1);
+    }
       }
       break;
     default:
@@ -353,7 +354,7 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
       t = jj_consume_token(VARIABLE);
     jjtree.closeNodeScope(jjtn000, true);
     jjtc000 = false;
-    jjtn000.jjtSetValue(t.image);
+    jjtn000.jjtSetValue(new Variable(t.image, variables));
     } finally {
     if (jjtc000) {
       jjtree.closeNodeScope(jjtn000, true);

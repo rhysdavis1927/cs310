@@ -67,6 +67,30 @@ public class Proof {
 	return l;
     }
     
+    public ProofStep addVar(String var) {
+	ProofStep parentNode = parents.peek();
+	ProofStep l = new ProofStep(var,lines.size(),
+		++currentLevel);
+	lines.add(l);	
+	l.parent = parentNode;
+	parentNode.subproofs.add(l);
+	parents.push(l);
+	return l;
+       }
+       
+
+    public ProofStep addVar(String introducedVariable, SimpleNode rootNode,
+	    String formula) {
+	ProofStep parentNode = parents.peek();
+	ProofStep l = new ProofStep(rootNode,introducedVariable,lines.size(),
+		++currentLevel,formula);
+	lines.add(l);	
+	l.parent = parentNode;
+	parentNode.subproofs.add(l);
+	parents.push(l);
+	return l;
+    }
+    
     public void removeStep() {
 	ProofStep step =lines.remove(lines.size()-1);
 	if(step.endOfSubproof) {
@@ -86,5 +110,6 @@ public class Proof {
 	    }
 	}
     }
+
     
 }

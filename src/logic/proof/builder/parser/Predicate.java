@@ -12,16 +12,16 @@ public class Predicate {
     }
 
     public Predicate(String str, HashMap<String, Variable> variables) {
+	str.replaceAll("\\s", "");
 	String[] s = str.split("\\(|\\,|\\)", 0);
-	this.name = s[0];
-	System.out.println(name);
+	this.name = s[0].toUpperCase();
 	for (int i = 1; i < s.length; i++) {
+	    s[i].toLowerCase();
 	    if (variables.containsKey(s[i])) {
 		parameters.add(variables.get(s[i]));
 	    } else {
-		Variable var = new Variable(s[i]);
+		Variable var = new Variable(s[i],variables);
 		parameters.add(var);
-		variables.put(s[i], var);
 	    }
 	}
     }
@@ -41,7 +41,7 @@ public class Predicate {
 
     public void bind(Variable x) {
 	for (int index = 0; index < parameters.size(); index++) {
-	    if (x.getName().equals(parameters.get(index))) {
+	    if (x.equals(parameters.get(index))) {
 		parameters.set(index, x);
 
 	    }

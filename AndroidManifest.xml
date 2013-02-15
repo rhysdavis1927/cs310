@@ -31,20 +31,32 @@
                 android:value="logic.proof.builder.gui.ProofBuilderActivity" />
         </activity>
         <activity
-            android:name=".ProofBuilderActivity"            
-            android:screenOrientation="landscape"
-            android:label="@string/title_activity_proof_builder" >
+            android:name=".ProofBuilderActivity"
+            android:label="@string/title_activity_proof_builder"
+            android:screenOrientation="landscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="logic.proof.builder.gui.MainActivity" />
         </activity>
         <activity
-            android:name=".ChooseRuleActivity"            
+            android:name=".ChooseRuleActivity"
+            android:label="@string/title_activity_proof_builder"
             android:screenOrientation="landscape"
-            android:label="@string/title_activity_proof_builder" >
+            android:theme="@android:style/Theme.Holo.Dialog" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="logic.proof.builder.gui.ProofBuilderActivity" />
+        </activity>
+        <activity
+            android:name=".MyDialogActivity"
+            android:label="@string/title_activity_dialog"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Holo.Dialog" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

@@ -15,31 +15,31 @@
     <string name="title_activity_proof_builder">ProofBuilderActivity</string>
     <string name="rule_prompt">Choose a rule..</string>
     <string name="justification_prompt">Select one..</string>
-    
+
     <string-array name="rules_array">
         <item>Premise</item>
-        <item>And introduction</item>
-        <item>And elimination-1</item>
-        <item>And elimination-2</item>        
-        <item>Or introduction-1</item>
-        <item>Or introduction-2</item>
-        <item>Or elimination</item>
-        <item>Implies introduction</item>
-        <item>Modus Ponens</item>
-        <item>Negation introduction</item>
-        <item>Negation elimination</item>
-        <item>Double negation introducion</item>
-        <item>Double negation elimination</item>
-        <item>Bottom elimination</item>
+        <item>&#8743; introduction</item>
+        <item>&#8743; elimination-1</item>
+        <item>&#8743; elimination-2</item>
+        <item>&#8744; introduction-1</item>
+        <item>&#8744; introduction-2</item>
+        <item>&#8744; elimination</item>
+        <item>&#8658; introduction</item>
+        <item>&#8658; elimination</item>
+        <item>&#172; introduction</item>
+        <item>&#172; elimination</item>
+        <item>&#172;&#172; introducion</item>
+        <item>&#172;&#172; elimination</item>
+        <item>&#8869; elimination</item>
         <item>Copy</item>
-        <item>Equals introduction</item>
-        <item>Equals elimination</item>
-        <item>For-all introduction</item>
-        <item>For-all elimination </item>
-        <item>There-exists introduction</item>
-        <item>There-exists elimination</item>
+        <item>= introduction</item>
+        <item>= elimination</item>
+        <item>&#8704; introduction</item>
+        <item>&#8704; elimination </item>
+        <item>&#8707; introduction</item>
+        <item>&#8707; elimination</item>
     </string-array>
-    
- 
+
+    <string name="title_activity_dialog">DialogActivity</string>
 
 </resources>

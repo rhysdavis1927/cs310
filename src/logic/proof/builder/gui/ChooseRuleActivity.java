@@ -2,6 +2,7 @@ package logic.proof.builder.gui;
 
 import java.util.ArrayList;
 
+import logic.proof.builder.parser.ParserTreeConstants;
 import logic.proof.builder.parser.SimpleNode;
 import logic.proof.builder.parser.Variable;
 import logic.proof.builder.proof.ProofStep;
@@ -9,6 +10,7 @@ import logic.proof.builder.proof.RulesOfInference;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -41,6 +43,10 @@ public class ChooseRuleActivity extends Activity {
     protected static final int FOR_ALL_ELIMINATION = 18;
     protected static final int THERE_EXISTS_INTRODUCTION = 19;
     protected static final int THERE_EXISTS_ELIMINATION = 20;
+
+    private static final String PHI = Html.fromHtml("&Phi;").toString();
+    private static final String PSI = Html.fromHtml("&Psi;").toString();
+    private static final String CHI = Html.fromHtml("&Chi;").toString();
 
     static public ArrayAdapter<String> lineJustificationListAdapter;
     static public ArrayAdapter<String> subproofJustificationListAdapter;
@@ -133,7 +139,7 @@ public class ChooseRuleActivity extends Activity {
 			case COPY:
 
 			    setAdapter(spinner1, lineJustificationListAdapter);
-			    label1.setText("P:");
+			    label1.setText(PHI + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.GONE);
@@ -149,8 +155,8 @@ public class ChooseRuleActivity extends Activity {
 
 			    setAdapter(spinner1, lineJustificationListAdapter);
 			    setAdapter(spinner2, lineJustificationListAdapter);
-			    label1.setText("P:");
-			    label2.setText("Q:");
+			    label1.setText(PHI + ":");
+			    label2.setText(PSI + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.VISIBLE);
@@ -165,7 +171,8 @@ public class ChooseRuleActivity extends Activity {
 			case AND_ELIMINATION2:
 
 			    setAdapter(spinner1, lineJustificationListAdapter);
-			    label1.setText("P:");
+			    label1.setText(PHI + InputSentenceActivity.AND
+				    + PSI + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.GONE);
@@ -179,7 +186,7 @@ public class ChooseRuleActivity extends Activity {
 			case OR_INTRODUCTION1:
 			case OR_INTRODUCTION2:
 			    setAdapter(spinner1, lineJustificationListAdapter);
-			    label1.setText("P:");
+			    label1.setText(PHI + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.GONE);
@@ -198,9 +205,12 @@ public class ChooseRuleActivity extends Activity {
 			    setAdapter(spinner3,
 				    subproofJustificationListAdapter);
 
-			    label1.setText("P:");
-			    label2.setText("Subproof1:");
-			    label3.setText("Subproof2:");
+			    label1.setText(PHI + InputSentenceActivity.OR + PSI
+				    + ":");
+			    label2.setText(PHI + ProofBuilderActivity.TURNSTILE
+				    + CHI + ":");
+			    label3.setText(PSI + ProofBuilderActivity.TURNSTILE
+				    + CHI + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.VISIBLE);
@@ -216,7 +226,8 @@ public class ChooseRuleActivity extends Activity {
 			    setAdapter(spinner1,
 				    subproofJustificationListAdapter);
 
-			    label1.setText("Subproof");
+			    label1.setText(PHI + ProofBuilderActivity.TURNSTILE
+				    + PSI + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.GONE);
@@ -232,8 +243,9 @@ public class ChooseRuleActivity extends Activity {
 			    setAdapter(spinner1, lineJustificationListAdapter);
 			    setAdapter(spinner2, lineJustificationListAdapter);
 
-			    label1.setText("P:");
-			    label2.setText("Implication:");
+			    label1.setText(PHI + ":");
+			    label2.setText(PHI + InputSentenceActivity.IMPLIES
+				    + PSI + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.VISIBLE);
@@ -248,7 +260,8 @@ public class ChooseRuleActivity extends Activity {
 			    setAdapter(spinner1,
 				    subproofJustificationListAdapter);
 
-			    label1.setText("Subproof");
+			    label1.setText(PHI + ProofBuilderActivity.TURNSTILE
+				    + InputSentenceActivity.BOTTOM + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.GONE);
@@ -263,8 +276,9 @@ public class ChooseRuleActivity extends Activity {
 			    setAdapter(spinner1, lineJustificationListAdapter);
 			    setAdapter(spinner2, lineJustificationListAdapter);
 
-			    label1.setText("P:");
-			    label2.setText("not P:");
+			    label1.setText(PHI + ":");
+			    label2.setText(InputSentenceActivity.NOT + PHI
+				    + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.VISIBLE);
@@ -279,7 +293,7 @@ public class ChooseRuleActivity extends Activity {
 			case DOUBLE_NEGATION_INTRODUCTION:
 			    setAdapter(spinner1, lineJustificationListAdapter);
 
-			    label1.setText("P:");
+			    label1.setText(PHI + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.GONE);
@@ -293,7 +307,8 @@ public class ChooseRuleActivity extends Activity {
 			case DOUBLE_NEGATION_ELIMINATION:
 			    setAdapter(spinner1, lineJustificationListAdapter);
 
-			    label1.setText("P:");
+			    label1.setText(InputSentenceActivity.NOT
+				    + InputSentenceActivity.NOT + PHI + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.GONE);
@@ -307,7 +322,7 @@ public class ChooseRuleActivity extends Activity {
 			case BOTTOM_ELIMINATION:
 			    setAdapter(spinner1, lineJustificationListAdapter);
 
-			    label1.setText("Bottom:");
+			    label1.setText(InputSentenceActivity.BOTTOM + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.GONE);
@@ -333,7 +348,8 @@ public class ChooseRuleActivity extends Activity {
 			    setAdapter(spinner1, lineJustificationListAdapter);
 			    setAdapter(spinner2, lineJustificationListAdapter);
 
-			    label1.setText("Bottom:");
+			    label1.setText("T1 = T2:");
+			    label2.setText(PHI + "[t2/x]:");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.VISIBLE);
@@ -345,9 +361,12 @@ public class ChooseRuleActivity extends Activity {
 
 			    break;
 			case FOR_ALL_INTRODUCTION:
-			    setAdapter(spinner1, lineJustificationListAdapter);
+			    setAdapter(spinner1,
+				    subproofJustificationListAdapter);
 
-			    label1.setText("Bottom:");
+			    label1.setText(ProofBuilderActivity.TURNSTILE
+				    + InputSentenceActivity.FORALL + "x" + PHI
+				    + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.GONE);
@@ -361,7 +380,7 @@ public class ChooseRuleActivity extends Activity {
 			case FOR_ALL_ELIMINATION:
 			    setAdapter(spinner1, lineJustificationListAdapter);
 
-			    label1.setText("Bottom:");
+			    label1.setText(PHI + ":");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.GONE);
@@ -375,7 +394,7 @@ public class ChooseRuleActivity extends Activity {
 			case THERE_EXISTS_INTRODUCTION:
 			    setAdapter(spinner1, lineJustificationListAdapter);
 
-			    label1.setText("Bottom:");
+			    label1.setText(PHI + "[a/x]:");
 
 			    label1.setVisibility(View.VISIBLE);
 			    label2.setVisibility(View.GONE);
@@ -388,15 +407,21 @@ public class ChooseRuleActivity extends Activity {
 			    break;
 			case THERE_EXISTS_ELIMINATION:
 			    setAdapter(spinner1, lineJustificationListAdapter);
+			    setAdapter(spinner2,
+				    subproofJustificationListAdapter);
 
-			    label1.setText("Bottom:");
+			    label1.setText(InputSentenceActivity.THEREEXISTS
+				    + "x" + PHI + ":");
+			    label2.setText(PHI + "[a/x]"
+				    + ProofBuilderActivity.TURNSTILE + CHI
+				    + ":");
 
 			    label1.setVisibility(View.VISIBLE);
-			    label2.setVisibility(View.GONE);
+			    label2.setVisibility(View.VISIBLE);
 			    label3.setVisibility(View.GONE);
 
 			    spinner1.setVisibility(View.VISIBLE);
-			    spinner2.setVisibility(View.GONE);
+			    spinner2.setVisibility(View.VISIBLE);
 			    spinner3.setVisibility(View.GONE);
 
 			    break;
@@ -475,7 +500,8 @@ public class ChooseRuleActivity extends Activity {
 		    validRule = true;
 
 		} else {
-		    CharSequence text = "Some explanation";
+		    CharSequence text = "The line you are trying to justify should have the form"
+			    + PHI + InputSentenceActivity.AND + PSI;
 		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 		}
 	    }
@@ -626,7 +652,7 @@ public class ChooseRuleActivity extends Activity {
 		lineNumber1 = getLineNumber(spinner1);
 		lineNumber2 = getLineNumber(spinner2);
 		p = proof.lines.get(lineNumber1 - 1).node;
-		q = proof.lines.get(lineNumber1 - 1).node;
+		q = proof.lines.get(lineNumber2 - 1).node;
 
 		try {
 		    RulesOfInference.modusPonens(p, q, conclusion);
@@ -770,26 +796,146 @@ public class ChooseRuleActivity extends Activity {
 		p = proof.lines.get(lineNumber1 - 1).node;
 		lineNumber2 = getLineNumber(spinner2);
 		q = proof.lines.get(lineNumber2 - 1).node;
-		
-		
 
 		try {
 		    Variable v = proof.lines.get(lineNumber2 - 1).freeVariables
-			.get(((SimpleNode) (p.jjtGetChild(0))).jjtGetValue());
+			    .get(((SimpleNode) (p.jjtGetChild(0)))
+				    .jjtGetValue().toString());
 		    RulesOfInference.equalsElimination(p, q, v, conclusion);
-		    strb.append(spinner1.getSelectedItem() + ", " + spinner2.getSelectedItem());
+		    strb.append(spinner1.getSelectedItem() + ", "
+			    + spinner2.getSelectedItem());
 		    validRule = true;
 
 		} catch (NullPointerException e) {
 		    CharSequence text = "Justification must must be of the form t1 = t2";
 		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-		}catch (Exception e) {
+		} catch (Exception e) {
 		    CharSequence text = e.getMessage();
 		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 		}
 	    }
 	    break;
+	case FOR_ALL_INTRODUCTION:
 
+	    lineNumber1 = getLineNumber(spinner1);
+	    ProofStep proofstep = proof.lines
+		    .get(getFinalLineNumer(spinner1) - 1);
+	    p = proofstep.node;
+
+	    try {
+		if (proof.lines.get(lineNumber1 - 1).introducedVariable == null) {
+		    throw new Exception(
+			    "Subproof must start with a variable introduction.");
+		}
+		Variable var = (proof.lines
+			.get(getFinalLineNumer(spinner1) - 1).freeVariables
+			.get(proof.lines.get(lineNumber1 - 1).introducedVariable));
+		if (!conclusion
+			.toString()
+			.equals(ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTFORALL])) {
+		    throw new Exception(
+			    "The line you are trying to prove should be of the form: "
+				    + InputSentenceActivity.FORALL + "x P(x)");
+		}
+		if (proofstep.freeVariables.get(conclusion.jjtGetValue()
+			.toString()) != null) {
+		    throw new Exception(
+			    "The variable name chosen to quantify results in the capture of a free variable. "
+				    + "Please choose a different variable name.");
+		}
+		RulesOfInference.forAllIntroduction(p, var, conclusion);
+		strb.append(spinner1.getSelectedItem());
+		validRule = true;
+	    } catch (NullPointerException e) {
+		CharSequence text = "The introduced variable must appear in the final line of the subproof";
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    } catch (Exception e) {
+		CharSequence text = e.getMessage();
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    }
+	    break;
+	case FOR_ALL_ELIMINATION:
+	    if (spinner1.getSelectedItem() == "No justification available") {
+		CharSequence text = "Please choose a rule and provide the evidence";
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    } else {
+
+		lineNumber1 = getLineNumber(spinner1);
+
+		p = (proof.lines.get(lineNumber1 - 1).node);
+
+		try {
+		    RulesOfInference.forAllElimination(p, conclusion);
+		    strb.append(spinner1.getSelectedItem());
+		    validRule = true;
+
+		} catch (NullPointerException e) {
+		    CharSequence text = "Justification must must be of the form t1 = t2";
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		} catch (Exception e) {
+		    CharSequence text = e.getMessage();
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}
+	    }
+	    break;
+	case THERE_EXISTS_INTRODUCTION:
+	    if (spinner1.getSelectedItem() == "No justification available") {
+		CharSequence text = "Please choose a rule and provide the evidence";
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    } else {
+
+		lineNumber1 = getLineNumber(spinner1);
+
+		p = (proof.lines.get(lineNumber1 - 1).node);
+
+		try {
+
+		    RulesOfInference.thereExistsIntroduction(p, conclusion);
+		    strb.append(spinner1.getSelectedItem());
+		    validRule = true;
+		} catch (Exception e) {
+		    CharSequence text = e.getMessage();
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}
+	    }
+	    break;
+	case THERE_EXISTS_ELIMINATION:
+	    if ((spinner1.getSelectedItem() == "No justification available")
+		    && (spinner2.getSelectedItem() == "No justification available")) {
+		CharSequence text = "Please choose a rule and provide the evidence";
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+	    } else {
+
+		lineNumber1 = getLineNumber(spinner1);
+		p = proof.lines.get(lineNumber1 - 1).node;
+		lineNumber2 = getLineNumber(spinner2);
+		subproof1.add((proof.lines.get(lineNumber2 - 1).node));
+		subproof1
+			.add(proof.lines.get(getFinalLineNumer(spinner2) - 1).node);
+
+		try {
+		    if (proof.lines.get(lineNumber2 - 1).introducedVariable == null) {
+			throw new Exception(
+				"Subproof must start with a variable introduction.");
+		    }
+
+		    RulesOfInference
+			    .thereExistsElimination(
+				    p,
+				    subproof1,
+				    proof.lines.get(lineNumber2 - 1).introducedVariable,
+				    conclusion);
+		    strb.append(spinner1.getSelectedItem());
+		    validRule = true;
+		} catch (NullPointerException e) {
+		    CharSequence text = "The introduced variable must appear in the final line of the subproof";
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		} catch (Exception e) {
+		    CharSequence text = e.getMessage();
+		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+		}
+		break;
+	    }
 	}
 
 	if (validRule) {

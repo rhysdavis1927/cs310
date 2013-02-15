@@ -6,6 +6,7 @@ import logic.proof.builder.parser.ParseException;
 import logic.proof.builder.parser.Parser;
 import logic.proof.builder.parser.ParserConstants;
 import logic.proof.builder.parser.ParserState;
+import logic.proof.builder.parser.SimpleNode;
 import logic.proof.builder.parser.Token;
 import logic.proof.builder.parser.TokenCollector;
 import android.app.Activity;
@@ -16,6 +17,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,16 +39,20 @@ import static logic.proof.builder.gui.ProofBuilderActivity.proof;
 
 public class InputSentenceActivity extends Activity {
 
-    private static final String OR = Html.fromHtml("&or;").toString();
-    private static final String IMPLIES = Html.fromHtml("&rArr;").toString();
-    private static final String AND = Html.fromHtml("&and;").toString();
-    private static final String NOT = Html.fromHtml("&not;").toString();
-    private static final String EQUIVALENT = Html.fromHtml("&hArr;").toString();
-    private static final String BOTTOM = Html.fromHtml("&bot;").toString();
-    private static final String FORALL = Html.fromHtml("&forall;").toString();
-    private static final String THEREEXISTS = Html.fromHtml("&exist;")
-	    .toString();
-    private static final String EQUALS = "=";
+    static final String OR = Html.fromHtml("&or;").toString();
+    static final String IMPLIES = Html.fromHtml("&rArr;").toString();
+    static final String AND = Html.fromHtml("&and;").toString();
+    static final String NOT = Html.fromHtml("&not;").toString();
+    static final String EQUIVALENT = Html.fromHtml("&hArr;").toString();
+    static final String BOTTOM = Html.fromHtml("&bot;").toString();
+    static final String FORALL = Html.fromHtml("&forall;").toString();
+    static final String THEREEXISTS = Html.fromHtml("&exist;").toString();
+    static final String EQUALS = "=";
+
+    static final int ADD_NEW_PREDICATE = 1;
+    static final int UNIVERSAL_QUANTIFICATION = 2;
+    static final int EXISTENTIAL_QUANITIFICATION = 3;
+    static final int EQUALS_ASSIGNMENT = 4;
 
     static EditText formulaTextView;
     static TokenCollector tc = new TokenCollector();
@@ -53,6 +60,7 @@ public class InputSentenceActivity extends Activity {
     static ArrayAdapter<String> listAdapter;
     static ListView predicateList;
     static AlertDialog.Builder alert;
+    Intent dialog;
 
     // possible optimisation: change methods to static
 
@@ -60,6 +68,7 @@ public class InputSentenceActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_input_sentence);
+	dialog = new Intent(this, MyDialogActivity.class);
 
 	alert = new AlertDialog.Builder(this);
 
@@ -142,7 +151,6 @@ public class InputSentenceActivity extends Activity {
 	try {
 	    parser.Formula();
 	    ParserState.saveTree(parser);
-	    //parser.variables
 	    ParserState.findQuantifiers(ParserState.getTree());
 	    Intent intent = new Intent();
 	    intent.putExtra("Formula", formulaTextView.getText().toString());
@@ -150,14 +158,14 @@ public class InputSentenceActivity extends Activity {
 	    finish();
 
 	} catch (ParseException e) {
-	    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-		    this);
+	    alert.setView(null);
+	    AlertDialog.Builder alertDialog = InputSentenceActivity.alert;
 
 	    // set title
-	    alertDialogBuilder.setTitle("Your Title");
+	    alertDialog.setTitle("Your Title");
 
 	    // set dialog message
-	    alertDialogBuilder.setMessage("Formula is not well formed.")
+	    alertDialog.setMessage("Formula is not well formed.")
 		    .setPositiveButton("OK",
 			    new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,
@@ -168,9 +176,6 @@ public class InputSentenceActivity extends Activity {
 				}
 			    });
 
-	    // create alert dialog
-	    AlertDialog alertDialog = alertDialogBuilder.create();
-
 	    // show it
 	    alertDialog.show();
 
@@ -180,36 +185,8 @@ public class InputSentenceActivity extends Activity {
     }
 
     public void clickAddPredicateButton(final View view) {
-
-	alert.setTitle("Predicate input");
-
-	// Set an EditText view to get user input
-	final EditText input = new EditText(this);
-	input.setAllCaps(true);
-	alert.setView(input);
-
-	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
-	    public void onClick(DialogInterface dialog, int whichButton) {
-		String value = input.getText().toString();
-		listAdapter.add(value);
-		predicateList.setAdapter(listAdapter);
-		Token predicate = new Token();
-		predicate.kind = ParserConstants.PREDICATE;
-		predicate.image = value;
-		InputSentenceActivity.insertOperator(null, predicate);
-
-	    }
-	});
-
-	alert.setNegativeButton("Cancel",
-		new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int whichButton) {
-			// Canceled.
-		    }
-		});
-
-	alert.show();
+	dialog.putExtra("Type", ADD_NEW_PREDICATE);
+	startActivityForResult(dialog, ADD_NEW_PREDICATE);
     }
 
     public void clickAndButton(View view) {
@@ -275,57 +252,10 @@ public class InputSentenceActivity extends Activity {
 	token.image = "T";
 	insertOperator(view, token);
     }
-    
+
     public void clickEqualsButton(View view) {
-
-	alert.setTitle("Title");
-
-	// Set an EditText view to get user input
-	/*
-	final EditText t1 = new EditText(this);
-	final TextView label = new TextView(this);
-	final EditText t2 = new EditText(this);
-	final LinearLayout layout = new LinearLayout(this);
-	layout.addView(t1);
-	layout.addView(label);
-	layout.addView(t2,new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.MATCH_PARENT));
-	
-	*/
-	LayoutInflater inflater = this.getLayoutInflater();
-	final LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.equals_input, null);
-	alert.setView(layout);
-
-	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
-	    public void onClick(DialogInterface dialog, int whichButton) {
-		String value = ((EditText) layout.getChildAt(0)).getText().toString();
-		Token token = new Token();
-		token.kind = ParserConstants.VARIABLE;
-		token.image = value;
-		insertOperator(null, token);
-		
-		Token token2 = new Token();
-		token2.kind = ParserConstants.EQUALS;
-		token2.image = EQUALS;
-		insertOperator(null, token2);
-		
-		value = ((EditText) layout.getChildAt(2)).getText().toString();
-		Token token3 = new Token();
-		token3.kind = ParserConstants.VARIABLE;
-		token3.image = value;
-		insertOperator(null, token3);
-
-	    }
-	});
-
-	alert.setNegativeButton("Cancel",
-		new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int whichButton) {
-			// Canceled.
-		    }
-		});
-
-	alert.show();
+	dialog.putExtra("Type", EQUALS_ASSIGNMENT);
+	startActivityForResult(dialog, EQUALS_ASSIGNMENT);
     }
 
     public static void clickBackspaceButton(View view) {
@@ -344,65 +274,15 @@ public class InputSentenceActivity extends Activity {
     }
 
     public void clickForAllButton(View view) {
-	alert.setTitle(null);
-	alert.setMessage("Type the variable name to be quantified");
-
-	// Set an EditText view to get user input
-	final EditText input = new EditText(this);
-	alert.setView(input);
-
-	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
-	    public void onClick(DialogInterface dialog, int whichButton) {
-		String value = input.getText().toString();
-		Token token = new Token();
-		token.kind = ParserConstants.FORALL;
-		token.image = FORALL + value;
-		insertOperator(null, token);
-
-	    }
-	});
-
-	alert.setNegativeButton("Cancel",
-		new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int whichButton) {
-			// Canceled.
-		    }
-		});
-
-	alert.show();
+	dialog.putExtra("Type", UNIVERSAL_QUANTIFICATION);
+	startActivityForResult(dialog, UNIVERSAL_QUANTIFICATION);
     }
 
     public void clickThereExistsButton(View view) {
-	alert.setTitle("Title");
-
-	// Set an EditText view to get user input
-	final EditText input = new EditText(this);
-	alert.setView(input);
-
-	alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
-	    public void onClick(DialogInterface dialog, int whichButton) {
-		String value = input.getText().toString();
-		Token token = new Token();
-		token.kind = ParserConstants.THEREEXISTS;
-		token.image = THEREEXISTS + value;
-		insertOperator(null, token);
-
-	    }
-	});
-
-	alert.setNegativeButton("Cancel",
-		new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int whichButton) {
-			// Canceled.
-		    }
-		});
-
-	alert.show();
+	dialog.putExtra("Type", EXISTENTIAL_QUANITIFICATION);
+	startActivityForResult(dialog, EXISTENTIAL_QUANITIFICATION);
     }
-    
-    
+
     public static void insertOperator(View view, Token token) {
 	int cursorIndex = formulaTextView.getSelectionStart();
 	int tokenIndex = getTokenIndex(cursorIndex);
@@ -425,6 +305,70 @@ public class InputSentenceActivity extends Activity {
 	    }
 	}
 	return tokenIndex;
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	String value;
+	
+	if (requestCode == ADD_NEW_PREDICATE) {
+	    if (resultCode == RESULT_OK) {
+		value = data.getStringExtra("Predicate");
+		listAdapter.add(value);
+		predicateList.setAdapter(listAdapter);
+		Token predicate = new Token();
+		predicate.kind = ParserConstants.PREDICATE;
+		predicate.image = value;
+		insertOperator(null, predicate);
+
+	    }
+	} else if (requestCode == UNIVERSAL_QUANTIFICATION) {
+	    if (resultCode == RESULT_OK) {
+		value = data.getStringExtra("Variable");
+		Token token = new Token();
+		token.kind = ParserConstants.FORALL;
+		token.image = FORALL + value;
+		insertOperator(null, token);
+	    }
+	}else if (requestCode == EXISTENTIAL_QUANITIFICATION) {
+	    if (resultCode == RESULT_OK) {
+		value = data.getStringExtra("Variable");
+		Token token = new Token();
+		token.kind = ParserConstants.THEREEXISTS;
+		token.image = THEREEXISTS + value;
+		insertOperator(null, token);
+	    }
+	}
+	else if (requestCode == EQUALS_ASSIGNMENT) {
+	    if (resultCode == RESULT_OK) {
+		value = data.getStringExtra("lhs");
+		Token token = new Token();
+		token.kind = ParserConstants.VARIABLE;
+		token.image = value;
+		insertOperator(null, token);
+
+		Token token2 = new Token();
+		token2.kind = ParserConstants.EQUALS;
+		token2.image = EQUALS;
+		insertOperator(null, token2);
+
+		value = data.getStringExtra("rhs");
+		Token token3 = new Token();
+		token3.kind = ParserConstants.VARIABLE;
+		token3.image = value;
+		insertOperator(null, token3);
+	    }
+	}
+
+    }
+    @Override
+    public void onResume() {
+	super.onResume();
+	StringBuilder str = new StringBuilder();
+	for (int i = 0; i < tc.list.size(); i++) {
+	    str.append(tc.list.get(i));
+	}
+	formulaTextView.setText(str);
+	formulaTextView.setSelection(formulaTextView.getText().length());
     }
 
     @Override
