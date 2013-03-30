@@ -500,7 +500,7 @@ public class ChooseRuleActivity extends Activity {
 		    validRule = true;
 
 		} else {
-		    CharSequence text = "The line you are trying to justify should have the form"
+		    CharSequence text = "The line you are trying to justify should have the form "
 			    + PHI + InputSentenceActivity.AND + PSI;
 		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 		}
@@ -701,7 +701,7 @@ public class ChooseRuleActivity extends Activity {
 		lineNumber1 = getLineNumber(spinner1);
 		lineNumber2 = getLineNumber(spinner2);
 		p = proof.lines.get(lineNumber1 - 1).node;
-		q = proof.lines.get(lineNumber1 - 1).node;
+		q = proof.lines.get(lineNumber2 - 1).node;
 
 		try {
 		    RulesOfInference.negationElimination(p, q, conclusion);

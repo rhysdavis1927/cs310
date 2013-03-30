@@ -44,7 +44,7 @@ public class RulesOfInference {
 	SimpleNode leftChild = andElimination1(premise);
 	if (!compareAST(leftChild, conclusion)) {
 	    throw new Exception(
-		    "The line you are trying to justif should have form " + PHI);
+		    "The line you are trying to justify should be the same as " + PHI);
 	}
     }
 
@@ -63,10 +63,10 @@ public class RulesOfInference {
 
     public static void andElimination2(SimpleNode premise, SimpleNode conclusion)
 	    throws Exception {
-	SimpleNode rightChild = andElimination1(premise);
+	SimpleNode rightChild = andElimination2(premise);
 	if (!compareAST(rightChild, conclusion)) {
 	    throw new Exception(
-		    "The line you are trying to justif should have form " + PSI);
+		    "The line you are trying to justify should be the same as " + PSI);
 	}
     }
 
@@ -189,8 +189,8 @@ public class RulesOfInference {
 	    throws Exception {
 	SimpleNode conclusion = null;
 	if (!(implication.toString()
-		.equals(ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTIMPLIES]))
-		&& implication.jjtGetChild(0).toString().equals(p.toString())) {
+		.equals(ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTIMPLIES])
+		&& compareAST((SimpleNode) implication.jjtGetChild(0),p))) {
 	    throw new Exception("Justification must be of the form " + PHI
 		    + "; " + PHI + IMPLIES + PSI);
 	}
@@ -203,8 +203,8 @@ public class RulesOfInference {
 	SimpleNode notPremise = negationIntroduction(subproof);
 	if (!compareAST(notPremise, conclusion)) {
 	    throw new Exception(
-		    "The last you are trying to justify should be the same as the first line of the subproof "
-			    + PHI);
+		    "The line you are trying to justify should be "+ NOT + 
+			    PHI + " where " + PHI + " is the first line of the subproof");
 	}
     }
 
@@ -266,7 +266,7 @@ public class RulesOfInference {
 	    SimpleNode conclusion) throws Exception {
 	if (!compareAST(doubleNegationElimination(p), conclusion)) {
 	    throw new Exception(
-		    "The line you are trying to justidy should be the saem as "
+		    "The line you are trying to justify should be the same as "
 			    + PHI);
 
 	}
@@ -339,7 +339,8 @@ public class RulesOfInference {
 	String newName = (String) ((SimpleNode) equals.jjtGetChild(1))
 		.jjtGetValue().toString();
 	if (!compareEqualsElim(statement, conclusion, variable, newName)) {
-	    throw new Exception("Conclusion...");
+	    throw new Exception("The line you are trying to justify should have the form "
+		    + PHI + "[" + newName + "/" + variable + "]");
 	}
 
     }

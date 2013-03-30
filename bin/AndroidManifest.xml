@@ -15,11 +15,7 @@
             android:label="@string/title_activity_main"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateAlwaysHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            
         </activity>
         <activity
             android:name=".InputSentenceActivity"
@@ -34,13 +30,18 @@
             android:name=".ProofBuilderActivity"
             android:label="@string/title_activity_proof_builder"
             android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="logic.proof.builder.gui.MainActivity" />
         </activity>
         <activity
             android:name=".ChooseRuleActivity"
-            android:label="@string/title_activity_proof_builder"
+            android:label="@string/title_activity_choose_rule"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Holo.Dialog" >
             <meta-data

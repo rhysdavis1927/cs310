@@ -4,12 +4,12 @@ package logic.proof.builder.parser;
 public interface ParserTreeConstants
 {
   public int JJTVOID = 0;
-  public int JJTEQUALS = 1;
-  public int JJTIMPLIES = 2;
-  public int JJTEQUIVALENT = 3;
-  public int JJTAND = 4;
-  public int JJTOR = 5;
-  public int JJTNOT = 6;
+  public int JJTIMPLIES = 1;
+  public int JJTEQUIVALENT = 2;
+  public int JJTAND = 3;
+  public int JJTOR = 4;
+  public int JJTNOT = 5;
+  public int JJTEQUALS = 6;
   public int JJTFORALL = 7;
   public int JJTTHEREEXISTS = 8;
   public int JJTVARIABLE = 9;
@@ -18,16 +18,16 @@ public interface ParserTreeConstants
 
   public String[] jjtNodeName = {
     "void",
-    "Equals",
     "Implies",
     "Equivalent",
     "And",
     "Or",
     "Not",
+    "Equals",
     "ForAll",
     "ThereExists",
     "Variable",
     "Predicate",
   };
 }
-/* JavaCC - OriginalChecksum=f2e137298e19fa3898fbe23b24676892 (do not edit this line) */
+/* JavaCC - OriginalChecksum=6a6ef2312076d3356756b16caf7b3ecf (do not edit this line) */

@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 public class ListViewAdapter extends BaseAdapter {
@@ -56,7 +60,6 @@ public class ListViewAdapter extends BaseAdapter {
 	View topDivider;
 	View bottomDivider;
 	TextView txtVariable;
-	View variableDivider;
 
 	LayoutInflater inflater = activity.getLayoutInflater();
 	ProofStep step = list.get(position);
@@ -67,6 +70,7 @@ public class ListViewAdapter extends BaseAdapter {
 	    break;
 	case 1:
 	    convertView = inflater.inflate(R.layout.row1, null);
+
 	    break;
 	case 2:
 	    convertView = inflater.inflate(R.layout.row2, null);
@@ -104,8 +108,11 @@ public class ListViewAdapter extends BaseAdapter {
 		.findViewById(R.id.justificationView);
 	txtLineNumber = (TextView) convertView.findViewById(R.id.lineView);
 
-	variableDivider = convertView.findViewById(R.id.boxedVariableDivider);
 	txtVariable = (TextView) convertView.findViewById(R.id.variableView);
+
+	txtFormula.setText((CharSequence) step.formula);
+	txtJustification.setText((CharSequence) step.justification);
+	txtLineNumber.setText((CharSequence) format(step.lineNumber));
 
 	if (step.level == step.parent.level) {
 	    topDivider.setVisibility(View.GONE);
@@ -114,29 +121,34 @@ public class ListViewAdapter extends BaseAdapter {
 	    topDivider.setTranslationX(PADDING * step.level + 56);
 	}
 	if (!step.endOfSubproof) {
-	    bottomDivider.setVisibility(View.GONE);
+	    bottomDivider.setVisibility(View.INVISIBLE);
 	} else {
 	    bottomDivider.setVisibility(View.VISIBLE);
 	    bottomDivider.setTranslationX(PADDING * step.level + 56);
 	}
 
 	if (step.introducedVariable != null) {
-	    variableDivider.setVisibility(View.VISIBLE);
 	    txtVariable.setText(step.introducedVariable);
 	    txtVariable.setVisibility(View.VISIBLE);
-	    //bottomDivider.setVisibility(View.VISIBLE);
-	    //bottomDivider.setTranslationX(PADDING * step.level + 56);
+	    // boxDivider.setVisibility(View.VISIBLE);
+
+	    // boxDivider.setTranslationX(PADDING * step.level + 56);
+	    // boxDivider.setLayoutParams(new TableRow.LayoutParams(80,
+	    // bottomDivider.getLayoutParams().height));
+
 	} else {
-	    variableDivider.setVisibility(View.GONE);
 	    txtVariable.setVisibility(View.GONE);
+	    // boxDivider.setVisibility(View.GONE);
+	}
+
+	if (step.parent.introducedVariable != null) {
+
+	} else {
+
 	}
 
 	// holder.leftDivider.setTranslationX(PADDING*step.level+10);
 	// holder.txtFormula.setTranslationX(PADDING*step.level);
-
-	txtFormula.setText((CharSequence) step.formula);
-	txtJustification.setText((CharSequence) step.justification);
-	txtLineNumber.setText((CharSequence) format(step.lineNumber));
 
 	return convertView;
     }

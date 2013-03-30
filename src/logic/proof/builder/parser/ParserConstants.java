@@ -11,21 +11,21 @@ public interface ParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int EQUALS = 1;
+  int IMPLIES = 1;
   /** RegularExpression Id. */
-  int IMPLIES = 2;
+  int EQUIVALENT = 2;
   /** RegularExpression Id. */
-  int EQUIVALENT = 3;
+  int AND = 3;
   /** RegularExpression Id. */
-  int AND = 4;
+  int OR = 4;
   /** RegularExpression Id. */
-  int OR = 5;
+  int LBRACKET = 5;
   /** RegularExpression Id. */
-  int LBRACKET = 6;
+  int RBRACKET = 6;
   /** RegularExpression Id. */
-  int RBRACKET = 7;
+  int NOT = 7;
   /** RegularExpression Id. */
-  int NOT = 8;
+  int EQUALS = 8;
   /** RegularExpression Id. */
   int FORALL = 9;
   /** RegularExpression Id. */
@@ -38,7 +38,6 @@ public interface ParserConstants {
   /** Literal token values. */
   String[] tokenImage = {
     "<EOF>",
-    "<EQUALS>",
     "<IMPLIES>",
     "<EQUIVALENT>",
     "<AND>",
@@ -46,6 +45,7 @@ public interface ParserConstants {
     "<LBRACKET>",
     "<RBRACKET>",
     "<NOT>",
+    "<EQUALS>",
     "<FORALL>",
     "<THEREEXISTS>",
     "<VARIABLE>",

@@ -97,7 +97,7 @@ public class InputSentenceActivity extends Activity {
 	notButton.setText(Html.fromHtml("&not;"));
 
 	Button backspaceButton = (Button) findViewById(R.id.backspaceButton);
-	backspaceButton.setText(Html.fromHtml("&larr;"));
+	backspaceButton.setText(Html.fromHtml("&larr; backspace"));
 
 	Button bottomButton = (Button) findViewById(R.id.bottomButton);
 	bottomButton.setText(BOTTOM);
@@ -162,7 +162,7 @@ public class InputSentenceActivity extends Activity {
 	    AlertDialog.Builder alertDialog = InputSentenceActivity.alert;
 
 	    // set title
-	    alertDialog.setTitle("Your Title");
+	    alertDialog.setTitle("Error");
 
 	    // set dialog message
 	    alertDialog.setMessage("Formula is not well formed.")

@@ -227,7 +227,6 @@ public class ProofBuilderActivity extends Activity {
 			data.getStringExtra("Formula"));
 		proofStep.freeVariables = Parser.variables;
 		adapter.notifyDataSetChanged();
-
 	    }
 	} else if (requestCode == NEW_SUBPROOF) {
 	    if (resultCode == RESULT_OK) {
