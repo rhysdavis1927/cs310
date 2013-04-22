@@ -62,7 +62,6 @@ public class InputSentenceActivity extends Activity {
     static AlertDialog.Builder alert;
     Intent dialog;
 
-    // possible optimisation: change methods to static
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,9 +69,13 @@ public class InputSentenceActivity extends Activity {
 	setContentView(R.layout.activity_input_sentence);
 	dialog = new Intent(this, MyDialogActivity.class);
 
+	
+
 	alert = new AlertDialog.Builder(this);
 
 	formulaTextView = (EditText) findViewById(R.id.formulaTextView);
+	
+	// Stops the soft keyboard becoming visible
 	formulaTextView.setOnClickListener(new OnClickListener() {
 	    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -81,6 +84,10 @@ public class InputSentenceActivity extends Activity {
 	    }
 	});
 
+	
+	/*
+	 * Initial set up. Adds icons and click listeners for buttons
+	 */
 	Button andButton = (Button) findViewById(R.id.andButton);
 	andButton.setText(Html.fromHtml("&and;"));
 
@@ -296,6 +303,9 @@ public class InputSentenceActivity extends Activity {
     }
 
     private static int getTokenIndex(int cursorIndex) {
+	
+	//Finds the index of a token in the token list by counting
+	// tokens and their length
 	int tokenIndex = 0;
 	if (cursorIndex > 0) {
 	    int i = 0;
@@ -309,6 +319,8 @@ public class InputSentenceActivity extends Activity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	String value;
+	
+	
 	
 	if (requestCode == ADD_NEW_PREDICATE) {
 	    if (resultCode == RESULT_OK) {

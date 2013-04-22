@@ -91,17 +91,28 @@ public class ChooseRuleActivity extends Activity {
 	subproofJustificationListAdapter
 		.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-	ProofStep step = proof.lines.get(lineNumber - 1);
+	
+	/*
+	 * Traverse up the proof tree form the line 
+	 * that is to be justified, creating a list
+	 * of getLines() that may be used as justification.
+	 */
+	ProofStep step = proof.getLines().get(lineNumber - 1);
 	while (step.parent.node.toString() != "void") {
 	    lineJustificationListAdapter.insert(
 		    step.parent.lineNumber.toString(), 0);
 	    step = step.parent;
 	}
 
-	step = proof.lines.get(lineNumber - 1);
+	step = proof.getLines().get(lineNumber - 1);
 	int subproofRoot;
 	int subproofStart;
 
+	/*
+	 * Traverse up the proof tree form the line 
+	 * that is to be justified, finding the start of 
+	 * end of subproofs that may be used as justification.
+	 */
 	subproofRoot = step.lineNumber;
 	while (step.parent != null) {
 	    step = step.parent;
@@ -125,6 +136,12 @@ public class ChooseRuleActivity extends Activity {
 		    public void onItemSelected(AdapterView<?> parent,
 			    View view, int pos, long id) {
 
+			
+			/*
+			 * Uses the rule list to present customised GUI
+			 * to the user depending on which rule has
+			 * been chosen
+			 */
 			switch (pos) {
 			case PREMISE:
 
@@ -437,7 +454,7 @@ public class ChooseRuleActivity extends Activity {
     }
 
     public void clickOkButton(View view) {
-	SimpleNode conclusion = proof.lines.get(lineNumber - 1).node;
+	SimpleNode conclusion = proof.getLines().get(lineNumber - 1).node;
 	StringBuilder strb = new StringBuilder(
 		chooseRuleSpinner.getSelectedItem() + ": ");
 	Intent intent = new Intent();
@@ -450,11 +467,16 @@ public class ChooseRuleActivity extends Activity {
 	SimpleNode q;
 	ArrayList<SimpleNode> subproof1 = new ArrayList<SimpleNode>();
 	ArrayList<SimpleNode> subproof2 = new ArrayList<SimpleNode>();
+	
+	/*
+	 * Checks that justification of a line is sound using the programmed rules
+	 * of inference and the justifications given.
+	 */
 
 	switch (chooseRuleSpinner.getSelectedItemPosition()) {
 
 	case PREMISE:
-	    String previousJustification = proof.lines.get(lineNumber - 1).parent.justification;
+	    String previousJustification = proof.getLines().get(lineNumber - 1).parent.justification;
 	    if (previousJustification.equals("Premise")
 		    || previousJustification.equals("root node")) {
 		validRule = true;
@@ -471,7 +493,7 @@ public class ChooseRuleActivity extends Activity {
 	    } else {
 
 		lineNumber1 = getLineNumber(spinner1);
-		p = proof.lines.get(lineNumber1 - 1).node;
+		p = proof.getLines().get(lineNumber1 - 1).node;
 
 		try {
 		    RulesOfInference.copy(p, conclusion);
@@ -492,16 +514,16 @@ public class ChooseRuleActivity extends Activity {
 
 		lineNumber1 = getLineNumber(spinner1);
 		lineNumber2 = getLineNumber(spinner2);
-		p = proof.lines.get(lineNumber1 - 1).node;
-		q = proof.lines.get(lineNumber2 - 1).node;
+		p = proof.getLines().get(lineNumber1 - 1).node;
+		q = proof.getLines().get(lineNumber2 - 1).node;
 
-		if (RulesOfInference.andIntroduction(p, q, conclusion)) {
+		try {
+		    RulesOfInference.andIntroduction(p, q, conclusion);
 		    strb.append(lineNumber1 + ", " + lineNumber2);
 		    validRule = true;
 
-		} else {
-		    CharSequence text = "The line you are trying to justify should have the form "
-			    + PHI + InputSentenceActivity.AND + PSI;
+		} catch(Exception e) {
+		    CharSequence text = e.getMessage();
 		    Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 		}
 	    }
@@ -515,7 +537,7 @@ public class ChooseRuleActivity extends Activity {
 	    } else {
 
 		lineNumber1 = getLineNumber(spinner1);
-		p = proof.lines.get(lineNumber1 - 1).node;
+		p = proof.getLines().get(lineNumber1 - 1).node;
 
 		try {
 		    RulesOfInference.andElimination1(p, conclusion);
@@ -535,7 +557,7 @@ public class ChooseRuleActivity extends Activity {
 	    } else {
 
 		lineNumber1 = getLineNumber(spinner1);
-		p = proof.lines.get(lineNumber1 - 1).node;
+		p = proof.getLines().get(lineNumber1 - 1).node;
 
 		try {
 		    RulesOfInference.andElimination2(p, conclusion);
@@ -555,7 +577,7 @@ public class ChooseRuleActivity extends Activity {
 	    } else {
 
 		lineNumber1 = getLineNumber(spinner1);
-		p = proof.lines.get(lineNumber1 - 1).node;
+		p = proof.getLines().get(lineNumber1 - 1).node;
 
 		try {
 		    RulesOfInference.orIntroduction1(p, conclusion);
@@ -575,7 +597,7 @@ public class ChooseRuleActivity extends Activity {
 	    } else {
 
 		lineNumber1 = getLineNumber(spinner1);
-		p = proof.lines.get(lineNumber1 - 1).node;
+		p = proof.getLines().get(lineNumber1 - 1).node;
 
 		try {
 		    RulesOfInference.orIntroduction2(p, conclusion);
@@ -599,13 +621,13 @@ public class ChooseRuleActivity extends Activity {
 		lineNumber1 = getLineNumber(spinner1);
 		lineNumber2 = getLineNumber(spinner2);
 		lineNumber3 = getLineNumber(spinner3);
-		p = proof.lines.get(lineNumber1 - 1).node;
-		subproof1.add(proof.lines.get(lineNumber2 - 1).node);
+		p = proof.getLines().get(lineNumber1 - 1).node;
+		subproof1.add(proof.getLines().get(lineNumber2 - 1).node);
 		subproof1
-			.add(proof.lines.get(getFinalLineNumer(spinner2) - 1).node);
-		subproof2.add(proof.lines.get(lineNumber3 - 1).node);
+			.add(proof.getLines().get(getFinalLineNumer(spinner2) - 1).node);
+		subproof2.add(proof.getLines().get(lineNumber3 - 1).node);
 		subproof2
-			.add(proof.lines.get(getFinalLineNumer(spinner3) - 1).node);
+			.add(proof.getLines().get(getFinalLineNumer(spinner3) - 1).node);
 
 		try {
 		    RulesOfInference.orElimination(subproof1, subproof2, p,
@@ -627,9 +649,9 @@ public class ChooseRuleActivity extends Activity {
 	    } else {
 
 		lineNumber1 = getLineNumber(spinner1);
-		subproof1.add(proof.lines.get(lineNumber1 - 1).node);
+		subproof1.add(proof.getLines().get(lineNumber1 - 1).node);
 		subproof1
-			.add(proof.lines.get(getFinalLineNumer(spinner1) - 1).node);
+			.add(proof.getLines().get(getFinalLineNumer(spinner1) - 1).node);
 
 		try {
 		    RulesOfInference.impliesIntroduction(subproof1, conclusion);
@@ -651,8 +673,8 @@ public class ChooseRuleActivity extends Activity {
 
 		lineNumber1 = getLineNumber(spinner1);
 		lineNumber2 = getLineNumber(spinner2);
-		p = proof.lines.get(lineNumber1 - 1).node;
-		q = proof.lines.get(lineNumber2 - 1).node;
+		p = proof.getLines().get(lineNumber1 - 1).node;
+		q = proof.getLines().get(lineNumber2 - 1).node;
 
 		try {
 		    RulesOfInference.modusPonens(p, q, conclusion);
@@ -674,9 +696,9 @@ public class ChooseRuleActivity extends Activity {
 	    } else {
 
 		lineNumber1 = getLineNumber(spinner1);
-		subproof1.add(proof.lines.get(lineNumber1 - 1).node);
+		subproof1.add(proof.getLines().get(lineNumber1 - 1).node);
 		subproof1
-			.add(proof.lines.get(getFinalLineNumer(spinner1) - 1).node);
+			.add(proof.getLines().get(getFinalLineNumer(spinner1) - 1).node);
 
 		try {
 		    RulesOfInference
@@ -700,8 +722,8 @@ public class ChooseRuleActivity extends Activity {
 
 		lineNumber1 = getLineNumber(spinner1);
 		lineNumber2 = getLineNumber(spinner2);
-		p = proof.lines.get(lineNumber1 - 1).node;
-		q = proof.lines.get(lineNumber2 - 1).node;
+		p = proof.getLines().get(lineNumber1 - 1).node;
+		q = proof.getLines().get(lineNumber2 - 1).node;
 
 		try {
 		    RulesOfInference.negationElimination(p, q, conclusion);
@@ -721,7 +743,7 @@ public class ChooseRuleActivity extends Activity {
 	    } else {
 
 		lineNumber1 = getLineNumber(spinner1);
-		p = proof.lines.get(lineNumber1 - 1).node;
+		p = proof.getLines().get(lineNumber1 - 1).node;
 
 		try {
 		    RulesOfInference.doubleNegationIntroduction(p, conclusion);
@@ -741,7 +763,7 @@ public class ChooseRuleActivity extends Activity {
 	    } else {
 
 		lineNumber1 = getLineNumber(spinner1);
-		p = proof.lines.get(lineNumber1 - 1).node;
+		p = proof.getLines().get(lineNumber1 - 1).node;
 
 		try {
 		    RulesOfInference.doubleNegationElimination(p, conclusion);
@@ -761,7 +783,7 @@ public class ChooseRuleActivity extends Activity {
 	    } else {
 
 		lineNumber1 = getLineNumber(spinner1);
-		p = proof.lines.get(lineNumber1 - 1).node;
+		p = proof.getLines().get(lineNumber1 - 1).node;
 
 		try {
 		    RulesOfInference.bottomElimination(p, conclusion);
@@ -793,12 +815,12 @@ public class ChooseRuleActivity extends Activity {
 	    } else {
 
 		lineNumber1 = getLineNumber(spinner1);
-		p = proof.lines.get(lineNumber1 - 1).node;
+		p = proof.getLines().get(lineNumber1 - 1).node;
 		lineNumber2 = getLineNumber(spinner2);
-		q = proof.lines.get(lineNumber2 - 1).node;
+		q = proof.getLines().get(lineNumber2 - 1).node;
 
 		try {
-		    Variable v = proof.lines.get(lineNumber2 - 1).freeVariables
+		    Variable v = proof.getLines().get(lineNumber2 - 1).freeVariables
 			    .get(((SimpleNode) (p.jjtGetChild(0)))
 				    .jjtGetValue().toString());
 		    RulesOfInference.equalsElimination(p, q, v, conclusion);
@@ -818,18 +840,18 @@ public class ChooseRuleActivity extends Activity {
 	case FOR_ALL_INTRODUCTION:
 
 	    lineNumber1 = getLineNumber(spinner1);
-	    ProofStep proofstep = proof.lines
+	    ProofStep proofstep = proof.getLines()
 		    .get(getFinalLineNumer(spinner1) - 1);
 	    p = proofstep.node;
 
 	    try {
-		if (proof.lines.get(lineNumber1 - 1).introducedVariable == null) {
+		if (proof.getLines().get(lineNumber1 - 1).introducedVariable == null) {
 		    throw new Exception(
 			    "Subproof must start with a variable introduction.");
 		}
-		Variable var = (proof.lines
+		Variable var = (proof.getLines()
 			.get(getFinalLineNumer(spinner1) - 1).freeVariables
-			.get(proof.lines.get(lineNumber1 - 1).introducedVariable));
+			.get(proof.getLines().get(lineNumber1 - 1).introducedVariable));
 		if (!conclusion
 			.toString()
 			.equals(ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTFORALL])) {
@@ -862,7 +884,7 @@ public class ChooseRuleActivity extends Activity {
 
 		lineNumber1 = getLineNumber(spinner1);
 
-		p = (proof.lines.get(lineNumber1 - 1).node);
+		p = (proof.getLines().get(lineNumber1 - 1).node);
 
 		try {
 		    RulesOfInference.forAllElimination(p, conclusion);
@@ -886,11 +908,11 @@ public class ChooseRuleActivity extends Activity {
 
 		lineNumber1 = getLineNumber(spinner1);
 
-		p = (proof.lines.get(lineNumber1 - 1).node);
+		p = (proof.getLines().get(lineNumber1 - 1).node);
 
 		try {
 
-		    RulesOfInference.thereExistsIntroduction(p, conclusion);
+		    RulesOfInference.existsIntroduction(p, conclusion);
 		    strb.append(spinner1.getSelectedItem());
 		    validRule = true;
 		} catch (Exception e) {
@@ -907,23 +929,23 @@ public class ChooseRuleActivity extends Activity {
 	    } else {
 
 		lineNumber1 = getLineNumber(spinner1);
-		p = proof.lines.get(lineNumber1 - 1).node;
+		p = proof.getLines().get(lineNumber1 - 1).node;
 		lineNumber2 = getLineNumber(spinner2);
-		subproof1.add((proof.lines.get(lineNumber2 - 1).node));
+		subproof1.add((proof.getLines().get(lineNumber2 - 1).node));
 		subproof1
-			.add(proof.lines.get(getFinalLineNumer(spinner2) - 1).node);
+			.add(proof.getLines().get(getFinalLineNumer(spinner2) - 1).node);
 
 		try {
-		    if (proof.lines.get(lineNumber2 - 1).introducedVariable == null) {
+		    if (proof.getLines().get(lineNumber2 - 1).introducedVariable == null) {
 			throw new Exception(
 				"Subproof must start with a variable introduction.");
 		    }
 
 		    RulesOfInference
-			    .thereExistsElimination(
+			    .existsElimination(
 				    p,
 				    subproof1,
-				    proof.lines.get(lineNumber2 - 1).introducedVariable,
+				    proof.getLines().get(lineNumber2 - 1).introducedVariable,
 				    conclusion);
 		    strb.append(spinner1.getSelectedItem());
 		    validRule = true;

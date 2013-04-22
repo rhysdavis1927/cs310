@@ -19,6 +19,14 @@ public class ProofStep {
     public boolean endOfSubproof;
     public HashMap<String, Variable> freeVariables;
     public String introducedVariable;
+    
+    /**
+     * 
+     * @param node
+     * @param currentSize
+     * @param level
+     * @param formula
+     */
 
     ProofStep(SimpleNode node, int currentSize, int level, String formula) {
 	subproofs = new ArrayList<ProofStep>();
@@ -31,6 +39,12 @@ public class ProofStep {
 	introducedVariable=null;
     }
     
+    /**
+     * 
+     * @param name
+     * @param currentSize
+     * @param level
+     */
     ProofStep(String name, int currentSize, int level) {
 	subproofs = new ArrayList<ProofStep>();
 	this.node = new SimpleNode(0);
@@ -42,6 +56,14 @@ public class ProofStep {
 	introducedVariable=name;
     }
     
+    /**
+     * 
+     * @param node
+     * @param name
+     * @param currentSize
+     * @param level
+     * @param formula
+     */
     ProofStep(SimpleNode node,String name, int currentSize, int level,String formula) {
 	subproofs = new ArrayList<ProofStep>();
 	this.node = node;

@@ -1,0 +1,12 @@
+\def \packagename {}
+\def \classname {}
+\contentsline {chapter}{\numberline {1}\bf Package logic.proof.builder.proof}{2}
+\contentsline {section}{\numberline {1.1}Classes}{3}
+\contentsline {subsection}{\numberline {1.1.1}{\bf {\sc Class} Proof}}{3}
+\contentsline {subsubsection}{\sc Declaration}{3}
+\contentsline {subsubsection}{\sc Fields}{3}
+\contentsline {subsubsection}{\sc Constructors}{3}
+\contentsline {subsubsection}{\sc Methods}{3}
+\contentsline {subsection}{\numberline {1.1.2}{\bf {\sc Class} ProofStep}}{5}
+\contentsline {subsubsection}{\sc Declaration}{5}
+\contentsline {subsubsection}{\sc Fields}{5}

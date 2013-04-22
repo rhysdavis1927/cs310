@@ -1,0 +1,441 @@
+\documentclass[11pt]{report}
+\def\bl{\mbox{}\newline\mbox{}\newline{}}
+\usepackage{ifthen}
+\newcommand{\hide}[2]{
+\ifthenelse{\equal{#1}{inherited}}%
+{}%
+{}%
+}
+\newcommand{\entityintro}[3]{%
+  \hbox to \hsize{%
+    \vbox{%
+      \hbox to .2in{}%
+    }%
+    {\bf #1}%
+    \dotfill\pageref{#2}%
+  }
+  \makebox[\hsize]{%
+    \parbox{.4in}{}%
+    \parbox[l]{5in}{%
+      \vspace{1mm}\it%
+      #3%
+      \vspace{1mm}%
+    }%
+  }%
+}
+\newcommand{\isep}[0]{%
+\setlength{\itemsep}{-.4ex}
+}
+\newcommand{\sld}[0]{%
+\setlength{\topsep}{0em}
+\setlength{\partopsep}{0em}
+\setlength{\parskip}{0em}
+\setlength{\parsep}{-1em}
+}
+\newcommand{\headref}[3]{%
+\ifthenelse{#1 = 1}{%
+\addcontentsline{toc}{section}{\hspace{\qquad}\protect\numberline{}{#3}}%
+}{}%
+\ifthenelse{#1 = 2}{%
+\addcontentsline{toc}{subsection}{\hspace{\qquad}\protect\numerline{}{#3}}%
+}{}%
+\ifthenelse{#1 = 3}{%
+\addcontentsline{toc}{subsubsection}{\hspace{\qquad}\protect\numerline{}{#3}}%
+}{}%
+\label{#3}%
+\makebox[\textwidth][l]{#2 #3}%
+}%
+\newcommand{\membername}[1]{{\it #1}\linebreak}
+\newcommand{\divideents}[1]{\vskip -1em\indent\rule{2in}{.5mm}}
+\newcommand{\refdefined}[1]{
+\expandafter\ifx\csname r@#1\endcsname\relax
+\relax\else
+{$($ in \ref{#1}, page \pageref{#1}$)$}
+\fi}
+\newcommand{\startsection}[4]{
+\gdef\classname{#2}
+\subsection{\label{#3}{\bf {\sc #1} #2}}{
+\rule[1em]{\hsize}{4pt}\vskip -1em
+\vskip .1in 
+#4
+}%
+}
+\newcommand{\startsubsubsection}[2]{
+\subsubsection{\sc #1}{%
+\rule[1em]{\hsize}{2pt}%
+#2}
+}
+\usepackage{color}
+\date{\today}
+\pagestyle{myheadings}
+\addtocontents{toc}{\protect\def\protect\packagename{}}
+\addtocontents{toc}{\protect\def\protect\classname{}}
+\markboth{\protect\packagename -- \protect\classname}{\protect\packagename -- \protect\classname}
+\oddsidemargin 0in
+\evensidemargin 0in
+% \topmargin -.8in
+\chardef\bslash=`\\
+\textheight 9.4in
+\textwidth 6.5in
+\begin{document}
+\sloppy
+\raggedright
+\tableofcontents
+\gdef\packagename{}
+\gdef\classname{}
+\newpage
+\def\packagename{logic.proof.builder.proof}
+\chapter{\bf Package logic.proof.builder.proof}{
+\vskip -.25in
+\hbox to \hsize{\it Package Contents\hfil Page}
+\rule{\hsize}{.7mm}
+\vskip .13in
+\hbox{\bf Classes}
+\entityintro{Proof}{l0}{Stores all data necessary to construct a proof.}
+\entityintro{ProofStep}{l1}{...no description...}
+\entityintro{RulesOfInference}{l2}{Contains methods for the rules of inference of first-order logic}
+\vskip .1in
+\rule{\hsize}{.7mm}
+\vskip .1in
+\newpage
+\section{Classes}{
+\startsection{Class}{Proof}{l0}{%
+{\small Stores all data necessary to construct a proof. Simple Methods are provided to manipulate
+ the proof such as adding or deleting lines.}
+\vskip .1in 
+\startsubsubsection{Declaration}{
+\fbox{\vbox{
+\hbox{\vbox{\small public 
+class 
+Proof}}
+\noindent\hbox{\vbox{{\bf extends} java.lang.Object}}
+}}}
+\startsubsubsection{Fields}{
+\begin{itemize}
+\item{
+public List predicates\begin{itemize}\item{\vskip -.9ex A list of all the named predicates in the proof. Used to populate the
+ predicate list.}\end{itemize}
+}
+\end{itemize}
+}
+\startsubsubsection{Constructors}{
+\vskip -2em
+\begin{itemize}
+\item{\vskip -1.9ex 
+\membername{Proof}
+{\tt public {\bf Proof}(  )
+\label{l3}\label{l4}}%end signature
+\begin{itemize}
+\sld
+\item{
+\sld
+{\bf Usage}
+  \begin{itemize}\isep
+   \item{
+Default constructor. Constructs an empty proof
+}%end item
+  \end{itemize}
+}
+\end{itemize}
+}%end item
+\end{itemize}
+}
+\startsubsubsection{Methods}{
+\vskip -2em
+\begin{itemize}
+\item{\vskip -1.9ex 
+\membername{addStepAsEndOfSubproof}
+{\tt public ProofStep {\bf addStepAsEndOfSubproof}( {\tt logic.proof.builder.parser.SimpleNode } {\bf node},
+{\tt java.lang.String } {\bf formula} )
+\label{l5}\label{l6}}%end signature
+\begin{itemize}
+\sld
+\item{
+\sld
+{\bf Usage}
+  \begin{itemize}\isep
+   \item{
+Adds a new proofstep that is the last line of a subproof
+}%end item
+  \end{itemize}
+}
+\item{
+\sld
+{\bf Parameters}
+\sld\isep
+  \begin{itemize}
+\sld\isep
+   \item{
+\sld
+{\tt node} - Root node of the sentence of the proofstep}
+   \item{
+\sld
+{\tt formula} - String representation of the sentence}
+  \end{itemize}
+}%end item
+\item{{\bf Returns} - 
+Returns the proofstep that has been added 
+}%end item
+\end{itemize}
+}%end item
+\divideents{addStepAsNewLine}
+\item{\vskip -1.9ex 
+\membername{addStepAsNewLine}
+{\tt public ProofStep {\bf addStepAsNewLine}( {\tt logic.proof.builder.parser.SimpleNode } {\bf node},
+{\tt java.lang.String } {\bf formula} )
+\label{l7}\label{l8}}%end signature
+\begin{itemize}
+\sld
+\item{
+\sld
+{\bf Usage}
+  \begin{itemize}\isep
+   \item{
+The default method to add a new proofstep to the proof
+}%end item
+  \end{itemize}
+}
+\item{
+\sld
+{\bf Parameters}
+\sld\isep
+  \begin{itemize}
+\sld\isep
+   \item{
+\sld
+{\tt node} - Root node of the sentence of the proofstep}
+   \item{
+\sld
+{\tt formula} - String representation of the sentence}
+  \end{itemize}
+}%end item
+\item{{\bf Returns} - 
+Returns the proofstep that has been added 
+}%end item
+\end{itemize}
+}%end item
+\divideents{addStepAsStartOfSubproof}
+\item{\vskip -1.9ex 
+\membername{addStepAsStartOfSubproof}
+{\tt public ProofStep {\bf addStepAsStartOfSubproof}( {\tt logic.proof.builder.parser.SimpleNode } {\bf node},
+{\tt java.lang.String } {\bf formula} )
+\label{l9}\label{l10}}%end signature
+\begin{itemize}
+\sld
+\item{
+\sld
+{\bf Usage}
+  \begin{itemize}\isep
+   \item{
+Adds a new proofstep that is the start of a subproof
+}%end item
+  \end{itemize}
+}
+\item{
+\sld
+{\bf Parameters}
+\sld\isep
+  \begin{itemize}
+\sld\isep
+   \item{
+\sld
+{\tt node} - Root node of the sentence of the proofstep}
+   \item{
+\sld
+{\tt formula} - String representation of the sentence}
+  \end{itemize}
+}%end item
+\item{{\bf Returns} - 
+Returns the proofstep that has been added 
+}%end item
+\end{itemize}
+}%end item
+\divideents{addVar}
+\item{\vskip -1.9ex 
+\membername{addVar}
+{\tt public ProofStep {\bf addVar}( {\tt java.lang.String } {\bf var} )
+\label{l11}\label{l12}}%end signature
+\begin{itemize}
+\sld
+\item{
+\sld
+{\bf Usage}
+  \begin{itemize}\isep
+   \item{
+Add a new proofstep which introduces a boxed variable
+}%end item
+  \end{itemize}
+}
+\item{
+\sld
+{\bf Parameters}
+\sld\isep
+  \begin{itemize}
+\sld\isep
+   \item{
+\sld
+{\tt var} - The name of the variable being introduced}
+  \end{itemize}
+}%end item
+\item{{\bf Returns} - 
+Returns the proofstep that has been added 
+}%end item
+\end{itemize}
+}%end item
+\divideents{addVar}
+\item{\vskip -1.9ex 
+\membername{addVar}
+{\tt public ProofStep {\bf addVar}( {\tt java.lang.String } {\bf introducedVariable},
+{\tt logic.proof.builder.parser.SimpleNode } {\bf rootNode},
+{\tt java.lang.String } {\bf formula} )
+\label{l13}\label{l14}}%end signature
+\begin{itemize}
+\sld
+\item{
+\sld
+{\bf Usage}
+  \begin{itemize}\isep
+   \item{
+Add a new proofstep which introduces a boxed variable alongside an
+ assumption
+}%end item
+  \end{itemize}
+}
+\item{
+\sld
+{\bf Parameters}
+\sld\isep
+  \begin{itemize}
+\sld\isep
+   \item{
+\sld
+{\tt introducedVariable} - The name of the variable being introduced}
+   \item{
+\sld
+{\tt node} - Root node of the sentence}
+   \item{
+\sld
+{\tt formula} - String representation of the sentence}
+  \end{itemize}
+}%end item
+\item{{\bf Returns} - 
+Returns the proofstep that has been added 
+}%end item
+\end{itemize}
+}%end item
+\divideents{getCurrentLevel}
+\item{\vskip -1.9ex 
+\membername{getCurrentLevel}
+{\tt public int {\bf getCurrentLevel}(  )
+\label{l15}\label{l16}}%end signature
+\begin{itemize}
+\sld
+\item{
+\sld
+{\bf Usage}
+  \begin{itemize}\isep
+   \item{
+Returns the number of subproofs currently open
+}%end item
+  \end{itemize}
+}
+\item{{\bf Returns} - 
+the number of subproofs currently open 
+}%end item
+\end{itemize}
+}%end item
+\divideents{getLines}
+\item{\vskip -1.9ex 
+\membername{getLines}
+{\tt public ArrayList {\bf getLines}(  )
+\label{l17}\label{l18}}%end signature
+\begin{itemize}
+\sld
+\item{
+\sld
+{\bf Usage}
+  \begin{itemize}\isep
+   \item{
+Returns the ordered list of proofsteps
+}%end item
+  \end{itemize}
+}
+\item{{\bf Returns} - 
+the ordered list of proofsteps 
+}%end item
+\end{itemize}
+}%end item
+\divideents{removeStep}
+\item{\vskip -1.9ex 
+\membername{removeStep}
+{\tt public void {\bf removeStep}(  )
+\label{l19}\label{l20}}%end signature
+\begin{itemize}
+\sld
+\item{
+\sld
+{\bf Usage}
+  \begin{itemize}\isep
+   \item{
+Removes the most recent line from the proof
+}%end item
+  \end{itemize}
+}
+\end{itemize}
+}%end item
+\end{itemize}
+}
+}
+\startsection{Class}{ProofStep}{l1}{%
+\startsubsubsection{Declaration}{
+\fbox{\vbox{
+\hbox{\vbox{\small public 
+class 
+ProofStep}}
+\noindent\hbox{\vbox{{\bf extends} java.lang.Object}}
+}}}
+\startsubsubsection{Fields}{
+\begin{itemize}
+\item{
+public ProofStep parent\begin{itemize}\item{\vskip -.9ex }\end{itemize}
+}
+\item{
+public List subproofs\begin{itemize}\item{\vskip -.9ex }\end{itemize}
+}
+\item{
+public ProofStep next\begin{itemize}\item{\vskip -.9ex }\end{itemize}
+}
+\item{
+public SimpleNode node\begin{itemize}\item{\vskip -.9ex }\end{itemize}
+}
+\item{
+public Integer lineNumber\begin{itemize}\item{\vskip -.9ex }\end{itemize}
+}
+\item{
+public int level\begin{itemize}\item{\vskip -.9ex }\end{itemize}
+}
+\item{
+public String formula\begin{itemize}\item{\vskip -.9ex }\end{itemize}
+}
+\item{
+public String justification\begin{itemize}\item{\vskip -.9ex }\end{itemize}
+}
+\item{
+public boolean endOfSubproof\begin{itemize}\item{\vskip -.9ex }\end{itemize}
+}
+\item{
+public HashMap freeVariables\begin{itemize}\item{\vskip -.9ex }\end{itemize}
+}
+\item{
+public String introducedVariable\begin{itemize}\item{\vskip -.9ex }\end{itemize}
+}
+\end{itemize}
+}
+}
+
+\vskip -2em
+
+}
+
+}
+\end{document}

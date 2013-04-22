@@ -3,6 +3,8 @@ package logic.proof.builder.proof;
 import java.util.ArrayList;
 import java.util.List;
 
+import logic.proof.builder.exceptions.ConclusionException;
+import logic.proof.builder.exceptions.PremiseException;
 import logic.proof.builder.gui.ProofBuilderActivity;
 import logic.proof.builder.parser.ParserTreeConstants;
 import logic.proof.builder.parser.Predicate;
@@ -10,7 +12,13 @@ import logic.proof.builder.parser.SimpleNode;
 import logic.proof.builder.parser.Variable;
 import android.text.Html;
 
-public class RulesOfInference {
+/**
+ * Contains methods for the rules of inference of first-order logic
+ * 
+ * @author Rhys Davis
+ * 
+ */
+public final class RulesOfInference {
 
     private static final String OR = Html.fromHtml("&or;").toString();
     private static final String IMPLIES = Html.fromHtml("&rArr;").toString();
@@ -26,12 +34,38 @@ public class RulesOfInference {
     private static final String PSI = Html.fromHtml("&Psi;").toString();
     private static final String CHI = Html.fromHtml("&Chi;").toString();
 
-    public static boolean andIntroduction(SimpleNode p, SimpleNode q,
-	    SimpleNode conclusion) {
+    /**
+     * 
+     * @param p
+     *            The root node of a sentence of FOL
+     * @param q
+     *            The root node of a sentence of FOL
+     * @param conclusion
+     *            The root node of the sentence being justified
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     */
+
+    public static void andIntroduction(SimpleNode p, SimpleNode q,
+	    SimpleNode conclusion) throws Exception {
 	SimpleNode conjunction = andIntroduction(p, q);
-	return compareAST(conjunction, conclusion);
+	if (compareAST(conjunction, conclusion)) {
+	    throw new ConclusionException(
+		    "The conclusion of this rule should have the form " + PHI
+			    + AND + PSI);
+	}
+
     }
 
+    /**
+     * @param p
+     *            The root node of a sentence of FOL
+     * @param q
+     *            The root node of a sentence of FOL
+     * @return the root node of a conjunction of the given
+     *         parameters
+     */
     public static SimpleNode andIntroduction(SimpleNode p, SimpleNode q) {
 	SimpleNode conjunction = new SimpleNode(ParserTreeConstants.JJTAND);
 	conjunction.jjtAddChild(p, 0);
@@ -39,91 +73,178 @@ public class RulesOfInference {
 	return conjunction;
     }
 
+    /**
+     * @param premise
+     *            The root node of a conjunction
+     * @param conclusion
+     *            The root node of the sentence being justified
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static void andElimination1(SimpleNode premise, SimpleNode conclusion)
-	    throws Exception {
+	    throws ConclusionException, PremiseException {
 	SimpleNode leftChild = andElimination1(premise);
 	if (!compareAST(leftChild, conclusion)) {
-	    throw new Exception(
-		    "The line you are trying to justify should be the same as " + PHI);
+	    throw new ConclusionException(
+		    "The conclusion of this rule should be the same as " + PHI);
 	}
     }
 
+    /**
+     * @param premise
+     *            The root node of a conjunctive sentence of FOL
+     * @return the left child node of the given conjunction
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static SimpleNode andElimination1(SimpleNode premise)
-	    throws Exception {
+	    throws PremiseException {
 	SimpleNode leftChild = null;
 	if (premise.toString().equals(
 		ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTAND])) {
 	    leftChild = (SimpleNode) premise.jjtGetChild(0);
 	} else {
-	    throw new Exception("Justification must be a formula of the form "
+	    throw new PremiseException("Premise must be a formula of the form "
 		    + PHI + AND + PSI);
 	}
 	return leftChild;
     }
 
+    /**
+     * @param premise
+     *            The root node of a conjunction
+     * @param conclusion
+     *            The root node of the sentence being justified
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static void andElimination2(SimpleNode premise, SimpleNode conclusion)
-	    throws Exception {
+	    throws ConclusionException, PremiseException {
 	SimpleNode rightChild = andElimination2(premise);
 	if (!compareAST(rightChild, conclusion)) {
-	    throw new Exception(
-		    "The line you are trying to justify should be the same as " + PSI);
+	    throw new ConclusionException(
+		    "The conclusion of this rule should be the same as " + PSI);
 	}
     }
 
+    /**
+     * @param premise
+     *            The root node of a conjunction
+     * @return the right child node of the given conjunction
+     * @throws PremiseException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     */
     public static SimpleNode andElimination2(SimpleNode premise)
-	    throws Exception {
+	    throws PremiseException {
 	SimpleNode rightChild = null;
 	if (premise.toString().equals(
 		ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTAND])) {
 	    rightChild = (SimpleNode) premise.jjtGetChild(1);
 	} else {
-	    throw new Exception("Justification must be a formula of the form "
+	    throw new PremiseException("Premise must be a formula of the form "
 		    + PHI + AND + PSI);
 	}
 	return rightChild;
     }
 
+    /**
+     * @param premise
+     *            The root node of a sentence of FOL
+     * @param conclusion
+     *            The root node of the sentence being justified, must be a
+     *            disjunctive sentence
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static void orIntroduction1(SimpleNode premise, SimpleNode conclusion)
-	    throws Exception {
+	    throws PremiseException, ConclusionException {
 	if (!conclusion.toString().equals(
 		ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTOR])) {
-	    throw new Exception(
-		    "The line you are trying to justify should have the form "
-			    + PHI + OR + PSI);
+	    throw new ConclusionException(
+		    "The conclusion of this rule should have the form " + PHI
+			    + OR + PSI);
 	}
 	if (!compareAST(premise, (SimpleNode) conclusion.jjtGetChild(0))) {
-	    throw new Exception("The justification should be the same as "
+	    throw new PremiseException("The premise should be the same as "
 		    + PHI);
 	}
     }
 
+    /**
+     * @param premise
+     *            The root node of a sentence of FOL
+     * @param conclusion
+     *            The root node of the sentence being justified, must be a
+     *            disjunctive sentence
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static void orIntroduction2(SimpleNode premise, SimpleNode conclusion)
-	    throws Exception {
+	    throws PremiseException, ConclusionException {
 	if (!conclusion.toString().equals(
 		ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTOR])) {
-	    throw new Exception(
-		    "The line you are trying to justify should have the form "
-			    + PHI + OR + PSI);
+	    throw new ConclusionException(
+		    "The conclusion of this rule should have the form " + PHI
+			    + OR + PSI);
 	}
 	if (!compareAST(premise, (SimpleNode) conclusion.jjtGetChild(1))) {
-	    throw new Exception("The justification should have the form " + PSI);
+	    throw new PremiseException("The premise should have the form "
+		    + PSI);
 	}
     }
 
+    /**
+     * @param subproof1
+     *            A list of
+     * @param subproof2
+     *            The root node of the sentence being justified
+     * @param disjunction
+     *            The root node of a disjunction of sentences
+     * @param conclusion
+     *            The root node of the sentence being justified
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static void orElimination(List<SimpleNode> subproof1,
 	    List<SimpleNode> subproof2, SimpleNode disjunction,
-	    SimpleNode conclusion) throws Exception {
+	    SimpleNode conclusion) throws ConclusionException, PremiseException {
 	SimpleNode implied = orElimination(subproof1, subproof2, disjunction);
 	if (!compareAST(implied, conclusion)) {
-	    throw new Exception(
-		    "The line you are trying to justify should be the same as "
-			    + CHI);
+	    throw new ConclusionException(
+		    "The conclusion of this rule should be the same as " + CHI);
 	}
     }
 
+    /**
+     * @param subproof1
+     *            A subproof starting with the LHS of the disjunction
+     * @param subproof2
+     *            A subproof starting with the RHS of the disjunction and ending with the same sentence as the previous subproof
+     * @param disjunction
+     *            The root node of a disjunction of sentences
+     * @return the root node of the sentence that both subprrofs end with
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static SimpleNode orElimination(List<SimpleNode> subproof1,
 	    List<SimpleNode> subproof2, SimpleNode disjunction)
-	    throws Exception {
+	    throws PremiseException {
 	SimpleNode chi = null;
 
 	if (disjunction.toString().equals(
@@ -137,36 +258,51 @@ public class RulesOfInference {
 			subproof1.get(subproof1.size() - 1))) {
 		    chi = subproof1.get(subproof1.size() - 1);
 		} else {
-		    throw new Exception("Subproof " + PHI
+		    throw new PremiseException("Subproof " + PHI
 			    + ProofBuilderActivity.TURNSTILE + CHI
 			    + " and subproof " + PSI
 			    + ProofBuilderActivity.TURNSTILE + CHI
 			    + " must end with the same formula " + CHI);
 		}
 	    } else {
-		throw new Exception("Subproof " + PHI
+		throw new PremiseException("Subproof " + PHI
 			+ ProofBuilderActivity.TURNSTILE + CHI
 			+ " must begin with " + PHI + " and subproof " + PSI
 			+ ProofBuilderActivity.TURNSTILE + CHI
 			+ " must begin with " + PSI);
 	    }
 	} else {
-	    throw new Exception("Justification " + PHI + OR + PSI
+	    throw new PremiseException("Premise " + PHI + OR + PSI
 		    + " must be a disjunction");
 	}
 	return chi;
     }
 
+    /**
+     * @param premise
+     *            The root node of a sentence of FOL
+     * @param conclusion
+     *            The root node of the sentence being justified
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     */
     public static void impliesIntroduction(List<SimpleNode> subproof,
-	    SimpleNode conclusion) throws Exception {
+	    SimpleNode conclusion) throws ConclusionException {
 	SimpleNode implication = impliesIntroduction(subproof);
 	if (!compareAST(implication, conclusion)) {
-	    throw new Exception(
-		    "The line you are trying to justify should be of the form "
-			    + PHI + IMPLIES + PSI);
+	    throw new ConclusionException(
+		    "The conclusion of this rule should be of the form " + PHI
+			    + IMPLIES + PSI);
 	}
 
     }
+
+    /**
+     * 
+     * @param subproof Any subproof
+     * @return an implication where the LHS is the first line of the given subproof and the RHS is the last line
+     */
 
     public static SimpleNode impliesIntroduction(List<SimpleNode> subproof) {
 	SimpleNode implication = new SimpleNode(ParserTreeConstants.JJTIMPLIES);
@@ -175,83 +311,171 @@ public class RulesOfInference {
 	return implication;
     }
 
+    /**
+     * @param p
+     *            The root node of a sentence of FOL
+     * @param implication
+     *            The root node of a material implication sentence. The LHS
+     *            should be the previous argument.
+     * @param conclusion
+     *            The root node of the sentence being justified
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static void modusPonens(SimpleNode p, SimpleNode implication,
-	    SimpleNode conclusion) throws Exception {
+	    SimpleNode conclusion) throws ConclusionException, PremiseException {
 	SimpleNode q = modusPonens(p, implication);
 	if (!compareAST(q, conclusion)) {
-	    throw new Exception(
-		    "The line you are trying to justify should be the same as "
-			    + PSI);
+	    throw new ConclusionException(
+		    "The conclusion of this rule should be the same as " + PSI);
 	}
     }
 
+    /**
+     * 
+     * @param p
+     *            The root node of a sentence of FOL
+     * @param implication
+     *            The root node of a material implication sentence. The LHS
+     *            should be the previous argument.
+     * @return the RHS of the implication
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
+
     public static SimpleNode modusPonens(SimpleNode p, SimpleNode implication)
-	    throws Exception {
+	    throws PremiseException {
 	SimpleNode conclusion = null;
-	if (!(implication.toString()
-		.equals(ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTIMPLIES])
-		&& compareAST((SimpleNode) implication.jjtGetChild(0),p))) {
-	    throw new Exception("Justification must be of the form " + PHI
+	if (!(implication
+		.toString()
+		.equals(ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTIMPLIES]) && compareAST(
+		(SimpleNode) implication.jjtGetChild(0), p))) {
+	    throw new PremiseException("Premise must be of the form " + PHI
 		    + "; " + PHI + IMPLIES + PSI);
 	}
 	conclusion = (SimpleNode) implication.jjtGetChild(1);
 	return conclusion;
     }
 
+    /**
+     * @param premise
+     *            The root node of a sentence of FOL
+     * @param conclusion
+     *            The root node of the sentence being justified, should start
+     *            with a negation
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     */
     public static void negationIntroduction(List<SimpleNode> subproof,
-	    SimpleNode conclusion) throws Exception {
+	    SimpleNode conclusion) throws ConclusionException, PremiseException {
 	SimpleNode notPremise = negationIntroduction(subproof);
 	if (!compareAST(notPremise, conclusion)) {
-	    throw new Exception(
-		    "The line you are trying to justify should be "+ NOT + 
-			    PHI + " where " + PHI + " is the first line of the subproof");
+	    throw new ConclusionException(
+		    "The conclusion of this rule should be " + NOT + PHI
+			    + " where " + PHI
+			    + " is the first line of the subproof");
 	}
     }
 
+    /**
+     * 
+     * @param subproof
+     *            A list of proofsteps ending with bottom
+     * @return the negation of the first line of the subproof
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static SimpleNode negationIntroduction(List<SimpleNode> subproof)
-	    throws Exception {
+	    throws PremiseException {
 	SimpleNode notPremise = new SimpleNode(ParserTreeConstants.JJTNOT);
 	if (!subproof.get(subproof.size() - 1).toString().equals(BOTTOM)) {
-	    throw new Exception("The last line of the subproof must be "
+	    throw new PremiseException("The last line of the subproof must be "
 		    + BOTTOM);
 	}
 	notPremise.jjtAddChild(subproof.get(0), 0);
 	return notPremise;
     }
 
+    /**
+     * @param p
+     *            The root node of a sentence of FOL
+     * @param notP
+     *            The negation of the previous argument
+     * @param conclusion
+     *            The root node of the sentence being justified, should only be
+     *            bottom
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     */
     public static void negationElimination(SimpleNode p, SimpleNode notP,
-	    SimpleNode conclusion) throws Exception {
+	    SimpleNode conclusion) throws PremiseException, ConclusionException {
 	SimpleNode bottom = negationElimination(p, notP);
 	if (!compareAST(bottom, conclusion)) {
-	    throw new Exception(
-		    "The line you are trying to justify should be only "
-			    + BOTTOM);
+	    throw new ConclusionException(
+		    "The conclusion of this rule should be only " + BOTTOM);
 	}
     }
 
+    /**
+     * 
+     * @param p
+     *            The root node of a sentence of FOL
+     * @param notP
+     *            The negation of the previous argument
+     * @return bottom
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
+
     public static SimpleNode negationElimination(SimpleNode p, SimpleNode notP)
-	    throws Exception {
+	    throws PremiseException {
 	SimpleNode bottom = new SimpleNode(ParserTreeConstants.JJTPREDICATE);
 	bottom.jjtSetValue(BOTTOM);
 	if (!notP.toString().equals(
 		ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTNOT])
 		|| !compareAST((SimpleNode) notP.jjtGetChild(0), p)) {
-	    throw new Exception("Justifications must be of the form " + PHI
+	    throw new PremiseException("Premises must be of the form " + PHI
 		    + "; " + NOT + PHI);
 	}
 	return bottom;
     }
 
+    /**
+     * @param p
+     *            The root node of a sentence of FOL
+     * @param conclusion
+     *            The root node of the sentence being justified, should start
+     *            with double negation
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     */
     public static void doubleNegationIntroduction(SimpleNode p,
-	    SimpleNode conclusion) throws Exception {
+	    SimpleNode conclusion) throws ConclusionException {
 	SimpleNode doubleNegation = doubleNegationIntroduction(p);
 	if (!compareAST(doubleNegation, conclusion)) {
-	    throw new Exception(
-		    "The line you are trying to justify should be a double negation of the chosen justification "
+	    throw new ConclusionException(
+		    "The conclusion of this rule should be a double negation of the chosen justification "
 			    + PHI);
 	}
 
     }
+
+    /**
+     * 
+     * @param p
+     *            The root node of a sentence of FOL
+     * @return the premise with two negations appended to the start
+     */
 
     public static SimpleNode doubleNegationIntroduction(SimpleNode p) {
 	SimpleNode not1 = new SimpleNode(ParserTreeConstants.JJTNOT);
@@ -262,30 +486,48 @@ public class RulesOfInference {
 
     }
 
+    /**
+     * @param premise
+     *            The root node of a sentence of FOL starting with two negations
+     * @param conclusion
+     *            The root node of the sentence being justified
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static void doubleNegationElimination(SimpleNode p,
-	    SimpleNode conclusion) throws Exception {
+	    SimpleNode conclusion) throws ConclusionException, PremiseException {
 	if (!compareAST(doubleNegationElimination(p), conclusion)) {
-	    throw new Exception(
-		    "The line you are trying to justify should be the same as "
-			    + PHI);
+	    throw new ConclusionException(
+		    "The conclusion of this rule should be the same as " + PHI);
 
 	}
 
     }
 
+    /**
+     * 
+     * @param p
+     *            The root node of a sentence of FOL starting with two negations
+     * @return The premise without the first two negations
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static SimpleNode doubleNegationElimination(SimpleNode p)
-	    throws Exception {
+	    throws PremiseException {
 	if (p.jjtGetNumChildren() > 0) {
 	    p = (SimpleNode) p.jjtGetChild(0);
 	} else {
-	    throw new Exception("Justification must begin with two " + NOT
+	    throw new PremiseException("Premise must begin with two " + NOT
 		    + " symbols");
 
 	}
 	if (p.jjtGetNumChildren() > 0) {
 	    p = (SimpleNode) p.jjtGetChild(0);
 	} else {
-	    throw new Exception("Justification must begin with two " + NOT
+	    throw new PremiseException("Premise must begin with two " + NOT
 		    + " symbols");
 
 	}
@@ -293,54 +535,95 @@ public class RulesOfInference {
 
     }
 
+    /**
+     * @param premise
+     *            Bottom only
+     * @param conclusion
+     *            The root node of the sentence being justified
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static void bottomElimination(SimpleNode p, SimpleNode conclusion)
-	    throws Exception {
+	    throws PremiseException {
 	if (!p.toString().equals(BOTTOM)) {
-	    throw new Exception("Justification for Bottom Elimination must be "
-		    + BOTTOM);
+	    throw new PremiseException(
+		    "Premise for Bottom Elimination must be " + BOTTOM);
 	}
 
     }
 
+    /**
+     * @param premise
+     *            The root node of a sentence of FOL
+     * @param conclusion
+     *            The root node of the sentence being justified
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static boolean copy(SimpleNode p, SimpleNode conclusion)
-	    throws Exception {
+	    throws PremiseException {
 	if (compareAST(p, conclusion)) {
 	    return true;
 	} else {
-	    throw new Exception(
-		    "Justification must be same as selected formula");
+	    throw new PremiseException("Premise must be same as conclusion");
 	}
     }
 
+    /**
+     * 
+     * @param conclusion
+     *            The root node of the sentence being justified, must have the
+     *            form t = t
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     */
     public static void equalsIntroduction(SimpleNode conclusion)
-	    throws Exception {
+	    throws ConclusionException {
 	SimpleNode t1 = (SimpleNode) conclusion.jjtGetChild(0);
 	SimpleNode t2 = (SimpleNode) conclusion.jjtGetChild(1);
 	if (!conclusion.toString().equals(
 		ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTEQUALS])) {
-	    throw new Exception(
-		    "The line you are trying to justify must be of the form t = t");
+	    throw new ConclusionException(
+		    "The conclusion of this rule must be of the form t = t");
 	}
 	if (!compareAST(t1, t2)) {
-	    throw new Exception(
-		    "The line you are trying to justify must be of the form t = t");
+	    throw new ConclusionException(
+		    "The conclusion of this rule must be of the form t = t");
 	}
 
     }
 
+    /**
+     * 
+     * @param equals
+     *            A sentence of the form t1 = t2
+     * @param statement
+     *            A sentence of FOL, should contain t1
+     * @param variable
+     *            The free variable t1
+     * @param conclusion
+     *            The root node of the sentence being justified
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     */
     public static void equalsElimination(SimpleNode equals,
 	    SimpleNode statement, Variable variable, SimpleNode conclusion)
-	    throws Exception {
+	    throws ConclusionException, PremiseException {
 	if (!equals.toString().equals(
 		ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTEQUALS])) {
-	    throw new Exception(
-		    "Justification must must be of the form t1 = t2");
+	    throw new PremiseException(
+		    "Premise must must be of the form t1 = t2");
 	}
 	String newName = (String) ((SimpleNode) equals.jjtGetChild(1))
 		.jjtGetValue().toString();
 	if (!compareEqualsElim(statement, conclusion, variable, newName)) {
-	    throw new Exception("The line you are trying to justify should have the form "
-		    + PHI + "[" + newName + "/" + variable + "]");
+	    throw new ConclusionException(
+		    "The conclusion of this rule should have the form " + PHI
+			    + "[" + newName + "/" + variable + "]");
 	}
 
     }
@@ -386,38 +669,66 @@ public class RulesOfInference {
 	return true;
     }
 
+    /**
+     * 
+     * @param p
+     *            The final line of the subproof, should contain the introduced
+     *            variable
+     * @param variable
+     *            The introduced variable
+     * @param conclusion
+     *            The universally quantified version of the premise
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     */
+
     public static void forAllIntroduction(SimpleNode p, Variable variable,
-	    SimpleNode conclusion) throws Exception {
+	    SimpleNode conclusion) throws ConclusionException {
 	// Intro of new variable, this variable in proof
 	String origVarName = variable.getName();
 	String quantifiedVarName = ((Variable) conclusion.jjtGetValue())
 		.getName();
 	variable.setName(quantifiedVarName);
 	if (!compareAST(p, (SimpleNode) conclusion.jjtGetChild(0))) {
-	    throw new Exception(
-		    "The line you are trying to prove should have the form: "
-			    + FOR_ALL + quantifiedVarName + p);
+	    throw new ConclusionException(
+		    "The conclusion should have the form: " + FOR_ALL
+			    + quantifiedVarName + p);
 	}
 	variable.setName(origVarName);
     }
 
+    /**
+     * @param forAll
+     *            The root node of universally quantified sentence of FOL
+     * @param conclusion
+     *            The root node of the sentence being justified, should be the
+     *            unquantified version of the premise
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     */
+
     public static void forAllElimination(SimpleNode forAll,
-	    SimpleNode conclusion) throws Exception {
+	    SimpleNode conclusion) throws PremiseException, ConclusionException {
 	if (!forAll.toString().equals(
 		ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTFORALL])) {
-	    throw new Exception("Justification must start with " + FOR_ALL);
+	    throw new PremiseException("Premise must start with " + FOR_ALL);
 	}
 	Variable quantifiedVariable = ((Variable) forAll.jjtGetValue());
 	SimpleNode quantifiedFormula = (SimpleNode) forAll.jjtGetChild(0);
 	if (!compareForAllElim(quantifiedFormula, conclusion,
 		quantifiedVariable, null)) {
-	    throw new Exception("Only the quantified variable may be changed");
+	    throw new ConclusionException(
+		    "Only the quantified variable may be changed");
 	}
     }
 
     // Compares trees a and b allowing subVariable to be replace
     // with a possibly unspecified newName
-    public static boolean compareForAllElim(SimpleNode a, SimpleNode b,
+    private static boolean compareForAllElim(SimpleNode a, SimpleNode b,
 	    Variable subVariable, Variable newName) {
 	if ((a.jjtGetValue() instanceof Predicate)
 		&& (b.jjtGetValue() instanceof Predicate)) {
@@ -454,29 +765,39 @@ public class RulesOfInference {
 	return true;
     }
 
-    public static void thereExistsIntroduction(SimpleNode p,
-	    SimpleNode conclusion) throws Exception {
+    /**
+     * @param premise
+     *            The root node of a sentence of FOL
+     * @param conclusion
+     *            The root node of the sentence being justified, should begin
+     *            with an existential quantifer
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     */
+    public static void existsIntroduction(SimpleNode p, SimpleNode conclusion)
+	    throws ConclusionException {
 
 	if (!conclusion
 		.toString()
 		.equals(ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTTHEREEXISTS])) {
-	    throw new Exception(
-		    "The line you are trying to prove should be of the form: "
-			    + THERE_EXISTS + "x P(x)");
+	    throw new ConclusionException(
+		    "The conclusion should be of the form: " + THERE_EXISTS
+			    + "x P(x)");
 	}
 	Variable quantifiedVariable = (Variable) conclusion.jjtGetValue();
 	if (!compareThereExistsIntro(p, (SimpleNode) conclusion.jjtGetChild(0),
 		null, quantifiedVariable)) {
-	    throw new Exception(
-		    "The line you are trying prove should have the form: "
-			    + THERE_EXISTS + quantifiedVariable + p + "["
-			    + quantifiedVariable + "/t]");
+	    throw new ConclusionException(
+		    "The conclusion should have the form: " + THERE_EXISTS
+			    + quantifiedVariable + p + "[" + quantifiedVariable
+			    + "/t]");
 	}
     }
 
     // Compares trees a and b allowing an unspecified subVariable to be replaced
     // by quantifiedVariable
-    public static boolean compareThereExistsIntro(SimpleNode a, SimpleNode b,
+    private static boolean compareThereExistsIntro(SimpleNode a, SimpleNode b,
 	    Variable subVariable, Variable quantifiedVariable) {
 	if ((a.jjtGetValue() instanceof Predicate)
 		&& (b.jjtGetValue() instanceof Predicate)) {
@@ -513,32 +834,47 @@ public class RulesOfInference {
 	return true;
     }
 
-    public static void thereExistsElimination(SimpleNode p,
+    /**
+     * 
+     * @param p
+     *            The root node of a sentence of FOL, should be existentially
+     *            quantified
+     * @param subproof a Subproof starting with a sentence in which the existentially quantified variable of the premise is named and ends in any sentence of FOL
+     * @param variableName The name of the variable that is introduced
+     * @param conclusion
+     *            The root node of the sentence being justified
+     * @throws PremiseException
+     *             If premises are not of the correct form for this rule
+     * @throws ConclusionException
+     *             If conclusion does not follow from using rule on given
+     *             arguments
+     */
+    public static void existsElimination(SimpleNode p,
 	    ArrayList<SimpleNode> subproof, String variableName,
-	    SimpleNode conclusion) throws Exception {
+	    SimpleNode conclusion) throws PremiseException, ConclusionException {
 	if (!p.toString()
 		.equals(ParserTreeConstants.jjtNodeName[ParserTreeConstants.JJTTHEREEXISTS])) {
-	    throw new Exception("The jusitification should be of the form: "
+	    throw new PremiseException("The premise should be of the form: "
 		    + THERE_EXISTS + "x" + PHI);
 	}
 
 	Variable var = (Variable) p.jjtGetValue();
 	String quantifiedName = var.toString();
-	if (!compareThereExistsElim((SimpleNode) p.jjtGetChild(0),
-		subproof.get(0), var, variableName)) {
-	    throw new Exception(
+	if (!compareExistsElim((SimpleNode) p.jjtGetChild(0), subproof.get(0),
+		var, variableName)) {
+	    throw new PremiseException(
 		    "The first line of the subproof should be of the form "
 			    + PHI + "[" + variableName + "/" + quantifiedName
 			    + "]");
 	}
 	if (!compareAST(subproof.get(subproof.size() - 1), conclusion)) {
-	    throw new Exception(
-		    "The line you are justifying should be the same as the last line of the subproof.");
+	    throw new ConclusionException(
+		    "The conclusion should be the same as the last line of the subproof.");
 	}
     }
 
     // Compares tree a and b, allowing subVariable to be replaced with newName
-    public static boolean compareThereExistsElim(SimpleNode a, SimpleNode b,
+    private static boolean compareExistsElim(SimpleNode a, SimpleNode b,
 	    Variable subVariable, String newName) {
 	if ((a.jjtGetValue() instanceof Predicate)
 		&& (b.jjtGetValue() instanceof Predicate)) {
@@ -563,14 +899,14 @@ public class RulesOfInference {
 	}
 	int numberOfChildren = a.jjtGetNumChildren();
 	for (int i = 0; i < numberOfChildren; i++) {
-	    if (!compareThereExistsElim((SimpleNode) a.jjtGetChild(i),
+	    if (!compareExistsElim((SimpleNode) a.jjtGetChild(i),
 		    (SimpleNode) b.jjtGetChild(i), subVariable, newName))
 		return false;
 	}
 	return true;
     }
 
-    public static boolean compareAST(SimpleNode a, SimpleNode b) {
+    private static boolean compareAST(SimpleNode a, SimpleNode b) {
 	if (!a.toString().equals(b.toString())) {
 	    return false;
 	} else if (a.jjtGetNumChildren() != b.jjtGetNumChildren()) {

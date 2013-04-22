@@ -1,7 +1,6 @@
 package logic.proof.builder.gui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import logic.proof.builder.proof.ProofStep;
 import android.app.Activity;
@@ -9,10 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.RelativeLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 public class ListViewAdapter extends BaseAdapter {
@@ -44,15 +39,6 @@ public class ListViewAdapter extends BaseAdapter {
 	return 0;
     }
 
-    private class ViewHolder {
-	TextView txtFormula;
-	TextView txtJustification;
-	TextView txtLineNumber;
-	View topDivider;
-	View bottomDivider;
-	View leftDivider;
-    }
-
     public View getView(int position, View convertView, ViewGroup parent) {
 	TextView txtFormula;
 	TextView txtJustification;
@@ -64,6 +50,11 @@ public class ListViewAdapter extends BaseAdapter {
 	LayoutInflater inflater = activity.getLayoutInflater();
 	ProofStep step = list.get(position);
 
+	/*
+	 * The presentation of each line of the list view depends upon
+	 * the level of the that line e.g level 1 is a subproof, level 2 is
+	 * a subproof nested in subproof.
+	 */
 	switch (step.level) {
 	case 0:
 	    convertView = inflater.inflate(R.layout.row0, null);
@@ -83,22 +74,6 @@ public class ListViewAdapter extends BaseAdapter {
 	    break;
 	}
 
-	/*
-	 * holder = new ViewHolder(); holder.topDivider = (View) convertView
-	 * .findViewById(R.id.topDivider);
-	 * 
-	 * holder.bottomDivider = (View) convertView
-	 * .findViewById(R.id.bottomDivider);
-	 * 
-	 * holder.leftDivider = (View) convertView
-	 * .findViewById(R.id.leftDivider);
-	 * 
-	 * holder.txtFormula = (TextView) convertView
-	 * .findViewById(R.id.formulaView); holder.txtJustification = (TextView)
-	 * convertView .findViewById(R.id.justificationView);
-	 * holder.txtLineNumber = (TextView) convertView
-	 * .findViewById(R.id.lineView); convertView.setTag(holder);
-	 */
 	topDivider = (View) convertView.findViewById(R.id.topDivider);
 
 	bottomDivider = (View) convertView.findViewById(R.id.bottomDivider);
@@ -115,14 +90,22 @@ public class ListViewAdapter extends BaseAdapter {
 	txtLineNumber.setText((CharSequence) format(step.lineNumber));
 
 	if (step.level == step.parent.level) {
+	    // If not a different level to parent, then no divider 
+	    //at top needed
 	    topDivider.setVisibility(View.GONE);
 	} else {
+	    //otherwise divider is need and indentation
+	    // depends on level
 	    topDivider.setVisibility(View.VISIBLE);
 	    topDivider.setTranslationX(PADDING * step.level + 56);
 	}
 	if (!step.endOfSubproof) {
+	    // If not last line of subproof then no divider 
+	    //at bottom needed
 	    bottomDivider.setVisibility(View.INVISIBLE);
 	} else {
+	  //otherwise divider is need and indentation
+	    // depends on level
 	    bottomDivider.setVisibility(View.VISIBLE);
 	    bottomDivider.setTranslationX(PADDING * step.level + 56);
 	}
@@ -130,15 +113,9 @@ public class ListViewAdapter extends BaseAdapter {
 	if (step.introducedVariable != null) {
 	    txtVariable.setText(step.introducedVariable);
 	    txtVariable.setVisibility(View.VISIBLE);
-	    // boxDivider.setVisibility(View.VISIBLE);
-
-	    // boxDivider.setTranslationX(PADDING * step.level + 56);
-	    // boxDivider.setLayoutParams(new TableRow.LayoutParams(80,
-	    // bottomDivider.getLayoutParams().height));
 
 	} else {
 	    txtVariable.setVisibility(View.GONE);
-	    // boxDivider.setVisibility(View.GONE);
 	}
 
 	if (step.parent.introducedVariable != null) {
@@ -147,8 +124,6 @@ public class ListViewAdapter extends BaseAdapter {
 
 	}
 
-	// holder.leftDivider.setTranslationX(PADDING*step.level+10);
-	// holder.txtFormula.setTranslationX(PADDING*step.level);
 
 	return convertView;
     }

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.30)  30 MAR 2013 00:11
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.30)  23 APR 2013 00:49
 entering extended mode
 **Dissertation.tex
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Dissertation.tex
@@ -15,8 +15,8 @@ sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
 senglishmax, welsh, loaded.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\report.cls"
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\size10.clo"
-File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size12.clo"
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@chapter=\count80
@@ -89,6 +89,18 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
+("C:\Program Files\MiKTeX 2.9\tex\latex\ams\classes\amsthm.sty"
+Package: amsthm 2004/08/06 v2.20
+\thm@style=\toks19
+\thm@bodyfont=\toks20
+\thm@headfont=\toks21
+\thm@notefont=\toks22
+\thm@headpunct=\toks23
+\thm@preskip=\skip46
+\thm@postskip=\skip47
+\thm@headsep=\skip48
+\dth@everypar=\toks24
+)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\algorithms\algorithm.sty"
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
 nment
@@ -96,15 +108,15 @@ nment
 ("C:\Program Files\MiKTeX 2.9\tex\latex\float\float.sty"
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count100
-\float@exts=\toks19
+\float@exts=\toks25
 \float@box=\box28
-\@float@everytoks=\toks20
+\@float@everytoks=\toks26
 \@floatcapt=\box29
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ifthen.sty"
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
-\@float@every@algorithm=\toks21
+\@float@every@algorithm=\toks27
 \c@algorithm=\count101
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\algorithms\algorithmic.sty"
@@ -112,25 +124,25 @@ Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
-\KV@toks@=\toks22
+\KV@toks@=\toks28
 )
 \c@ALC@unique=\count102
 \c@ALC@line=\count103
 \c@ALC@rem=\count104
 \c@ALC@depth=\count105
-\ALC@tlm=\skip46
-\algorithmicindent=\skip47
+\ALC@tlm=\skip49
+\algorithmicindent=\skip50
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
-\fancy@headwidth=\skip48
-\f@ncyO@elh=\skip49
-\f@ncyO@erh=\skip50
-\f@ncyO@olh=\skip51
-\f@ncyO@orh=\skip52
-\f@ncyO@elf=\skip53
-\f@ncyO@erf=\skip54
-\f@ncyO@olf=\skip55
-\f@ncyO@orf=\skip56
+\fancy@headwidth=\skip51
+\f@ncyO@elh=\skip52
+\f@ncyO@erh=\skip53
+\f@ncyO@olh=\skip54
+\f@ncyO@orh=\skip55
+\f@ncyO@elf=\skip56
+\f@ncyO@erf=\skip57
+\f@ncyO@olf=\skip58
+\f@ncyO@orf=\skip59
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
@@ -172,23 +184,61 @@ Package: setspace 2011/12/19 v6.7a set line spacing
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\verbatim.sty"
 Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks23
-\verbatim@line=\toks24
+\every@verbatim=\toks29
+\verbatim@line=\toks30
 \verbatim@in@stream=\read1
+)
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\bussproofs.sty
+\inferLineSkip=\dimen115
+\inferLabelSkip=\dimen116
+\@LeftOffset=\dimen117
+\@RightOffset=\dimen118
+\@SavedLeftOffset=\dimen119
+\UpperWidth=\dimen120
+\LowerWidth=\dimen121
+\LowerHeight=\dimen122
+\UpperLeftOffset=\dimen123
+\UpperRightOffset=\dimen124
+\UpperCenter=\dimen125
+\LowerCenter=\dimen126
+\UpperAdjust=\dimen127
+\RuleAdjust=\dimen128
+\LowerAdjust=\dimen129
+\RuleWidth=\dimen130
+\HLabelAdjust=\dimen131
+\VLabelAdjust=\dimen132
+\WidthAdjust=\dimen133
+\@UpperPart=\box30
+\@LowerPart=\box31
+\@LabelPart=\box32
+\ResultBox=\box33
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\array.sty"
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen134
+\extrarowheight=\dimen135
+\NC@list=\toks31
+\extratabsurround=\skip60
+\backup@length=\skip61
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\color.sty"
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\placeins\placeins.sty"
+Package: placeins 2005/04/18  v 2.2
 )
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Dissertation.aux
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Frontpage.au
 x)
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Abstract.aux
 )
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Dedication.a
-ux)
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Acknowledge.
 aux)
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Declarations
-.aux)
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Sponsors.aux
-)
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Abbreviation
 s.aux)
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Notations.au
@@ -196,49 +246,57 @@ x)
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Contents.aux
 ) (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Lists.aux)
 
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter1/Chapter1.aux
-)
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/authorsasses
+ment.aux)
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter1/motivation.a
+ux)
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter1/background.a
+ux) (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter1/FOL.aux)
+
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter2/Chapter2.aux
 )
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter3/Chapter3.aux
+
+LaTeX Warning: Label `fig:Compilation' multiply defined.
+
 )
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter4/Chapter4.aux
+
+LaTeX Warning: Label `fig:Compilation' multiply defined.
+
+
+LaTeX Warning: Label `fig:Compilation' multiply defined.
+
 )
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter5/Chapter5.aux
 )
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter6/Chapter6.aux
-)
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter7/Chapter7.aux
-)
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter8/Chapter8.aux
-)
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Appendices/Appendices
 .aux))
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
  ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count108
-\scratchdimen=\dimen115
-\scratchbox=\box30
+\scratchdimen=\dimen136
+\scratchbox=\box34
 \nofMPsegments=\count109
 \nofMParguments=\count110
-\everyMPshowfont=\toks25
+\everyMPshowfont=\toks32
 \MPscratchCnt=\count111
-\MPscratchDim=\dimen116
+\MPscratchDim=\dimen137
 \MPnumerator=\count112
 \makeMPintoPDFobject=\count113
-\everyMPtoPDFconversion=\toks26
+\everyMPtoPDFconversion=\toks33
 )
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Frontpage.te
 x <Preamble/WarwickCrest.pdf, id=1, 64.24pt x 80.3pt>
@@ -258,130 +316,391 @@ roofbuilder/Literature/Template/Preamble/WarwickCrest.pdf>]
 
 
 ]
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Dedication.t
-ex [3
-
-
-])
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Acknowledge.
-tex) [4
-
-
-
-]
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Declarations
-.tex) [5
-
-
-
-]
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Sponsors.tex
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 9.
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 9.
-) [6
+tex) [3
 
 
 
 ]
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Abbreviation
-s.tex) [7
+s.tex) [4
 
 
 
 ]
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Notations.te
-x) [8
+x) [5
 
 
 
 ]
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Contents.tex
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Dissertation.toc)
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Dissertation.toc
+[6
+
+
+
+])
 \tf@toc=\write3
-)
-[9
-
-
-
-]
+) [7]
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Lists.tex
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Dissertation.lof)
 \tf@lof=\write4
 
-[10
+[8
 
 
 
 ] (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Dissertation.lot)
 \tf@lot=\write5
- [11
+[9
 
 ])
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter1/Chapter1.tex
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/authorsasses
+ment.tex) [1
+
+
+] [2]
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter1/motivation.t
+ex
 Chapter 1.
-) [1
-
-
-
-]
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter2/Chapter2.tex
-Chapter 2.
-) [2
-
-
-
-]
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter3/Chapter3.tex
-Chapter 3.
 ) [3
 
 
 
 ]
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter1/background.t
+ex
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [4
+
+
+]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ú in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ù in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ú in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ù in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ú in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ù in font cmr12!
+ [5]
+Missing character: There is no Ô in font cmr12!
+Missing character: There is no ¨ in font cmr12!
+Missing character: There is no Å in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ì in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ì in font cmr12!
+ [6])
+Overfull \hbox (4.36119pt too wide) in paragraph at lines 58--35
+[]\OT1/cmr/m/n/12 Aristotle's stu-dents Theophras-tus and Eu-de-mus con-tin-ued
+ Aris-to-tle's work
+ []
+
+[7] (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter1/FOL.tex
+[8
+
+
+] [9] [10] [11] [12] [13] [14] [15]) [16]
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter2/Chapter2.tex
+Chapter 2.
+[17
+
+
+
+] <Images/TDD.png, id=97, 704.6325pt x 769.87625pt>
+File: Images/TDD.png Graphic file (type png)
+ <use Images/TDD.png>
+Package pdftex.def Info: Images/TDD.png used on input line 35.
+(pdftex.def)             Requested size: 350.99762pt x 383.49225pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 43.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 43.
+ [18]
+Overfull \hbox (0.142pt too wide) in paragraph at lines 54--55
+\OT1/cmr/m/n/12 To as-sist the in the pro-cess of TDD I utilised the tools of J
+U-nit and Robotium.
+ []
+
+[19 <C:/Users/rhys/workspace/proofbuilder/Literature/Template/Images/TDD.png>]
+[20] [21] <Images/smartphones.png, id=112, 494.59781pt x 295.85532pt>
+File: Images/smartphones.png Graphic file (type png)
+
+<use Images/smartphones.png>
+Package pdftex.def Info: Images/smartphones.png used on input line 98.
+(pdftex.def)             Requested size: 350.99762pt x 209.9549pt.
+ [22 <C:/Users/rhys/workspace/proofbuilder/Literature/Template/Images/smartphon
+es.png>]
+<Images/platform.png, id=117, 501.875pt x 401.5pt>
+File: Images/platform.png Graphic file (type png)
+ <use Images/platform.png>
+Package pdftex.def Info: Images/platform.png used on input line 135.
+(pdftex.def)             Requested size: 350.99762pt x 280.80914pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) [23] [24 <C:/Users/rhys/workspace/proofbuilder/Literature/Template/Images/pla
+tform.png (PNG copy)>]
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter3/Chapter3.tex
+Chapter 3.
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ú in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ù in font cmr12!
+[25
+
+
+
+] <Images/formulachecker.png, id=127, 963.6pt x 542.025pt>
+File: Images/formulachecker.png Graphic file (type png)
+
+<use Images/formulachecker.png>
+Package pdftex.def Info: Images/formulachecker.png used on input line 27.
+(pdftex.def)             Requested size: 350.99762pt x 197.43634pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[26]
+Underfull \hbox (badness 10000) in paragraph at lines 63--66
+
+ []
+
+[27 <C:/Users/rhys/workspace/proofbuilder/Literature/Template/Images/formulache
+cker.png>] [28]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ¶ in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ¶ in font cmr12!
+
+Overfull \hbox (2.89883pt too wide) in paragraph at lines 103--104
+[]\OT1/cmr/m/n/12 Let $\OML/cmm/m/it/12 a[]; a[]; :::; a[]$ \OT1/cmr/m/n/12 and
+ $\OML/cmm/m/it/12 b[]; b[]; ; b[]$ \OT1/cmr/m/n/12 be se-quences of ter-mi-nal
+s and non-terminals
+ []
+
+Missing character: There is no Œ in font cmr12!
+Missing character: There is no µ in font cmr12!
+Missing character: There is no Œ in font cmr12!
+Missing character: There is no µ in font cmr12!
+[29] [30]
+Underfull \hbox (badness 10000) in paragraph at lines 181--200
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--200
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--200
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--200
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--200
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--200
+
+ []
+
+[31] <Images/compilation.png, id=150, 569.12625pt x 212.795pt>
+File: Images/compilation.png Graphic file (type png)
+
+<use Images/compilation.png>
+Package pdftex.def Info: Images/compilation.png used on input line 226.
+(pdftex.def)             Requested size: 350.99762pt x 131.24316pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[32] [33 <C:/Users/rhys/workspace/proofbuilder/Literature/Template/Images/compi
+lation.png>] [34]) [35]
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter4/Chapter4.tex
 Chapter 4.
-) [4
+[36
 
 
 
-]
+] <Images/sampleproof.png, id=168, 963.6pt x 542.025pt>
+File: Images/sampleproof.png Graphic file (type png)
+
+<use Images/sampleproof.png>
+Package pdftex.def Info: Images/sampleproof.png used on input line 102.
+(pdftex.def)             Requested size: 350.99762pt x 197.43634pt.
+ [37 <C:/Users/rhys/workspace/proofbuilder/Literature/Template/Images/samplepro
+of.png>] [38]
+<Images/justification.png, id=175, 963.6pt x 542.025pt>
+File: Images/justification.png Graphic file (type png)
+
+<use Images/justification.png>
+Package pdftex.def Info: Images/justification.png used on input line 160.
+(pdftex.def)             Requested size: 350.99762pt x 197.43634pt.
+ [39 <C:/Users/rhys/workspace/proofbuilder/Literature/Template/Images/justifica
+tion.png>]
+Overfull \hbox (5.53905pt too wide) in paragraph at lines 178--179
+[]\OT1/cmr/m/n/12 Subsequently, the method will then eval-u-ate the ROI on the 
+given premises.
+ []
+
+[40]
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--209
+[]\OT1/cmr/m/it/12 doubleNegationElimination
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 235--239
+[]\OT1/cmr/m/it/12 doubleNegationElimination
+ []
+
+
+Overfull \hbox (128.52493pt too wide) in paragraph at lines 235--239
+\OT1/cmtt/m/n/12 logic.proof.builder.parser.SimpleNode  \OT1/cmr/bx/n/12 p\OT1/
+cmtt/m/n/12 , logic.proof.builder.parser.SimpleNode
+ []
+
+
+Overfull \hbox (2.47446pt too wide) in paragraph at lines 258--260
+[]\OT1/cmtt/m/n/12 logic.proof.builder.exceptions.ConclusionException \OT1/cmr/
+m/n/12 -
+ []
+
+[41]
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 579--579
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+
+ []
+
+[42]
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+[]\OT1/cmr/m/it/12 Proof
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+[]\OT1/cmr/m/it/12 addStepAsEndOfSubproof
+ []
+
+
+Overfull \hbox (140.30542pt too wide) in paragraph at lines 579--579
+\OT1/cmtt/m/n/12 public ProofStep \OT1/cmr/bx/n/12 addStepAsEnd-Of-Sub-proof\OT
+1/cmtt/m/n/12 ( logic.proof.builder.parser.SimpleNode
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+[]\OT1/cmr/m/it/12 addStepAsNewLine
+ []
+
+
+Overfull \hbox (100.65265pt too wide) in paragraph at lines 579--579
+\OT1/cmtt/m/n/12 public ProofStep \OT1/cmr/bx/n/12 addStepAs-New-Line\OT1/cmtt/
+m/n/12 ( logic.proof.builder.parser.SimpleNode
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+[]\OT1/cmr/m/it/12 addStepAsStartOfSubproof
+ []
+
+
+Overfull \hbox (146.5207pt too wide) in paragraph at lines 579--579
+\OT1/cmtt/m/n/12 public ProofStep \OT1/cmr/bx/n/12 addStepAsStartOf-Sub-proof\O
+T1/cmtt/m/n/12 ( logic.proof.builder.parser.SimpleNode
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+[]\OT1/cmr/m/it/12 addVar
+ []
+
+[43]
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+[]\OT1/cmr/m/it/12 addVar
+ []
+
+
+Overfull \hbox (3.37761pt too wide) in paragraph at lines 579--579
+\OT1/cmtt/m/n/12 public ProofStep \OT1/cmr/bx/n/12 ad-dVar\OT1/cmtt/m/n/12 ( ja
+va.lang.String  \OT1/cmr/bx/n/12 in-tro-duced-Vari-
+ []
+
+
+Overfull \hbox (83.65128pt too wide) in paragraph at lines 579--579
+\OT1/cmr/bx/n/12 able\OT1/cmtt/m/n/12 , logic.proof.builder.parser.SimpleNode  
+\OT1/cmr/bx/n/12 rootN-ode\OT1/cmtt/m/n/12 , java.lang.String
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+[]\OT1/cmr/m/it/12 getCurrentLevel
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+[]\OT1/cmr/m/it/12 getLines
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 579--579
+[]\OT1/cmr/m/it/12 removeStep
+ []
+
+) [44]
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter5/Chapter5.tex
 Chapter 5.
-) [5
+) [45
 
 
 
 ]
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter6/Chapter6.tex
-Chapter 6.
-) [6
-
-
-
-]
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter7/Chapter7.tex
-Chapter 7.
-) [7
-
-
-
-]
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter8/Chapter8.tex
-Chapter 8.
-) [8
-
-
-
-]
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Dissertation.bbl
-
-LaTeX Warning: Empty `thebibliography' environment on input line 3.
-
-) [9
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Dissertation.bbl)
+[46
 
 
 ]
@@ -392,14 +711,8 @@ LaTeX Warning: Empty `thebibliography' environment on input line 3.
 x)
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Abstract.aux
 )
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Dedication.a
-ux)
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Acknowledge.
 aux)
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Declarations
-.aux)
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Sponsors.aux
-)
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Abbreviation
 s.aux)
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Notations.au
@@ -407,8 +720,13 @@ x)
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Contents.aux
 ) (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/Lists.aux)
 
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter1/Chapter1.aux
-)
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Preamble/authorsasses
+ment.aux)
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter1/motivation.a
+ux)
+(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter1/background.a
+ux) (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter1/FOL.aux)
+
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter2/Chapter2.aux
 )
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter3/Chapter3.aux
@@ -417,31 +735,38 @@ x)
 )
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter5/Chapter5.aux
 )
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter6/Chapter6.aux
-)
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter7/Chapter7.aux
-)
-(C:\Users\rhys\workspace\proofbuilder\Literature\Template\Chapter8/Chapter8.aux
-)
 (C:\Users\rhys\workspace\proofbuilder\Literature\Template\Appendices/Appendices
-.aux)) ) 
+.aux))
+
+LaTeX Warning: There were multiply-defined labels.
+
+ )
+(\end occurred inside a group at level 1)
+
+### simple group (level 1) entered at line 72 ({)
+### bottom level 
 Here is how much of TeX's memory you used:
- 2553 strings out of 494045
- 40957 string characters out of 3148390
- 181915 words of memory out of 3000000
- 5678 multiletter control sequences out of 15000+200000
- 5614 words of font info for 21 fonts, out of 3000000 for 9000
+ 2884 strings out of 494045
+ 44263 string characters out of 3148390
+ 188950 words of memory out of 3000000
+ 5995 multiletter control sequences out of 15000+200000
+ 11645 words of font info for 41 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 27i,5n,43p,250b,203s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Prog
-ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program File
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/
-type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on Dissertation.pdf (20 pages, 103735 bytes).
+ 27i,13n,43p,924b,416s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmb
+x12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
+><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pf
+b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on Dissertation.pdf (55 pages, 579251 bytes).
 PDF statistics:
- 97 PDF objects out of 1000 (max. 8388607)
+ 244 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

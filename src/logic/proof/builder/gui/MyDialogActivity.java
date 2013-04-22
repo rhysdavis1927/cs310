@@ -1,11 +1,8 @@
 package logic.proof.builder.gui;
 
-import logic.proof.builder.parser.ParserConstants;
-import logic.proof.builder.parser.Token;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,6 +17,7 @@ public class MyDialogActivity extends Activity {
 
 	type = getIntent().getIntExtra("Type", 0);
 
+	// Customises the look of the dialog depending on request type
 	switch (type) {
 	case InputSentenceActivity.ADD_NEW_PREDICATE:
 	    setTitle("Add new predicate");
@@ -43,6 +41,11 @@ public class MyDialogActivity extends Activity {
 	EditText input;
 	String value;
 	Intent intent = new Intent();
+	/*
+	 * Different validation is used depending upon the request type.
+	 * when validation is passed result is returned to the calling 
+	 * activity.
+	 */
 	switch (type) {
 	case InputSentenceActivity.ADD_NEW_PREDICATE:
 	    input = (EditText) findViewById(R.id.txtPredicate);
@@ -108,8 +111,4 @@ public class MyDialogActivity extends Activity {
 	setResult(RESULT_CANCELED);
 	finish();
     }
-    /*
-     * @Override public boolean onCreateOptionsMenu(Menu menu) {
-     * getMenuInflater().inflate(R.menu.activity_dialog, menu); return true; }
-     */
 }

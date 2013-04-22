@@ -1,17 +1,71 @@
 \contentsline {chapter}{Abstract}{ii}
-\contentsline {chapter}{Dedication}{iii}
-\contentsline {chapter}{Acknowledgements}{iv}
-\contentsline {chapter}{Declarations}{v}
-\contentsline {chapter}{Sponsorship and Grants}{vi}
-\contentsline {chapter}{Abbreviations}{vii}
-\contentsline {chapter}{Notations}{viii}
-\contentsline {chapter}{List of Figures}{x}
-\contentsline {chapter}{List of Tables}{xi}
-\contentsline {chapter}{\numberline {1}Chapter Title}{1}
-\contentsline {chapter}{\numberline {2}Chapter Title}{2}
-\contentsline {chapter}{\numberline {3}Chapter Title}{3}
-\contentsline {chapter}{\numberline {4}Chapter Title}{4}
-\contentsline {chapter}{\numberline {5}Chapter Title}{5}
-\contentsline {chapter}{\numberline {6}Chapter Title}{6}
-\contentsline {chapter}{\numberline {7}Chapter Title}{7}
-\contentsline {chapter}{\numberline {8}Chapter Title}{8}
+\contentsline {chapter}{Acknowledgements}{iii}
+\contentsline {chapter}{Abbreviations}{iv}
+\contentsline {chapter}{Notations}{v}
+\contentsline {chapter}{List of Figures}{viii}
+\contentsline {chapter}{List of Tables}{ix}
+\contentsline {section}{\numberline {0.1}Author's assessment of the project}{1}
+\contentsline {chapter}{\numberline {1}Introduction}{3}
+\contentsline {section}{\numberline {1.1}Motivation}{3}
+\contentsline {section}{\numberline {1.2}Background}{4}
+\contentsline {section}{\numberline {1.3}FOL explained}{8}
+\contentsline {subsection}{\numberline {1.3.1}Syntax}{8}
+\contentsline {subsection}{\numberline {1.3.2}Deductive System}{11}
+\contentsline {subsection}{\numberline {1.3.3}Rules}{12}
+\contentsline {subsubsection}{Conjunction Introduction}{12}
+\contentsline {subsubsection}{Conjunction Elimination}{12}
+\contentsline {subsubsection}{Disjunction Introduction}{12}
+\contentsline {subsubsection}{Disjunction Elimination}{13}
+\contentsline {subsubsection}{Implies Introduction}{13}
+\contentsline {subsubsection}{Implies Elimination}{13}
+\contentsline {subsubsection}{Negation Introduction}{13}
+\contentsline {subsubsection}{Negation Elimination}{14}
+\contentsline {subsubsection}{Double Negation Introduction}{14}
+\contentsline {subsubsection}{Double Negation Elimination}{14}
+\contentsline {subsubsection}{Bottom Elimination}{14}
+\contentsline {subsubsection}{Copy}{14}
+\contentsline {subsubsection}{Equals Introduction}{15}
+\contentsline {subsubsection}{Equals Elimination}{15}
+\contentsline {subsubsection}{Universal Quantifier Introduction}{15}
+\contentsline {subsubsection}{ Universal Quantifier Elimination}{15}
+\contentsline {subsubsection}{Existential Quantifier Introduction}{15}
+\contentsline {subsubsection}{Existential Quantifier Elimination}{16}
+\contentsline {chapter}{\numberline {2}Project management}{17}
+\contentsline {section}{\numberline {2.1}Test Driven Development}{17}
+\contentsline {subsection}{\numberline {2.1.1}Process}{17}
+\contentsline {subsection}{\numberline {2.1.2}Advantages of Test Driven Development}{18}
+\contentsline {subsection}{\numberline {2.1.3}Tools used}{19}
+\contentsline {section}{\numberline {2.2}Prioritisation}{20}
+\contentsline {section}{\numberline {2.3}Project management tools}{21}
+\contentsline {subsection}{\numberline {2.3.1}Trello}{21}
+\contentsline {subsection}{\numberline {2.3.2}Git}{21}
+\contentsline {section}{\numberline {2.4}Justification of the choosing the Android platform}{22}
+\contentsline {subsection}{\numberline {2.4.1}Choosing a mobile solution}{22}
+\contentsline {subsection}{\numberline {2.4.2}Choosing a native solution}{23}
+\contentsline {subsection}{\numberline {2.4.3}Choosing the Android platform}{23}
+\contentsline {chapter}{\numberline {3}Formula checker}{25}
+\contentsline {section}{\numberline {3.1}User interface}{25}
+\contentsline {section}{\numberline {3.2}Parser}{26}
+\contentsline {subsection}{\numberline {3.2.1}Predictive parsing}{27}
+\contentsline {subsection}{\numberline {3.2.2}Operator precedence}{28}
+\contentsline {subsection}{\numberline {3.2.3}Eliminating left recursion}{28}
+\contentsline {subsection}{\numberline {3.2.4}Resolving FIRST/FOLLOW conflicts}{29}
+\contentsline {subsection}{\numberline {3.2.5}LL(1) grammar}{31}
+\contentsline {subsection}{\numberline {3.2.6}Implementation}{31}
+\contentsline {subsection}{\numberline {3.2.7}Abstract Syntax Tree}{32}
+\contentsline {section}{\numberline {3.3}Bound and free variables}{34}
+\contentsline {chapter}{\numberline {4}Proof Builder}{36}
+\contentsline {section}{\numberline {4.1}User interface}{36}
+\contentsline {subsection}{\numberline {4.1.1}Proof thingy}{36}
+\contentsline {subsection}{\numberline {4.1.2}Button bar}{37}
+\contentsline {subsubsection}{New line}{37}
+\contentsline {subsection}{\numberline {4.1.3}Justifying a line}{39}
+\contentsline {section}{\numberline {4.2}Rules of Inference}{40}
+\contentsline {subsection}{\numberline {4.2.1}API}{40}
+\contentsline {section}{\numberline {4.3}Proof structure}{42}
+\contentsline {subsection}{\numberline {4.3.1}{\bf {\sc Class} Proof}}{42}
+\contentsline {subsubsection}{\sc Declaration}{42}
+\contentsline {subsubsection}{\sc Fields}{42}
+\contentsline {subsubsection}{\sc Constructors}{43}
+\contentsline {subsubsection}{\sc Methods}{43}
+\contentsline {chapter}{\numberline {5}Chapter Title}{45}

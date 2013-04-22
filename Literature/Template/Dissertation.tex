@@ -1,6 +1,7 @@
-\documentclass[pdftex,10pt,a4paper,oneside]{report}
+\documentclass[pdftex,12pt,a4paper,oneside]{report}
 
 \usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{fancyhdr}
@@ -9,28 +10,35 @@
 \usepackage{multirow}
 \usepackage{setspace}
 \usepackage{verbatim}
+\usepackage{bussproofs}
+\usepackage{array}
+\usepackage{ifthen}
+\usepackage{color}
+\usepackage{float}
+\usepackage[section]{placeins}
+\newtheorem*{FIRST}{Definition}
+\newtheorem*{FOLLOW}{Definition}
+\newtheorem*{FIRST+}{Definition}
 
 \begin{document}
 
 \include{Preamble/Frontpage}
 \include{Preamble/Abstract}
-\include{Preamble/Dedication}
 \include{Preamble/Acknowledge}
-\include{Preamble/Declarations}
-\include{Preamble/Sponsors}
 \include{Preamble/Abbreviations}
 \include{Preamble/Notations}
 \include{Preamble/Contents}
 \include{Preamble/Lists}
+\include{Preamble/authorsassesment}
 
-\include{Chapter1/Chapter1}
+\include{Chapter1/motivation}
+\include{Chapter1/background}
+\include{Chapter1/FOL}
 \include{Chapter2/Chapter2}
 \include{Chapter3/Chapter3}
 \include{Chapter4/Chapter4}
 \include{Chapter5/Chapter5}
-\include{Chapter6/Chapter6}
-\include{Chapter7/Chapter7}
-\include{Chapter8/Chapter8}
+
 
 \bibliographystyle{abbrv}
 \bibliography{bibliography}

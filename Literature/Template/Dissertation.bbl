@@ -1,3 +1,75 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{10}
+
+\bibitem{aristotle2004prior}
+Aristotle.
+\newblock {\em Prior Analytics}.
+\newblock Kessinger Publishing, 2004.
+
+\bibitem{barker2011language}
+D.~Barker-Plummer, J.~Barwise, J.~Etchemendy, and A.~Liu.
+\newblock {\em Language, Proof and Logic [With Software]}.
+\newblock CSLI Publications, 2011.
+
+\bibitem{cantone2001set}
+D.~Cantone, E.~Omodeo, and A.~Policriti.
+\newblock {\em Set Theory for Computing: From Decision Procedures to
+  Declarative Programming with Sets}.
+\newblock Monographs in Computer Science. Springer, 2001.
+
+\bibitem{cooper2011engineering}
+K.~Cooper and L.~Torczon.
+\newblock {\em Engineering a Compiler}.
+\newblock Elsevier Science, 2011.
+
+\bibitem{Ferreiros01}
+J.~Ferreiros.
+\newblock {\em The Road to Modern Logic-An Interpretation}.
+\newblock The Bulletin of Symbolic Logic, Vol. 7, No. 4, 2001.
+
+\bibitem{sep-principia-mathematica}
+A.~D. Irvine.
+\newblock Principia mathematica.
+\newblock In E.~N. Zalta, editor, {\em The Stanford Encyclopedia of
+  Philosophy}. Winter 2010 edition, 2010.
+
+\bibitem{KingShapiro95}
+P.~King and S.~Shapiro.
+\newblock Oxford Companion to Philosophy (Oxford University Press), 1995.
+
+\bibitem{kneale1962developments}
+W.~Kneale and M.~Kneale.
+\newblock {\em The Developments of Logic}.
+\newblock Oxford University Press, 1962.
+
+\bibitem{venture-beat}
+J.~Koetsier.
+\newblock Android captured almost 70\% global smartphone market share in 2012,
+  apple just under 20\%.
+
+\bibitem{ofcom}
+Ofcom.
+\newblock Internet and web-based content.
+
+\bibitem{sep-leibniz-logic-influence}
+V.~Peckhaus.
+\newblock Leibniz\'s influence on 19th century logic.
+\newblock In E.~N. Zalta, editor, {\em The Stanford Encyclopedia of
+  Philosophy}.
+
+\bibitem{salmon2007introduction}
+M.~Salmon.
+\newblock {\em Introduction to Logic And Critical Thinking}.
+\newblock Thomson Wadsworth, 2007.
+
+\bibitem{sep-aristotle-logic}
+R.~Smith.
+\newblock Aristotle\'s logic.
+\newblock In E.~N. Zalta, editor, {\em The Stanford Encyclopedia of
+  Philosophy}. Spring 2012 edition, 2012.
+
+\bibitem{wolfgang1999mentality}
+K.~Wolfgang and W.~K{\"o}hler.
+\newblock {\em The Mentality of Apes}.
+\newblock Number v. 3 in International Library of Psychology. Routledge, 1999.
 
 \end{thebibliography}

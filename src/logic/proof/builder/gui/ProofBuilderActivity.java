@@ -1,20 +1,16 @@
 package logic.proof.builder.gui;
 
 import logic.proof.builder.parser.Parser;
-import logic.proof.builder.parser.ParserConstants;
 import logic.proof.builder.parser.ParserState;
 import logic.proof.builder.parser.SimpleNode;
-import logic.proof.builder.parser.Token;
 import logic.proof.builder.proof.Proof;
 import logic.proof.builder.proof.ProofStep;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +21,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class ProofBuilderActivity extends Activity {
@@ -39,7 +34,7 @@ public class ProofBuilderActivity extends Activity {
     private static final int NEW_SUBPROOF = 2;
     private static final int END_SUBPROOF = 3;
     private static final int CHANGE_JUSTIFICATION = 4;
-    public static final String TURNSTILE = "  |—  ";// Html.fromHtml("&#8872;").toString();
+    public static final String TURNSTILE = "  |—  ";
     protected static final int INTRODUCE_VARIABLE = 0;
     private static ListViewAdapter adapter;
     private ProofStep proofStep;
@@ -52,17 +47,22 @@ public class ProofBuilderActivity extends Activity {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_proof_builder);
 	alert = new AlertDialog.Builder(this);
-	proof = new Proof(this);
+	proof = new Proof();
 
 	intent = new Intent(this, InputSentenceActivity.class);
 
 	proofList = (ListView) findViewById(R.id.proofList);
 
+	/*
+	 * Allows user to touch change justification of a line 
+	 * by touching the line. A new activity is started and 
+	 * the line number is communicate via an intent
+	 */
 	proofList.setOnItemClickListener(new OnItemClickListener() {
 	    public void onItemClick(AdapterView<?> parent, View view,
 		    int position, long id) {
-		if (!(proof.lines.get(position).justification.equals("")
-			|| proof.lines.get(position).justification.equals("Assumption"))) {
+		if (!(proof.getLines().get(position).justification.equals("")
+			|| proof.getLines().get(position).justification.equals("Assumption"))) {
 
 		    position++;
 		    Intent chooseRule = new Intent(getBaseContext(),
@@ -74,7 +74,7 @@ public class ProofBuilderActivity extends Activity {
 	    }
 	});
 
-	adapter = new ListViewAdapter(this, proof.lines);
+	adapter = new ListViewAdapter(this, proof.getLines());
 	proofList.setAdapter(adapter);
 
     }
@@ -96,15 +96,20 @@ public class ProofBuilderActivity extends Activity {
     }
 
     public void newFormula(View view) {
+	// Starts formula checker activity, communicates that
+	// a new line is being added via the intent
 	startActivityForResult(intent, NEW_LINE);
     }
 
     public void newSubproof(View view) {
+	// Starts formula checker activity, communicates that
+	// a new subproof is being started via the intent
 	startActivityForResult(intent, NEW_SUBPROOF);
     }
 
     public void endSubproof(View view) {
-	if (proof.currentLevel > 0) {
+	//Closes a subproof if there is one to close
+	if (proof.getCurrentLevel() > 0) {
 	    startActivityForResult(intent, END_SUBPROOF);
 	} else {
 	    Toast.makeText(this, "There are no open subproofs to close",
@@ -113,7 +118,8 @@ public class ProofBuilderActivity extends Activity {
     }
 
     public void deleteLine(View view) {
-	if (proof.lines.size() == 0) {
+	//removes last line
+	if (proof.getLines().size() == 0) {
 	    Toast.makeText(this, "There is nothing to delete",
 		    Toast.LENGTH_SHORT).show();
 	} else {
@@ -164,17 +170,22 @@ public class ProofBuilderActivity extends Activity {
 	alert.setView(null);
 	// set title
 	alert.setTitle("Proof checker");
+	
+	/*
+	 * Checks all getLines() are justified and all subproofs are
+	 * closed. Prints premises semantically entail the conclusion.
+	 */
 
-	if (proof.lines.size() == 0) {
+	if (proof.getLines().size() == 0) {
 	    alert.setMessage("Nothing to check.");
 	    correct = false;
 	} else {
 
-	    if (proof.lines.get(proof.lines.size() - 1).level != 0) {
+	    if (proof.getLines().get(proof.getLines().size() - 1).level != 0) {
 		alert.setMessage("All subproofs must be closed to check proof.");
 		correct = false;
 	    } else {
-		for (ProofStep s : proof.lines) {
+		for (ProofStep s : proof.getLines()) {
 		    if (s.justification == "No justification given") {
 			alert.setMessage("Line " + s.lineNumber
 				+ " has not been justified.");
@@ -186,7 +197,7 @@ public class ProofBuilderActivity extends Activity {
 		}
 	    }
 	}
-	if (premises == proof.lines.size()) {
+	if (premises == proof.getLines().size()) {
 	    alert.setMessage("Nothing to check.");
 	    correct = false;
 	}
@@ -195,13 +206,13 @@ public class ProofBuilderActivity extends Activity {
 	    strb = new StringBuilder(
 		    "Congratulations, you have succesfully proved: ");
 	    if (premises > 0) {
-		strb.append(proof.lines.get(0).formula);
+		strb.append(proof.getLines().get(0).formula);
 	    }
 	    for (int i = 1; i < premises; i++) {
-		strb.append(", " + proof.lines.get(i).formula);
+		strb.append(", " + proof.getLines().get(i).formula);
 	    }
 	    strb.append(TURNSTILE);
-	    strb.append(proof.lines.get(proof.lines.size() - 1).formula);
+	    strb.append(proof.getLines().get(proof.getLines().size() - 1).formula);
 
 	    alert.setMessage(strb.toString());
 	}
@@ -220,6 +231,12 @@ public class ProofBuilderActivity extends Activity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	/*
+	 * Receives data via an intent. requestCode is used to identify
+	 * what data is being received and why.
+	 */
+	
+	
 	if (requestCode == NEW_LINE) {
 	    if (resultCode == RESULT_OK) {
 		SimpleNode rootNode = (SimpleNode) ParserState.getTree();
@@ -250,7 +267,7 @@ public class ProofBuilderActivity extends Activity {
 	} else if (requestCode == CHANGE_JUSTIFICATION) {
 	    if (resultCode == RESULT_OK) {
 		String justification = data.getStringExtra("justification");
-		proof.lines.get(lineNumber - 1).justification = justification;
+		proof.getLines().get(lineNumber - 1).justification = justification;
 		adapter.notifyDataSetChanged();
 	    }
 	} else if (requestCode == INTRODUCE_VARIABLE) {

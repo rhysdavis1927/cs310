@@ -4,22 +4,58 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import android.content.Context;
-import android.widget.ArrayAdapter;
-
-import logic.proof.builder.parser.Predicate;
 import logic.proof.builder.parser.SimpleNode;
 
-
+/**
+ * Stores all data necessary to construct a proof. Simple Methods are provided to manipulate
+ * the proof such as adding or deleting lines.
+ * @author rhys
+ */
 public class Proof {
 
-    Stack<ProofStep> parents;
-    public ArrayList<ProofStep> lines;
-    public int currentLevel;
-    public ArrayList<String> predicates;
+    private Stack<ProofStep> parents;
+    /**
+     * The ordered list of proofsteps
+     */
+    private ArrayList<ProofStep> lines;
+    /**
+     * The number of subproofs currently open
+     */
+    private int currentLevel;
 
-    public Proof(Context context) {
+    /**
+     * Returns the ordered list of proofsteps
+     * 
+     * @return the ordered list of proofsteps
+     */
+    public ArrayList<ProofStep> getLines() {
+	return lines;
+    }
+
+    /**
+     * Returns the number of subproofs currently open
+     * 
+     * @return the number of subproofs currently open
+     */
+    public int getCurrentLevel() {
+	return currentLevel;
+    }
+
+    /**
+     * A list of all the named predicates in the proof. Used to populate the
+     * predicate list.
+     */
+    public List<String> predicates;
+
+    /**
+     * Default constructor. Constructs an empty proof
+     * 
+     */
+
+    public Proof() {
 	predicates = new ArrayList<String>();
+
+	// commonly used predicates
 	predicates.add("P");
 	predicates.add("P(x)");
 	predicates.add("P(y)");
@@ -29,27 +65,44 @@ public class Proof {
 	predicates.add("Q(x,y)");
 	lines = new ArrayList<ProofStep>();
 	parents = new Stack<ProofStep>();
-	ProofStep rootNode = new ProofStep(new SimpleNode(0),0,0,"");
+	ProofStep rootNode = new ProofStep(new SimpleNode(0), 0, 0, "");
 	parents.add(rootNode);
-	currentLevel =0;
-	rootNode.justification= "root node";
+	currentLevel = 0;
+	rootNode.justification = "root node";
     }
 
-    public ProofStep addStepAsNewLine(SimpleNode node,String formula) {
+    /**
+     * The default method to add a new proofstep to the proof
+     * 
+     * @param node
+     *            Root node of the sentence of the proofstep
+     * @param formula
+     *            String representation of the sentence
+     * @return Returns the proofstep that has been added
+     */
+    public ProofStep addStepAsNewLine(SimpleNode node, String formula) {
 	ProofStep parentNode = parents.pop();
-	ProofStep l = new ProofStep(node,lines.size(),currentLevel,formula);
-	lines.add(l);	
+	ProofStep l = new ProofStep(node, lines.size(), currentLevel, formula);
+	lines.add(l);
 	l.parent = parentNode;
 	parentNode.next = l;
 	parents.push(l);
 	return l;
     }
 
-    public ProofStep addStepAsStartOfSubproof(SimpleNode node,String formula) {
+    /**
+     * Adds a new proofstep that is the start of a subproof
+     * 
+     * @param node
+     *            Root node of the sentence of the proofstep
+     * @param formula
+     *            String representation of the sentence
+     * @return Returns the proofstep that has been added
+     */
+    public ProofStep addStepAsStartOfSubproof(SimpleNode node, String formula) {
 	ProofStep parentNode = parents.peek();
-	ProofStep l = new ProofStep(node,lines.size(),
-		++currentLevel, formula);
-	lines.add(l);	
+	ProofStep l = new ProofStep(node, lines.size(), ++currentLevel, formula);
+	lines.add(l);
 	l.parent = parentNode;
 	parentNode.subproofs.add(l);
 	parents.push(l);
@@ -57,59 +110,87 @@ public class Proof {
 	return l;
     }
 
-    public ProofStep addStepAsEndOfSubproof(SimpleNode node,String formula) {
+    /**
+     * Adds a new proofstep that is the last line of a subproof
+     * 
+     * @param node
+     *            Root node of the sentence of the proofstep
+     * @param formula
+     *            String representation of the sentence
+     * @return Returns the proofstep that has been added
+     */
+
+    public ProofStep addStepAsEndOfSubproof(SimpleNode node, String formula) {
 	ProofStep parentNode = parents.pop();
-	ProofStep l = new ProofStep(node,lines.size(),currentLevel--,formula);
-	lines.add(l);	
+	ProofStep l = new ProofStep(node, lines.size(), currentLevel--, formula);
+	lines.add(l);
 	parentNode.next = l;
 	l.parent = parentNode;
-	l.endOfSubproof=true;
+	l.endOfSubproof = true;
 	return l;
     }
-    
+
+    /**
+     * Add a new proofstep which introduces a boxed variable
+     * 
+     * @param var
+     *            The name of the variable being introduced
+     * @return Returns the proofstep that has been added
+     */
+
     public ProofStep addVar(String var) {
 	ProofStep parentNode = parents.peek();
-	ProofStep l = new ProofStep(var,lines.size(),
-		++currentLevel);
-	lines.add(l);	
+	ProofStep l = new ProofStep(var, lines.size(), ++currentLevel);
+	lines.add(l);
 	l.parent = parentNode;
 	parentNode.subproofs.add(l);
 	parents.push(l);
 	return l;
-       }
-       
+    }
 
+    /**
+     * Add a new proofstep which introduces a boxed variable alongside an
+     * assumption
+     * 
+     * @param introducedVariable
+     *            The name of the variable being introduced
+     * @param node
+     *            Root node of the sentence
+     * @param formula
+     *            String representation of the sentence
+     * @return Returns the proofstep that has been added
+     */
     public ProofStep addVar(String introducedVariable, SimpleNode rootNode,
 	    String formula) {
 	ProofStep parentNode = parents.peek();
-	ProofStep l = new ProofStep(rootNode,introducedVariable,lines.size(),
-		++currentLevel,formula);
-	lines.add(l);	
+	ProofStep l = new ProofStep(rootNode, introducedVariable, lines.size(),
+		++currentLevel, formula);
+	lines.add(l);
 	l.parent = parentNode;
 	parentNode.subproofs.add(l);
 	parents.push(l);
 	return l;
     }
-    
+
+    /**
+     * Removes the most recent line from the proof
+     */
     public void removeStep() {
-	ProofStep step =lines.remove(lines.size()-1);
-	if(step.endOfSubproof) {
+	ProofStep step = lines.remove(lines.size() - 1);
+	if (step.endOfSubproof) {
 	    currentLevel++;
 	    parents.push(step.parent);
-	    step.parent.next =null;
-	}
-	else {
+	    step.parent.next = null;
+	} else {
 	    parents.pop();
 	    if (step.parent.level < step.level) {
 		currentLevel--;
 		step.parent.subproofs.remove(step);
-	    }
-	    else{
+	    } else {
 		parents.push(step.parent);
 		step.parent.next = null;
 	    }
 	}
     }
 
-    
 }

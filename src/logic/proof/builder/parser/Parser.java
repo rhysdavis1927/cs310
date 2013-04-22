@@ -13,26 +13,27 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
 
   final public void f1() throws ParseException {
     f2();
-    label_1:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case IMPLIES:
-      case EQUIVALENT:
-        ;
-        break;
-      default:
-        jj_la1[0] = jj_gen;
-        break label_1;
-      }
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case IMPLIES:
-        jj_consume_token(IMPLIES);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case IMPLIES:
+    case EQUIVALENT:
+      fs();
+      break;
+    default:
+      jj_la1[0] = jj_gen;
+      ;
+    }
+  }
+
+  final public void fs() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case IMPLIES:
+      jj_consume_token(IMPLIES);
                     ASTImplies jjtn001 = new ASTImplies(JJTIMPLIES);
                     boolean jjtc001 = true;
                     jjtree.openNodeScope(jjtn001);
-        try {
-          f2();
-        } catch (Throwable jjte001) {
+      try {
+        f2();
+      } catch (Throwable jjte001) {
                     if (jjtc001) {
                       jjtree.clearNodeScope(jjtn001);
                       jjtc001 = false;
@@ -46,20 +47,29 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
                       {if (true) throw (ParseException)jjte001;}
                     }
                     {if (true) throw (Error)jjte001;}
-        } finally {
+      } finally {
                     if (jjtc001) {
                       jjtree.closeNodeScope(jjtn001,  2);
                     }
-        }
-        break;
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case IMPLIES:
       case EQUIVALENT:
-        jj_consume_token(EQUIVALENT);
+        fs();
+        break;
+      default:
+        jj_la1[1] = jj_gen;
+        ;
+      }
+      break;
+    case EQUIVALENT:
+      jj_consume_token(EQUIVALENT);
                      ASTEquivalent jjtn002 = new ASTEquivalent(JJTEQUIVALENT);
                      boolean jjtc002 = true;
                      jjtree.openNodeScope(jjtn002);
-        try {
-          f2();
-        } catch (Throwable jjte002) {
+      try {
+        f2();
+      } catch (Throwable jjte002) {
                      if (jjtc002) {
                        jjtree.clearNodeScope(jjtn002);
                        jjtc002 = false;
@@ -73,23 +83,31 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
                        {if (true) throw (ParseException)jjte002;}
                      }
                      {if (true) throw (Error)jjte002;}
-        } finally {
+      } finally {
                      if (jjtc002) {
                        jjtree.closeNodeScope(jjtn002,  2);
                      }
-        }
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case IMPLIES:
+      case EQUIVALENT:
+        fs();
         break;
       default:
-        jj_la1[1] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
+        jj_la1[2] = jj_gen;
+        ;
       }
+      break;
+    default:
+      jj_la1[3] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
     }
   }
 
   final public void f2() throws ParseException {
     f3();
-    label_2:
+    label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case AND:
@@ -97,8 +115,8 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
         ;
         break;
       default:
-        jj_la1[2] = jj_gen;
-        break label_2;
+        jj_la1[4] = jj_gen;
+        break label_1;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case AND:
@@ -156,7 +174,7 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
         }
         break;
       default:
-        jj_la1[3] = jj_gen;
+        jj_la1[5] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -233,7 +251,7 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
       }
       break;
     default:
-      jj_la1[4] = jj_gen;
+      jj_la1[6] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -276,7 +294,7 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
       }
       break;
     default:
-      jj_la1[5] = jj_gen;
+      jj_la1[7] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -324,13 +342,13 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[6];
+  final private int[] jj_la1 = new int[8];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x6,0x6,0x18,0x18,0x1ea0,0x600,};
+      jj_la1_0 = new int[] {0x6,0x6,0x6,0x6,0x18,0x18,0x1ea0,0x600,};
    }
 
 
@@ -340,7 +358,7 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -350,7 +368,7 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -406,7 +424,7 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 8; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {

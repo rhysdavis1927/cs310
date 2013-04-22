@@ -2,8 +2,6 @@ package logic.proof.builder.parser;
 
 import java.util.LinkedList;
 
-import logic.proof.builder.parser.*;
-
 public class TokenCollector implements TokenManager {
 
     public LinkedList<Token> list;
