@@ -1,2 +1,115 @@
+\chapter{Evaluation}
 
-\chapter{Chapter Title}
+\section{Adherence to timetable}
+
+At the specification stage the project was sectioned into smaller tasks and time scales for the completion of these tasks were estimated. Progress on this project has been largely consistent with the timetable as set out in the project specification. Minor alterations were made to this timetable with the submission of the progress report. These alterations involved adding more time at the beginning of the project for research and planning as this was slightly underestimated. The effect of these early changes were no greater than one week for any of the tasks in the timetable.  
+
+The revised timetable that was included in the progress report was strictly adhered to. Although there were times when unexpected problems arose, enough time was included in the estimates as a buffer to compensate for these circumstances. 
+
+One such situation occurred with the design of the proof data structure. It was not until after writing the code the Proof data structure that a flaw in the design was realised. The flaw was that while a proof could contain a subproof, a subproof could not be nested within this. Since proofs can contain any number of nested subproofs, the data structure had to be redesigned. 
+
+A lesson was learnt here to be more cautious with the design of data structures. When I redesigned the data structure I validated it by taking an example proof and exploring how it would be stored and what effects each of the methods would have.
+
+\section{System requirements}
+
+Each of the functional requirements were formed from user stories, all of which had acceptance tests wrote for them. This automated test suite, along with the automated unit tests, can be used to demonstrate that all of the functional requirements of the system have successfully been met.
+
+Non-functional requirements which are less tangible, are harder to objectively show that they have been met. I have used the user evaluations to determine whether the non-functional requirements have been met. There were two rounds of user evaluation, results given are from the second round.
+
+The first non-functional user system requirement was:  Application must be user friendly and easy to use. Most relevant to this on the user evaluation was the statement `I found the program easy to use' which all users either agreed or strongly agreed. Another statement relevant to this requirement was `This application would be useful to learn logic' to which 40\% agreed and the remaining 60\% strongly agreed.
+
+The second non-functional requirement `Application should work fast enough to not cause noticeable delays in the user interface' was evaluated using the question `The application responds quickly' which a conclusive 90\% of people strongly agreed to, the final 10\% agreed with the statement.
+
+\section{User evaluation}
+
+User evaluation was carried out in two stages. Firstly, when the formula checker and proof builder components had been completed for propositional logic and secondly after the project had been extended to FOL.
+
+Most of the users chosen that had some prior experience with proofs using natural deduction. Users that had minimal or no experience were given a brief introduction and had one or two simple rules of deduction explained such as conjunction elimination.
+
+Each user was given the application to use and were observed while they used it. After the user had been given sufficient time to fully explore the features of the app and attempt a simple proof, they were given a questionnaire to fill out. The questionnaire contained questions to collect both qualitative and quantitative data. 
+
+\subsection{First round of user evaluation}
+
+Included are some of the prominent results from the first round of user testing and the changes that were implemented due to the feedback.
+
+60\% of users said that they did not think the colour scheme was appropriate. The colour scheme being used at the time was a white background, light blue buttons and dark blue text. The new colour scheme implemented kept the simplicity and opted for a black background with greyish white text. This colour scheme was chosen as it has a professional quality and has very high readability. This style of application will also be familiar as having a dark background is very commonly used by Android official applications as well as being popular with third party application designers. On the second round of evaluation 80\% of users either agreed or strongly agreed that the colour scheme was appropriate. 
+
+When asked for general comments two users separately commented that having the proof and the justification separate made it difficult to remember line numbers when justifying a step in the proof.   This caused a redesign of the justification interface. Instead of a different screen, a dialog box is displayed in the centre; the proof  and the line numbers are still visible in the background.
+
+Another point of interest from from the feedback was the quality of error messages. Half of the people doing the evaluation said they did not think the error messages were helpful. When questioned further most users indicated that language used for the rules of inference could be convoluted and confusing. To correct this I re-wrote the error messages in a simpler and more concise manner.
+
+\subsection{Second round of user evaluation}
+Ten people gave their thoughts on the completed application, the full results of the second round of user evaluation are given in the following table.
+\begin{tabular}{p{2in} p{0.7in} c c p{0.55in} }
+\hline 
+\\
+\bf{Question} & \bf{Strongly disagree} & \bf{Disagree} & \bf{Agree} & \bf{ Strongly agree }
+\\
+\hline 
+\\
+I found the program easy to use & 0\% & 0\% & 40\% & 60\%
+\\ \hline \\
+The application worked as expected & 0\% & 0\% & 30\% & 70\%
+\\ \hline \\
+This application would be useful to learn logic & 0\% & 0\% & 60\% & 40\%
+\\ \hline \\
+The colour scheme is appropriate & 0\% & 20\% & 30\% & 40\%
+\\ \hline \\
+Error messages were helpful & 0\% & 10\% & 80\% & 10\%
+\\ \hline \\
+The application responds quickly & 0\% & 0\% & 10\% & 90\%
+\\
+\hline
+\end{tabular}
+
+
+
+
+\section{Author's assessment of the project}
+
+\subsubsection*{What is the technical contribution of this project?}
+
+\noindent This project involved a substantial software development undertaking in which a mobile phone application for the Android operating system was developed from scratch. Prominent challenges of this included creating a user friendly user interface and the suitable use and creation of data structures to store and manipulate data. Additional technical challenges included creating a parser for the language of FOL using the parser generator JavaCC  and coding the rules of inference in the Java programming language.
+\subsubsection*{Why should this contribution be considered either relevant or important to Computer Science / Discrete Mathematics?}
+The contribution is relevant to both Computer Science and Discrete Mathematics because the main function of this project is as a teaching tool for Logic, which is an area of particular interest by researchers in both fields.
+In addition to this, the mobile application development aspect is an increasingly popular field in computer science.
+
+\subsubsection*{How can others make use of the work in this project?}
+Teachers of FOL will be able to make use of this tool by using it as a way to get students to participate and attempt proofs individually. The feedback from the tool will help guide the student and correct mistakes allowing the teacher to focus on helping students with the creative aspect of a proof. The opportunity to work independently on creating proofs at their own pace will help students to gain confidence in constructing proofs.
+Due to the modularity of the code written parts of the system can be re-used in other systems that may expand on the work achieved in this project.
+
+\subsubsection*{Why should this project be considered an achievement?}
+
+\noindent The projects objectives were all successfully completed. The end result is fast and makes efficient use of memory. Feedback from users was positive indicating that the system is both easy to use and fit for purpose. Extensive testing means that the system is robust and handles incorrect input in an appropriate manner.
+
+\subsubsection*{What are the weaknesses of this project?}
+
+\noindent While the system achieved it's objectives the scope of the project is not particularly wide. To increase the usefulness of this project additional features would need to be added. As the project stands it is not possible to set goals for the student to reach and has no component that teaches about the use of models and environments in FOL.
+
+
+\section{Further work}
+
+Although all objectives have been met, there are additional features which could be added in the future that would benefit the application:
+
+\subsubsection*{Adding/Removing lines from any point of the proof}
+
+As the system currently stands lines can only be added/removed from the end of the proof, this could be extended so that lines can be adder or removed at any point of the proof. This would improve user experience as it would make correcting mistakes a lot easier, however, this would not be a trivial extension. If a line was added/removed from an arbitrary point in the proof then this would require changing the structure of the proof. The pointers of the surrounding ProofSteps would have to change to reflect the change in structure. Although possible, the time constraints of this project did not allow for this to be implemented.
+
+\subsubsection*{Exercise setting}
+
+A future feature I would like to add to the system would be to set a goal statement that is the user is trying to prove. This feature could implemented in conjunction with the feature mentioned above, where premises are placed at the start, the conclusion at the end and then the proof could be inserted in between as the user is working towards the goal.
+
+
+\subsubsection*{Assisted deductions}
+
+Another feature that I would like to add would be to offer the user the choice to automatically deduce the sentence of a line by choosing certain rules of inference and providing the premises. This can of course only be done for rules which when given the premises deduces a unique conclusion. This has been implemented in the code for these particular rules of inference so to implement this feature would only require the GUI to incorporate this.
+
+\subsubsection*{Widening scope}
+
+Further work could also be done to add complementary components such as allowing user to explore the truth properties of sentences by constructing proof tables, comparing sentences to see if they are equivalent under some or all interpretations and building and checking models.
+
+
+
+\section{summary}
+
+Overall, I am very happy with the achievements made in this project. Software design methodologies were applied that kept progress steady and in line with the plan throughout the project resulting in all objectives being met and good reviews from the user testing.

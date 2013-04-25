@@ -10,7 +10,3 @@
 \contentsline {subsection}{\numberline {1.1.2}{\bf {\sc Class} ProofStep}}{5}
 \contentsline {subsubsection}{\sc Declaration}{5}
 \contentsline {subsubsection}{\sc Fields}{5}
-\contentsline {subsection}{\numberline {1.1.3}{\bf {\sc Class} RulesOfInference}}{6}
-\contentsline {subsubsection}{\sc Declaration}{6}
-\contentsline {subsubsection}{\sc Constructors}{6}
-\contentsline {subsubsection}{\sc Methods}{6}

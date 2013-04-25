@@ -1,4 +1,10 @@
-\section{FOL explained}
+\section{First-order logic}
+
+\subsection{What is FOL?}
+
+FOL is a symbolic language of logic. While the natural languages that we speak are very expressive they can also be ambiguous, FOL removes this ambiguity. This has many advantages and usages, for instance to be used in rigorous arguments or programming computers. 
+
+Logic programming languages such as Prolog are constructed using sentences from a dialect of FOL and all current programming languages owe at least some of their notions to FOL. \cite[p.~3]{barker2011language} Many systems of artificial intelligence also use some form of FOL to store information and reason about their environment.
 
 \subsection{Syntax}
 
@@ -33,7 +39,7 @@ A predicate of arity 0 is a proposition which can represent some statement which
 
 A predicate of arity 1 represents a property about that particular object where the truth value of the predicate applied to this object represents whether or not this object has this property. For example the predicate: Male(x) takes an arguement x and is true if and only if x is a male.
 
-A predicate of arity $n >=1$ represents some relationship between these n objects. Similarly truth value of the this predicate depends on whether the relationship between n objects holds or not.
+A predicate of arity $n >=1$ represents some relationship between these n objects. Similarly, the truth value of the this predicate depends on whether the relationship between the n objects holds or not.
 
 \subsubsection*{Identity}
 
@@ -41,7 +47,7 @@ While identity can be included as a predicate such as Equality(x,y), here it sha
 
 \subsection*{Logical Connectives}
 
-FOL has a number of binary operators which can be used to connect two sentences together to create a single compound sentence. As well as the binary connective there is also the negation symbol which is a unary connective which, despite being a connective, is only applied to a single sentence. Each of these connectives are truth functional connectives, that is to say that the truth value of a sentence made from logical connectives relies only upon the the truth value of its constituent parts.
+FOL has a number of binary operators which can be used to connect two sentences together to create a single compound sentence. As well as the binary connectives there is also the negation symbol which is a unary connective which, despite being named a connective, is only applied to a single sentence. Each of these connectives are truth functional connectives, that is to say that the truth value of a sentence made from logical connectives relies only upon the the truth value of its constituent parts.
 
 \subsubsection*{Conjunction: $\land$}
 
@@ -57,9 +63,7 @@ Analogous to English word `not'. The sentence $\lnot $P is true if and only if P
 
 \subsubsection*{Material Implication: $\Rightarrow$}
 
-/* Material implication is a connective which is not intuitive to most people when they first come to learn logic.*/
-
-Material implication can be thought of as analogous to the English words `only if' although the meaning of this is far from intuitive to many people when they first come to study logic. An alternative and perhaps more intuitive way of reading P $\Rightarrow $ Q as English is `if P then Q'. The sentence P $ \Rightarrow $ Q is true if and only if P is false or Q is true. Hence it is false only in the case when P is true and Q is false and true in all three of the remaining cases.
+A material implication such as  P $\Rightarrow $ Q is commonly read in English as `if P then Q'. The sentence P $ \Rightarrow $ Q is true if and only if P is false or Q is true. Hence, it is false only in the case when P is true and Q is false and true in all three of the remaining cases. 
 
 \subsubsection*{Material Biconditional: $\Leftrightarrow$}
 
@@ -67,14 +71,14 @@ Material biconditional is analogous to the English words `if and only if'. The s
 
 \subsection*{Quantifiers}
 
-Quantifiers allows us to express sentences where a quantity of objects satisfy a formula. A quantifier alongside a variable is applied to a formula and all free occurrences of this variable within the formula are bound to this quantifier. A variable is free if and only if there is no quantifier to which the variable is already bound by. A quantifier may be only be applied to part of a sentence of FOL, the part of the sentence that the quantifier is applied to is known as the scope of the quantifier. Only variables within the scope of a quantifier can be bound and variables outside remain unaffected.
+Quantifiers allows us to express sentences where a quantity of objects satisfy a formula. A quantifier alongside a variable is applied to a formula and all free occurrences of this variable within the formula are bound to this quantifier. A variable is free if and only if there is no quantifier to which the variable is already bound by. A quantifier can be applied to only a part of a sentence of FOL, the part of the sentence that the quantifier is applied to is known as the scope of the quantifier. Only variables within the scope of a quantifier can be bound and variables outside remain unaffected.
 
 Multiple quantifiers can be used within a formula. Using multiple quantifiers and using them in combination with other operators permits the expression of sentences where a specific number of objects are specified such as $\exists$x $\exists$y (P(x) $\land$ P(y) $\land \lnot$ {(x=y)). This sentence expresses that there are at least two different objects that satisfy the predicate P.
 
 
 \subsubsection*{Universal Quantifier: $\forall$}
 
-The universal quantifier refers to all objects within the domain of discourse. When we use use English words such as `all' and `every' then we would use the universal quantifier to represent this in FOL. When reading FOL it is common $\forall$x as `for all x'. A sentence using a quantifier such as $\forall$x P(x) is true if and only if P(x) is true for every single object in the domain of discourse.
+The universal quantifier refers to all objects within the domain of discourse. When we use use English words such as `all' and `every' then we would use the universal quantifier to represent this in FOL. When reading FOL it is common to read $\forall$x as `for all x'. A sentence using a quantifier such as $\forall$x P(x) is true if and only if P(x) is true for every single object in the domain of discourse.
 
 The universal quantifier is often used in conjunction with material implication. Using universal quantification along with material implication allows us to express for all objects if the object satisfies predicate P then the same object will satisfy predicate Q. For example $\forall$x (Human(x) $\Rightarrow$ Mortal(x)) expresses that anything that is human is also mortal. 
 
@@ -86,16 +90,16 @@ The existential quantifier is often used together with the conjunction symbol. T
 
 \subsection*{Well Formed Formulas}
 
-A Well Formed Formula(WFF) is also defined recursively, using what we have so far a formula $\phi$ is defined: 
+A Well formed formula(WFF) is also defined recursively, using what we have so far, a formula $\phi$ is defined: 
 $$ \phi := Predicate \mid t_1 = t_2 \mid \phi \land \phi \mid \phi \lor \phi \mid \phi \Rightarrow \phi \mid \phi \Leftrightarrow \phi \mid \forall x \phi \mid \exists x \phi$$
 
-As can be seen the base formula is either a predicate or an identity and all composite formulas are made by applying either a quantifier to a WFF , a negation to a WFF, or a binary logical connective two WFFs.
+As can be seen the base formula is either a predicate or an identity and all composite formulas are made by applying either a quantifier to a WFF , a negation to a WFF, or a binary logical connective to two WFFs.
 
 \subsection{Deductive System}
 
 A deductive system is a purely syntactical way to demonstrate that one formula logically follows from another. Due to deductive systems being syntactical, sound arguments are correct irrespective of interpretation. There are many deductive systems but the one that shall be used in this project is the system of natural deduction.
 
-The system of natural deduction was made as an attempt to replicate the natural way of thinking both in everyday situations and in informal proofs. It is defined it terms of rules of inference where from a set of formulas given as the premises a conclusion can be derived by a finite number of applications of these rules.
+The system of natural deduction was made as an attempt to replicate the natural way of thinking both in everyday situations and in informal proofs. It is defined in terms of rules of inference where from a set of formulas given as the premises a conclusion can be derived by a finite number of applications of these rules.
 
 Natural deduction is both a sound and complete deductive system. In simplified terms soundness means that from any proof in the deductive system there is no possible interpretation where the premises are all true and the conclusion is false. Complete means that for any situation where a statement is a logical consequence of a group of premises then there exists a proof in the deductive system of this statement from these premises.
 
@@ -139,11 +143,11 @@ $\psi$ \\ \vdots \\ $\chi$
 
 \subsubsection{Implies Introduction}
 
-Starting from a subproof which we  assume one senctence and can conclude another means that if we have the first we can conlude the second. Hence we can conclude that the first sentence implies the second.
+Starting from a subproof in which, from assuming a particular sentence we can conclude another, means that if we know the assumption is true then we know the conclusion of the subproof must be true. Hence we can conclude that the first sentence implies the second.
 
 $$ \infer[\Rightarrow intro]{\phi \Rightarrow \psi }{\begin{tabular}[b]{|c|}
 \hline
-$\phi$ \\ \vdots \\ $\chi$ 
+$\phi$ \\ \vdots \\ $\psi$ 
 \\
 \hline
 \end{tabular}} $$
@@ -178,19 +182,19 @@ $$ \infer[\lnot\lnot intro]{\phi}{\lnot\lnot\phi} $$
 
 \subsubsection{Double Negation Elimination}
 
-Similarly we may remove two negation symbols from the start of a sentence since it has no overall effect.
+Similarly, we may remove two negation symbols from the start of a sentence since it has no overall effect.
 
 $$ \infer[\lnot\lnot elim]{\lnot\lnot\phi}{\phi} $$
 
 \subsubsection{Bottom Elimination}
 
-Form a false premise any conclusion is valid.
+From a false premise any conclusion is valid.
 
 $$ \infer[\bot elim]{\phi}{\bot} $$
 
 \subsubsection{Copy}
 
-A simple rule whose premise and conclusion are the same. Can be useful in proofs to use at the end of a subproof to conclude something which has previously been shown.
+A simple rule whose premise and conclusion are the same. Can be useful to use at the end of a subproof to conclude something which has previously been shown.
 
 $$ \infer[copy]{\phi}{\phi} $$
 
@@ -202,13 +206,13 @@ $$ \infer[=intro]{t=t}{} $$
 
 \subsubsection{Equals Elimination}
 
-If we have to equal objects with different names then we may replace any occurrences of one name with the other without changing the overall meaning of the sentence.
+If we have two equal objects with different names then we may replace any occurrences of one name with the other without changing the overall meaning of the sentence.
 
 $$ \infer[=elim]{\phi [t_2/x]}{t1=t2 & \phi [t_1/x]} $$
 
 \subsubsection{Universal Quantifier Introduction}
 
-If we introduce a previously unseen variable and can deduce a sentence which contains this variable, then by the fact this this variable is arbitrary, we may conclude that this sentence holds when for all objects in the domain of discourse. 
+If we introduce a previously unseen variable and can deduce a sentence which contains this variable, then by the fact this this variable is arbitrary, we may conclude that this sentence holds for all objects in the domain of discourse. 
 
 $$ \infer[\forall intro]{\forall x \phi}{\begin{tabular}[b]
 {|c|}
@@ -234,7 +238,7 @@ $$ \infer[\exists intro]{\exists x \phi}{\phi [t/x]} $$
 
 The rule of elimination for the existential quantifier requires two premises. Firstly, a statement which is existentially quantified and secondly, a subproof.
 
-This rule has the reasoning that if we know that something does exist, we can give a temporary name to this object, from here we can use this temporary name to reason about it. If we can deduce another statement not including this name then we can conclude this statement. This reasoning is valid as long as the name is completely arbitrary and does not occur elsewhere within the proof. 
+This rule has the reasoning that if we know that something does exist, we can give a temporary name to this object, from here we can use this temporary name to reason about it. If we can deduce another statement not including this name, then we can conclude this statement. This reasoning is valid as long as the name is completely arbitrary and does not occur elsewhere within the proof. 
 
 
 $$ \infer[\exists elim]{\chi}{\exists x \phi &\begin{tabular}[b]{|c|}

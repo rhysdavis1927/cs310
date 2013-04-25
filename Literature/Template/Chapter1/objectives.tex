@@ -1,0 +1,76 @@
+\section{Objectives}
+\begin{itemize}
+\item{Create a graphical user interface(GUI) from which the user can formulate sentences of propositional logic.}
+\item{Create a parser which will check that sentences entered are well formed formulas.}
+\item{Create a GUI that allows the user to construct proofs by entering formulas and specifying whether it is a premise, an assumption or how it has been derived.}
+\item{Use the rules of inference to check the users' proof and provide feedback on the correctness of each step in the proof.}
+
+\item{Extend application from propositional logic to first-order logic}
+\end{itemize}
+
+\subsection{Functional requirements}
+
+Expanding on theses objectives, simple user stories were created that would describe tasks that a user should be able to carry out on the using the application. These user stories were then consolidated into the following system requirements.
+
+\begin{itemize}
+
+\item{User must be able to input sentences of propositional logic}
+
+\item{Application must be able to recognise well-formed formulas of propositional logic and feedback to the user when a sentence is not well-formed}
+
+\item{User must be able to add a new line to the proof.}
+\item{User must be able to remove a line from the proof.}
+\item{User must be able to start a subproof.}
+\item{User must be able to set the end of a subproof.}
+\item{Application must allow user to justify sentences}
+\item{All rules of inference of propositional logic must be implemented}
+\end{itemize}
+
+The following functional requirements apply if and when the system is extended to FOL.
+
+\begin{itemize}
+
+
+\item{Application must be able to recognise well-formed formulas of FOL and feedback to the user when a sentence is not well-formed}
+
+\item{User must be able to introduce boxed variables to the proof}
+\end{itemize}
+
+
+
+
+\subsection{Non-functional requirements}
+
+\begin{itemize}
+\item{Application must be user friendly and easy to use}.
+\item{Application should work fast enough to not cause noticeable delays in the user interface.}
+\end{itemize}
+
+
+
+
+
+
+
+\section{Investigation of existing solutions}
+
+At the very start of this project I researched products that were similar to the product proposed in this project. There were two existing solutions that stood out as having features that coincided with my project.
+
+\subsection{Gateway to Logic}
+The first solution is a fitch-style proof builder by Christian Gottschall; part of a collection of logic based programs called Gateway to Logic. This product offers basic functionality with regard to constructing proofs using natural deduction.
+
+Using this product can be difficult. The user interface is not intuitive as sentences are typed using the keyboard making it very difficult to express the sentence you want. This product is also restricted to propositional logic only. Not being able to include quantifiers severely restricts the range of sentences that can be expressed in the program. Also, from personal experience and asking students about their experience learning logic, it is quantification and the associated rules of natural deduction that people find most difficult and therefore need the most help and practice with
+
+\subsection{OpenProof}
+
+The second solution is Fitch, part of the OpenProof project. OpenProof is a proprietary software package that is sold alongside copies of Language, Proof and Logic by Dave Barker-Plummer, Jon Barwise and John Etchemendy. \cite{barker2011language}
+
+As a proprietary system this product can be expensive for students to buy. I believe this expense is a barrier to this being adopted by the majority of students on a course. This system is more user friendly than the other and presents itself professionally. 
+
+However, this product does not offer an explanation as to why a step in the proof is wrong. Fedback is a main feature of this project and another factor which differentiates it from the existing solutions.
+
+\subsection{Summary}
+
+To summarise, although there are solutions which cover some of the goals to this problem, this project will look to create an application which that surpasses the products currently available. Both of the solutions mentioned product requires a desktop or laptop computer to run, a main feature of the application created in this project is its mobility. 
+
+I also believe while each of the solutions have their positives neither offer a system that is both user friendly and offers constructive feedback to the user. The combination of these features are, in my opinion, vital to a such a product being successful and having a truly positive impact upon a students learning experience.

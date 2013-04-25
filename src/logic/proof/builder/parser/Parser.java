@@ -257,7 +257,6 @@ public class Parser/*@bgen(jjtree)*/implements ParserTreeConstants, ParserConsta
     }
   }
 
-/*void Not() #void :{}{  < NOT >  (    (      Not() #Not(1)  )|  (    f3() #Not(1)))}*/
   final public void Quantifier() throws ParseException {
   Token t;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {

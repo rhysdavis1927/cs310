@@ -16,7 +16,7 @@ If there is already a list of tasks then choose one and write a test that can on
 
 \subsubsection*{Run the test suite}
 
-The entire test suite should be run at this stage with the desired result of all tests passing except for the newly composed test. The new test should fail since the functionality it is testing should have been implemented at this point. If the test passes then either the functionality was added before the test created which is not as intended in the TDD process or it may mean the test is faulty. The test should be reviewed in this case.
+The entire test suite should be run at this stage with the desired result of all tests passing except for the newly composed test. The new test should fail since the functionality it is testing should not have been implemented at this point. If the test passes then either the functionality was added before the test created, which is not as intended in the TDD process, or it may mean the test is faulty. The test should be reviewed in this case.
 
 If all tests except the new one passes then we can be sure at least that the new test requires some change to the code. This helps reduce the risk of writing tests that pass trivially, which can lead to falsely believing that code is providing functionality that it is not.
 
@@ -44,16 +44,16 @@ When all tests are passing then return to stage 1 and choose the next task if an
 
 	\item Due to nature of only writing code to pass tests then this inherently leads to good code coverage since all sections of code are covered by at least one test.
 
-	\item Another advantage of TTD is that the passing tests clearly show which tasks have or have not yet been completed. This gives a very good way of to accurately monitor progress throughout development.
+	\item Another advantage of TDD is that the passing tests clearly show which tasks have or have not yet been completed. This gives a very good way to accurately monitor progress throughout development.
 
-	\item Finally, as tests are wrote a test suite is built up which is run whenever code is changed. This means that unexpected affects of a code change are picked up straight away. This can save a lot of time in debugging as if it was not picked up straight away it can become very time consuming to trace the source of errors especially if they cause error in other areas which mask the original source of the error.
+	\item Finally, as tests are wrote, a test suite is built up which is run whenever code is changed. This means that unexpected affects of a code change are picked up straight away. This can save a lot of time in debugging as when not picked up straight away it can become very time consuming to trace the source of errors. This is especially true if they cause error in other areas which then mask the original source of the error.
 \end{itemize}
 
 \subsection{Tools used}
 
 To assist the in the process of TDD I utilised the tools of JUnit and Robotium. JUnit is a testing framework for the Java programming language which assists in the creation and running of automated unit tests. Robotium is a testing framework which facilitates the creation of automated system tests and acceptance tests for the Android platform.
 
-Using a combination of these tools I was able to create a multitude of tests which test individual components and also the interaction between these components. Robotium enabled me to create automated acceptance which could carry out tasks from start to finish such as building an entire proof, simulating the use of the graphical user interface by activating button press and touch screen events. Since Robotium simulates using the user interface I was able to test that not only did the code function correctly but also that users would be able to actually access and use the functions that are offered. Without such automated testing of the graphical features, testing could have become  a very time consuming process if it were to be repeated after all code changes as these automatic tests were.
+Using a combination of these tools I was able to create a multitude of tests which test individual components and also the interaction between these components. Robotium enabled me to create automated acceptance tests which could carry out tasks from start to finish such as building an entire proof, simulating the use of the graphical user interface by activating button press and touch screen events. Since Robotium simulates using the user interface, I was able to test that not only did the code function correctly but also that users would be able to actually access and use the functions that are offered. Without such automated testing of the graphical features, repeating the tests after each code change would have become a very time consuming process. 
 
 
 
@@ -61,7 +61,7 @@ Using a combination of these tools I was able to create a multitude of tests whi
 
 \section{Prioritisation}
 
-Tasks were chosen using the agile principle of structuring and completing tasks in such a way that gives highest value whilst attempting to keep the time frame of delivery small. Use of this principle has a number of advantages. One of these advantages is the modularity of the code developed. Since code is split into tasks with each adding a specific a function then code is less dependent on others parts of the system. This reduces complexity, makes testing easier and makes code more reusable. 
+Tasks were chosen using the agile principle of structuring and completing tasks in such a way that gives highest value whilst attempting to keep the time frame of delivery small. Use of this principle has a number of advantages. One of these advantages is the modularity of the code developed. Since code is split into tasks with each adding a specific function then code is less dependent on others parts of the system. This reduces complexity, makes testing easier and makes code more reusable. 
 
 Another way this principle was adhered to was by developing code in such a way that at key points the application was operational, but only implementing a subset of the desired functional requirements. An example of this was the design choice of implementing all the necessary requirements so that the system could be fully operational for the language of Propositional Logic before extending it to FOL. The advantages of this are threefold:
 \begin{enumerate}
@@ -81,10 +81,11 @@ For each objective I would start by breaking it into smaller tasks. These tasks 
 
 \subsection{Git}
 
-Git is a source code management system. One of the benefits of using Git was that all code and documentation could quickly and easily be uploaded to a remote repository. Since it did not take much time I would upload the latest version after every time a new test was created or passed. This remote repository was used as a backup, so should any data be lost or become inaccessible it could easily be recovered from the most recent version.
+Git is a source code management system. One of the benefits of using Git was that all code and documentation could quickly and easily be uploaded to a remote repository. Since it did not take much time I uploaded the latest version every time a new test was created or passed. This remote repository was used as a backup, so should any data be lost or become inaccessible most of it could easily be recovered from the most recent version.
 
 The version control aspect of this system also meant that previous versions can be restored. In cases  where a bug is accidentally introduced, especially during refactoring, it may be quicker to restore to a previous version rather than spend time debugging the program.
-\section{Justification of the choosing the Android platform}
+
+\section{Justification of creating an Android application}
 
 In this section I will discuss the thought process and reasons for choosing to build an application for the Android platform. The reasoning here shall be split into three main choices.
 
@@ -106,14 +107,16 @@ This increasing prevalence of mobile computing devices in our lives contributed 
 \subsection{Choosing a native solution}
 
 The next big choice was to decide whether the implementation should be a mobile web application or a native application. A native application is an application that is wrote to work on a specific platform, whereas a mobile web application can be accessed by multiple platforms using the internet. Of course both solutions have their advantages and disadvantages. The progress being made using HTML5 has meant the distinction between these alternatives have become increasingly vague, even during the time of this project. However, here are some of my resons for the choice I made: 
-	
-One advantage of the native application is that they are generally faster than their web app counterparts. 
-
-After the initial download of a native app, access to the internet is no longer necessary. This may be important in classroom situation where internet connection is not available.
-
-Another advantage of using the native app approach is that they are easy and quick to access. At a click of an icon a user can almost instantly start to use a native app.
-
-Finally, native application development is targeted specifically for mobile devices with smaller screens. This makes it easier to create a mobile device interface which utilise features such as touch screen.
+\begin{itemize}
+\item{	
+One advantage of the native application is that they are generally faster than their web app counterparts. }
+\item{
+After the initial download of a native app, access to the internet is no longer necessary. This may be important in a classroom situation where internet connection is not always available.}
+\item{
+Another advantage of using the native app approach is that they are easy and quick to access. At a click of an icon a user can almost instantly start to use a native app.}
+\item{
+Finally, native application development is targeted specifically for mobile devices with smaller screens. This makes it easier to create a mobile device interface which utilise features such as touch screen.}
+\end{itemize}
 
 
 

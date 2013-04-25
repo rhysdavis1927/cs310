@@ -165,7 +165,7 @@
                             jjtree.closeNodeScope(jjtn002,  2);
                           }
                         }
-/*@egen*/           }/*void Not() #void :{}{  < NOT >  (    (      Not() #Not(1)  )|  (    f3() #Not(1)))}*/void Quantifier()       :{  Token t;}{  (    t = < FORALL > f3()/*@bgen(jjtree) #ForAll( 1) */
+/*@egen*/           }void Quantifier()       :{  Token t;}{  (    t = < FORALL > f3()/*@bgen(jjtree) #ForAll( 1) */
     {
       ASTForAll jjtn001 = new ASTForAll(JJTFORALL);
       boolean jjtc001 = true;

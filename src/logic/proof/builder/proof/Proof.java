@@ -7,7 +7,7 @@ import java.util.Stack;
 import logic.proof.builder.parser.SimpleNode;
 
 /**
- * Stores all data necessary to construct a proof. Simple Methods are provided to manipulate
+ * Stores all data necessary to construct a proof. Simple methods are provided to manipulate
  * the proof such as adding or deleting lines.
  * @author rhys
  */

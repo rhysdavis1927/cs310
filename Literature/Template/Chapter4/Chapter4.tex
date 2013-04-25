@@ -76,15 +76,10 @@
 
 \section{User interface}
 
-Donald Norman's research on UI was used.
-Typical Android application conventions such were followed such as the use and look if dialog boxes. Also the dark background with light font is very common for this platform.
+In accordance with the project procedure the first part of the proof builder to be designed was the user interface. The user interface was developed around the functional requirement and the user stories. For each story that described what a user would want to do a graphical interface was created    that flowed intuitively.
 
-Perceived affordances as described by Norman were implemented in regards to touch screen buttons that users will press and lists that users can push up or down.
-
-In accordance with the project procedure the first part of the proof builder to be designed was the user interface. The user interface was developed by taking simple user stories that described what a user would want to do and attempting to create a graphical interface for each task that would be intuitive to use.
-
-\subsection{Proof thingy}
-It was decided that displaying the actual proof was the most important part of the user interface and that this would be given the majority of the screen space. Since space is limited on mobile devices, it was decided that the application would display in landscape mode to enable most sentences of FOL to fit onto one line, enhancing the readability of the proof. The intent was that the proof would resemble a hand written proof of FOL as much as possible. 
+\subsection{Proof display}
+It was decided that displaying the actual proof was the most important part of the user interface and that this would be given the majority of the screen space. Since space is limited on mobile devices, it was decided that the application would display in landscape mode to enable reasonably sized sentences of FOL to fit onto one line, enhancing the readability of the proof. The intent was that the proof would resemble a hand written proof of FOL as much as possible. 
 
 This proof section of the screen will start off empty and each line will be displayed as it is added to the proof.
 
@@ -92,7 +87,7 @@ In order from left to right each line displays the following:
 \begin{itemize}
 \item{The line number of the proof.}
 \item{A boxed variable if one has been introduced in this line. }
-\item{The FOL sentence , this may be blank if a variable is introduced without an assumption.}
+\item{The FOL sentence, this may be blank if a variable is introduced without an assumption.}
 \item{The justification of this line.}
 \end{itemize}
 When more more lines are added than can fit on the screen then the list of lines becomes vertically scrollable. The user may scroll the list by simply using their finger to push the list up and down. This is an intuitive motion which all users who tested the product used without prompting.
@@ -117,7 +112,7 @@ The buttons are listed below along with a description of how the graphical user 
 
 \subsubsection{New line}
 
-Selecting the new line button will activate the formula checker activity. This will appear as described in the previous chapter. After the user submits a sentence a new line is added to the end of the proof  with the same indentation as the previous line and within any boxes that the previous line was inside of. The justification of the line will be set to `No justification given'. This serves as a prompt to the user to add a justification,
+Selecting the new line button will activate the formula checker activity. This will appear as described in the previous chapter. After the user submits a sentence a new line is added to the end of the proof  with the same indentation as the previous line and within any boxes that the previous line was inside of. The user may nest subproofs within each other using this option. The justification of the line will be set to `No justification given'. This serves as a prompt to the user to add a justification.
 
 
 \subsubsection*{Delete line}
@@ -136,7 +131,7 @@ Choosing the introduce variable option will display a dialog box. The user will 
 
 A checkbox also appears within the dialog box. The user may mark the checkbox if they wish to make an assumption as well as introduce a variable. After an appropriate name has been chosen and the user chooses the OK button, the formula checker activity will be displayed  if the user has marked the checkbox. Once the user has submitted or sentence, or if the checkbox was not marked, then line will be added to the end of the proof.
 
-The variable will be displayed in a small box. If a sentence was submitted this will be displayed followed by the justification which will be set to the word `Assumption'. Otherwise, the rest of the line will be left empty. Similar to starting subproof, the whole line is indented more than the previous and the top section of a box will surround it.
+The variable will be displayed in a small box. If a sentence was submitted this will be displayed followed by the justification which will be set to the word `Assumption'. Otherwise, the rest of the line will be left empty. Similar to the start subproof option, the whole line is indented more than the previous and the top section of a box will surround it.
 
 
 \subsubsection*{Check proof}
@@ -146,11 +141,11 @@ Pressing check proof triggers the display of a dialog box. This dialog box will 
 
 \subsection{Justifying a line}
 
-To change the justification of a line in the proof the user simply needs to touch the line that they wish to change. This will bring up a dialog box. A drop-down list contains all the rules of inference. The display will change depending on which ROI is currently selected. The labels serve as clues to what form the premises take for this ROI. 
+To change the justification of a line in the proof the user simply needs to touch the line that they wish to change, this will bring up a dialog box. If a line is at the start of a subproof then it is automatically given the justification `Assumption' and this cannot be changed. A drop-down list contains all the rules of inference and also the justification 'Premise'. A line can only be justified as a premise if it is either the first line in the proof or if all preceding lines are also justified as a premise.  The display will change depending on which ROI is currently selected. The labels serve as clues to what form the premises take for this ROI. 
 
-A drop-down list is displayed next to the label for each premise which can be used to specify which line or subproof is to be used.  The drop-down list will only contain single line numbers, if the premise requires just a sentence, or a block of line numbers, if this premise needs to be a subproof. Furthermore, only line numbers and whole subproofs that occur after the line being justified appear in the list. 
+A drop-down list is also displayed next to the label for each premise which can be used to specify which line or subproof is to be used.  The drop-down list will only contain single line numbers, if the premise requires just a sentence, or a block of line numbers, if this premise needs to be a subproof. Furthermore, only line numbers and whole subproofs that before the line being justified appear in the list. 
 
-When the user has specified ROI to use and the premises then the OK button must be pressed to continue. If there is a problem with the justification an error message is displayed which explains why it has not been accepted. This is explained further in section 4.3. If the justificationis accpeted then dialog box is removed and the justification of the chosen line is updated with the chosen ROI and the line numbers of the premises used.
+When the user has specified ROI to use and the premises then the OK button must be pressed to continue. If there is a problem with the justification an error message is displayed which explains why it has not been accepted. This is explained further in section 4.3. If the justification is accepted then the dialog box is removed and the justification of the chosen line is updated with the chosen ROI and the line numbers of the premises used.
 
 As can be seen in figure 4.2 the proof is partially visible when justifying a line. The system was designed this way as when it was not visible users commented that they found it difficult to remember the lines numbers that were to be used as premises for the ROI. Having the proof visible even if partially greatly helped users to identify the correct line numbers that they needed.
 
@@ -167,19 +162,19 @@ As can be seen in figure 4.2 the proof is partially visible when justifying a li
 
 \section{Rules of Inference}
 
-Rules of inference were programmed in the Java language. A method was created for every ROI. This method then takes as arguments the premises of each rule followed by the line that is being justified. The order of the premises that are passed into the method must be the same as defined by the ROI. 
+Rules of inference were programmed in the Java language. A method was created for every ROI. This method takes as arguments the premises of each rule followed by the sentence that is being justified. The order of the premises that are passed into the method must be the same as defined by the ROI. 
 
-As mentioned in the previous section, sentences of FOL are stored in a tree data structure. This is utilised by the rules of inference since all data about about a sentence can be found from only the root node. If a premise is single statement then the root node of the statement should be passed into the method. If a premise is a sub-proof then a list of root nodes should be passed. This list may contain either the whole subproof or only the required parts such as the first and last line. The order of nodes must be the same as the order of the lines in the subproof.  
+As mentioned in the previous section, sentences of FOL are stored in a tree data structure. This is utilised by the rules of inference since all data about about a sentence can be found from only the root node. If a premise is single statement then the root node of the statement should be passed into the method. If a premise is a subproof then a list of root nodes should be passed. This list may contain either the whole subproof or only the required parts such as the first and last line. The order of nodes must be the same as the order of the lines in the subproof.  
 
-Firstly, each method will check that the premises and the conclusion are of all of the correct form for this ROI. The correct form may be any WFF of FOL or it may be more restrictive such as it has to be a negation of a sentence. If any of the arguments do not match the expected form then an exception is thrown by the method. There are two types of exception that can be thrown: PremiseException and ConclusionException. Intuitively these exceptions relate to the premises or conclusion not being of the required form. Each exception contains a message explaining what the discrepancies between the given arguments and what would be expected.
+Firstly, each method checks that the premises and the conclusion are all of the correct form for this ROI. The correct form may be any WFF of FOL or it may be more restrictive such as it has to be a negation of a sentence. If any of the arguments do not match the expected form then an exception is thrown by the method. There are two types of exception that can be thrown: PremiseException and ConclusionException. Intuitively these exceptions relate to the premises or conclusion not being of the required form. Each exception contains a message explaining the discrepancies between the given arguments and what isexpected.
 
 In most cases, to check whether a sentence is of the correct form only requires looking at the operator with greatest scope. This is handled efficiently by the tree structure since only the root node has to be inspected. Furthermore, finding part of a sentence, such as the LHS  or RHS of a binary operator, is also very simple with the tree data structure. This is done by taking the appropriate child node of the operator; this child will be the root node of the sub tree for the part of the sentence required.
 
-Subsequently, the method will then evaluate the ROI on the given premises. If only one conclusion is possible, such as the case of $\land$ introduction, then this unique conclusion is determined and compared with the line that is being justified. If they are not syntactically equivalent then a ConlusionException is thrown. This exception contains an error message that details what would have been expected using the chosen ROI on the given arguments. If more than one conclusion is possible then the line that is being justified is checked to make sure that it is a possible conclusion using the chosen ROI and the given premises.
+Subsequently, the method will then evaluate the ROI on the given premises. If only one conclusion is possible, such as the case of $\land$ introduction, then this unique conclusion is determined and compared with the sentence that is being justified. If they are not syntactically equivalent then a ConlusionException is thrown. This exception contains an error message that details what would have been expected using the chosen ROI on the given arguments. If more than one conclusion is possible then the line that is being justified is checked to make sure that it is a possible conclusion using the chosen ROI and the given premises.
 
 \subsection{API} 
 
-The ROI have been coded as a standalone component that may be used by other applications. As such an API has been created that explains how the ROI class can be used. Full technical documentation can be found in the appendix. 
+The ROI have been coded as a standalone component that may be used by other applications. As such an API has been created that explains how the ROI class can be used. 
 
 Documentation was generated using Javadocs. 
 The API contains:
@@ -267,40 +262,16 @@ arguments}
 \end{itemize}
 
 
+Full technical documentation can be found in the appendix. 
 
 
 
 \section{Proof structure}
 
-When the application is started an Java Proof object is instantiated. This object stores data about the proof and is used t
-
-The Proof object is a high level abstraction that hides the complexity of the actual proof structure. A proof consists of a tree of ProofSteps. Each ProofStep contains data about a particular line of proof. This data includes:
-\begin {description}
-\item[lineNumber] The number of the line in the proof
-\item[rootNode] Root node of the sentence tree
-\item[subproofs] List of pointers to sub proofs following this line
-\item[next] Pointer to next non subproof step
-\item[parent] Pointer to previous step
-\item[introducedVariable] The name of the introduced variable, null if n/a
-\item[level] The number of nested subproofs that this line is inside of
-\item[justification] The ROI used along with line numbers of the premises
-\end{description}
-
- 
-A crucial part of Fitch style proofs is the use of subproofs and the notion of scope. Scope, in this context, is the notion that a line within a subproof cannot be used as a premise of a ROI for any line outside of the subproof. As well as this the premises used for a ROI must precede the line being justified.  Since each ProofStep explicitly stores pointers to other steps and subproofs, the information which other lines or subproofs can be used as a premises to justify this line can be found quickly, without having to traverse the whole proof tree.
+When the application is started a Java Proof object is instantiated. This object stores all necessary data about the proof and provides the external methods for manipulating it. The Proof object is a high level abstraction that hides the complexity of the actual proof structure.
 
 
-\startsection{Class}{Proof}{l0}{%
-{\small Stores all data necessary to construct a proof. Simple Methods are provided to manipulate
-the proof such as adding or deleting lines.}
-\vskip .1in 
-\startsubsubsection{Declaration}{
-\fbox{\vbox{
-\hbox{\vbox{\small public 
-class 
-Proof}}
-\noindent\hbox{\vbox{{\bf extends} java.lang.Object}}
-}}}
+\startsection{\bf{Proof}}{Class}{l0}{%
 \startsubsubsection{Fields}{
 \begin{itemize}
 \item{
@@ -577,3 +548,22 @@ Removes the most recent line from the proof
 \end{itemize}
 }
 }
+
+\subsection{ProofStep class} 
+
+Hidden from users underneath the Proof class is the ProofStep class. A proof consists of a tree of ProofSteps. Each ProofStep contains data about a particular line of proof. This data includes:
+\begin {description}
+\item[lineNumber] The number of the line in the proof
+\item[rootNode] Root node of the sentence tree
+\item[subproofs] List of pointers to sub proofs following this line
+\item[next] Pointer to next non subproof step
+\item[parent] Pointer to previous step
+\item[introducedVariable] The name of the introduced variable, null if n/a
+\item[level] The number of nested subproofs that this line is inside of
+\item[justification] The ROI used along with line numbers of the premises
+\end{description}
+
+ 
+A crucial part of Fitch style proofs is the use of subproofs and the notion of scope. Scope, in this context, is the notion that a line within a subproof cannot be used as a premise of a ROI for any line outside of the subproof. As well as this the premises used for a ROI must precede the line being justified. 
+
+Each ProofStep explicitly stores pointers to other steps and subproofs, this allows a rule of inference to quickly discover which lines and subproofs are can be used as premises, without having to traverse the whole proof tree. Every time a method is called on the Proof object to add or remove a line, the pointers of each ProofStep affected are modified to keep the structure accurate.

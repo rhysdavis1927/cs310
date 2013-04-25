@@ -1,6 +1,6 @@
 \chapter{Formula checker}
 
-The first development section of the project to be completed was the formula checker. The formula checker takes as input input a sentence of predicate logic and checks whether this sentence is a well formed formula. 
+The first development section of the project to be completed was the formula checker. The formula checker takes as input a sentence of predicate logic and checks whether this sentence is a well formed formula. 
 \section{User interface}
 I started with the design of the user interface. I specifically decided to design the user interface first as, due to the nature of the project as a learning tool, the user experience was a priority. By designing the user interface first the underlying representation can then be designed to reflect the interface rather than the other way around. This allowed me to create an intuitive and user friendly interface which gives the features that need to be implement. 
 
@@ -12,16 +12,6 @@ The process of naming predicates is purposely separated from entering the logica
 
 A token representing an operator or a predicate will be generated each time a user touches the various operator buttons or adds a predicate to the input sentence. These tokens are stored within a list and can be removed by using the backspace button at the appropriate position. When the user chooses to submit the sentence these tokens will be sent to the parser for evaluation.
 
-\section{Parser}
-
-explain CFG.
-
-Parsers may be separated into one of two categories: top-down and bottom. Top-down parsers work by making predictions about which of the productions to use at each stage, starting with the most general and ending with the most specific i.e. terminal productions. If the next token in the stream contradicts the prediction then the parser must backtrack until a production is found that is not contradicted by the tokens read. If no such production can be found then the input is not part of the language recognised by the parser. 
-
-Bottom-up parsers take the opposite approach, reading the input and collecting them into higher level tokens as per the productions. At the end all tokens should have been collected into the single start symbol. If this is not the case then the parser will backtrack and combine tokens in different ways. If there is no way of combining the tokens so that it ends as a single start symbol then the input is not recognised by the parser.
-
-Top-down parsers are generally less complex and easier to debug than their bottom-up counterparts. Also, if designed well, they are as least as fast as an equivalent bottom-up parser in most cases. \cite{cooper2011engineering} However, top-down parsing has the problem that if a grammar is left recursive then this can cause an infinite loop, meaning parsing will never finish. Furthermore, backtracking in bottom-down parsing is slow,  time complexity can be exponential. Based on the analysis of both approaches it was decided that the top-down approach would be best, provided the problems caused by left recursion and backtracking could be overcome. 
-
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{Images/formulachecker.png}
@@ -29,9 +19,19 @@ Top-down parsers are generally less complex and easier to debug than their botto
 \label{fig:Compilation}
 \end{figure}
 
-\subsection{Predictive parsing}
+\section{Parser}
 
-Both disadvantages of top-down parsing mentioned in the previous section can be avoided by creating a predicative parser. This is only possible if the grammar can be transformed into a grammar that belongs to the class LL(k), for some finite integer k. An LL grammar is one which is can be parsed from left to right constructing leftmost derivations.  LL(k) is the class of LL grammars which can deduce the production to use looking only at the next k tokens of input. 
+
+Parsers may be separated into one of two categories: top-down and bottom. Top-down parsers work by making predictions about which of the productions to use at each stage, starting with the most general and ending with the most specific i.e. terminal productions. If the next token in the stream contradicts the prediction then the parser must backtrack until a production is found that is not contradicted by the tokens read. If no such production can be found then the input is not part of the language recognised by the parser. 
+
+Bottom-up parsers take the opposite approach, reading the input and collecting them into higher level tokens as per the productions. At the end all tokens should have been collected into the single start symbol. If this is not the case then the parser will backtrack and combine tokens in different ways. If there is no way of combining the tokens so that it ends as a single start symbol then the input is not recognised by the parser.
+
+Top-down parsers are generally less complex and easier to debug than their bottom-up counterparts. Also, if designed well, they are as least as fast as an equivalent bottom-up parser in most cases. \cite{cooper2011engineering} However, top-down parsing has the problem that if a grammar is left recursive then this can cause an infinite loop, meaning parsing will never finish. Furthermore, backtracking in bottom-down parsing is slow,  time complexity can be exponential. 
+
+Based on the analysis of both approaches it was decided that the top-down approach would be best, provided the problems caused by left recursion and backtracking could be overcome. 
+
+
+One way of avoiding these problems is by creating a predicative parser. This is only possible if the grammar can be transformed into a grammar that belongs to the class LL(k), for some finite integer k. An LL grammar is one which is can be parsed from left to right constructing leftmost derivations.  LL(k) is the class of LL grammars which can deduce the production to use looking only at the next k tokens of input. 
 
 It is possible to define the a property that is both necessary and sufficient for a grammar to be in LL(1). Some definitions are needed first:
 
@@ -69,7 +69,7 @@ $$ \phi := Predicate \mid t_1 = t_2 \mid \phi \land \phi \mid \phi \lor \phi \mi
 
 \subsection{Operator precedence}
 
-A decision was made to allow the user to omit unnecessary brackets by using the precedence rules: $\lnot$ binds more tightly than $\land$ and $\lor$, and the latter two bind more tightly than $\Rightarrow$ and $\Leftrightarrow$. Also all binary operators are taken to be right associative so P $\diamond_1$ Q $\diamond_2$ , where $\diamond_1$ and $\diamond_2$ are binary operators from the same precedence level, should be interpreted as (P $\diamond_1$ Q) $\diamond_2$ R  not P $\diamond_1$ (Q $\diamond_1$ R).  
+A decision was made to allow the user to omit unnecessary brackets by using the precedence rules: $\lnot$ binds more tightly than $\land$ and $\lor$, and the latter two bind more tightly than $\Rightarrow$ and $\Leftrightarrow$. Also all binary operators are taken to be left associative so P $\diamond_1$ Q $\diamond_2$ , where $\diamond_1$ and $\diamond_2$ are binary operators from the same precedence level, should be interpreted as (P $\diamond_1$ Q) $\diamond_2$ R not P $\diamond_1$ (Q $\diamond_1$ R).  
 
 To express the rules of hierarchy a context-free grammar was created  in which non-terminals were added so that reflects the precedence hierarchy of the operators. The idea is simply that each sub-formula of an expression cannot contain an operator of lower precedence unless this sub-formula is surrounded by brackets. 
 
@@ -92,7 +92,7 @@ To express the rules of hierarchy a context-free grammar was created  in which n
 \end{aligned}
 \end{equation}
 \subsection{Eliminating left recursion}
-Grammar 3.2 does not meet property 3.1 for a number of reasons. This particular grammar is both left and right recursive and so is ambiguous. Ambiguous in this sense means that a string can  have more than one distinct parse trees. As mentioned, left-recursive grammars can cause  top-down parsers to enter infinite loops.
+Grammar 3.2 does not meet property 3.1 for a number of reasons. This particular grammar is both left and right recursive and so is ambiguous. Ambiguous in this sense means that a string can  have more than one distinct parse tree. As mentioned, left-recursive grammars can cause  top-down parsers to enter infinite loops.
 
 Left recursion is also a specific case of a FIRST/FIRST conflict. The reason why is fairly simple. Take any left-recursive production, there is at least one alternative production or the recursion is endless. Clearly, since the left-recursive production has the symbol of the left hand side as the first symbol on the right hand side then it's FIRST set is the union of the FIRST set of all alternative productions. Since the left-recursive production shares elements of it's FIRST set with alternative productions then it is not possible to know which production to use by only looking at the next token of input. 
 
@@ -172,7 +172,7 @@ Consequently the operators $\Rightarrow , \Leftrightarrow , \land$ and $\lor$ wo
 
 If both of the changes that were mentioned were implemented the productions would then become non-recursive, meaning that a string such as P $\lor$ Q $\lor$ R would not be recognised by the grammar; brackets would need to be in appropriate places to be recognised by the grammar. This is certainly a usable grammar for FOL. Nevertheless, the aim was to create a more flexible grammar than would infer meaning of using left associativity of binary operators, so it is the alternative that shall be used.
 
-The difference between the grammar 3.4 and the one mentioned above may be subtle but has quite a big effect. Strings of the form P $\diamond_1$ Q $\diamond_2$ R, where $\diamond_1$ and $\diamond_2$ are binary operators from the same precedence level, are now recognised by the grammar, in fact strings of arbitrary length will be accepted provided they keep this structure. No associativity is imposed on the operators at this stage, in the sense that P $\diamond_1$ Q $\diamond_2$ R is not equivalent to either P $\diamond_1$ (Q $\diamond_2$ R) or (P $\diamond_1$ Q) $\diamond_2$ R. This is, nonetheless still progress, as this can easily be corrected when the abstract syntax tree is constructed, which is discussed in section 3.2.7.
+The difference between the grammar 3.4 and the one mentioned above may be subtle but has quite a big effect. Strings of the form P $\diamond_1$ Q $\diamond_2$ R, where $\diamond_1$ and $\diamond_2$ are binary operators from the same precedence level, are now recognised by the grammar, in fact strings of arbitrary length will be accepted provided they keep this structure. No associativity is imposed on the operators at this stage, in the sense that P $\diamond_1$ Q $\diamond_2$ R is not equivalent to either P $\diamond_1$ (Q $\diamond_2$ R) or (P $\diamond_1$ Q) $\diamond_2$ R. This is, nonetheless still progress, as this can easily be corrected when the abstract syntax tree is constructed, which is discussed in section 3.2.6.
 
 \subsection{LL(1) grammar}
 
@@ -202,7 +202,7 @@ We can see that these 5 sets are all disjoint. So there is no overlap between an
 
 \subsection{Implementation}
 
-The next choice that had to be made was how the parser itself was to be implemented. The parser could be manually coded or a parser generator could be used. Parser generators take formal description of a language such as a grammar and generates a parser for that language. Many parser generators exist, so to compare the the different options I looked mainly at the following areas:
+The next choice that had to be made was how the parser itself was to be implemented. The parser could be manually coded or a parser generator could be used. Parser generators take a formal description of a language such as a grammar and generates a parser for that language. Many parser generators exist, so to compare the different options I looked mainly at the following areas:
 \begin{description}
 \item[Parser class] The classes of parsers than can be generated e.g. LL(1)/ LALR(1).
 \item[Output language] The language of the source code of the parser that is generated.
@@ -211,7 +211,7 @@ The next choice that had to be made was how the parser itself was to be implemen
 
 The class of the parsers than can be generated is clearly vital. This is not too much of a constraint since it is known that the grammar is in the class LL(1) which is a subclass of many of the other grammar classes such as LR(1).
 
-For the needs of this project the output language another important feature since it needs to be deployable on the Android platform. The Android platform runs on Dalvik byte-code but code is generally wrote in Java source code which is compiled to Java byte-code and then translated to Dalvik Virtual Machine compatible byte-code automatically. Of course, other languages could be used but this would introduce an extra translation stage between languages which is an unnecessary complication which adds to the complexity and development time. 
+For the needs of this project the output language is an important feature since it needs to be deployable on the Android platform. The Android platform runs on Dalvik byte-code but code is generally wrote in Java source code which is compiled to Java byte-code and then translated to Dalvik Virtual Machine compatible byte-code automatically. Of course, other languages could be used but this would introduce an extra translation stage between languages which is an unnecessary complication which adds to the complexity and development time. 
 
 Finally, the input notation does not have a strict criteria but should parser generators be equal in other areas then the parser generator with the least complex input notation shall be used.
 
@@ -230,7 +230,7 @@ Since grammar 3.4 belongs to the class LL(1), JavaCC can generate a predictive p
 
 \subsection{Abstract Syntax Tree}
 
-In conjunction with JavaCC,  JJTree a JavaCC pre-processor is used. JJTree allows the user to add annotations alongside productions in the grammar which JJTree uses to insert code to the parser that will generate an abstract syntax tree during parsing. 
+In conjunction with JavaCC,  JJTree a JavaCC pre-processor is used. JJTree allows the user to add annotations alongside productions in the grammar which JJTree uses to insert code to the parser that will generate an abstract syntax tree during parsing. This AST accurately represents the natural structure of a sentence of FOL and will be generated in a single pass.
 
 The AST is generated by creating nodes for terminals first, these will be the leaves of the tree. A tree is built bottom-up with child nodes being assigned as each node is created. The last node to be created will be the root node of the tree. Since each node can have at most two children the resulting AST will be a binary tree.
 
@@ -258,5 +258,5 @@ When a quantifier is reached a new Variable is created using the variable name g
 
 At the end of parsing all variables in the scope of a quantifier that share the same name as the variable being quantified are bound. This is done as follows: For each predicate in the scope of quantifier, take each argument which has the same name as the quantified variable and set this argument as the Variable associated with the quantifier.
 
-After parsing all variables are either free or bound. If they are free then they point to a Variable that is stored in the map, if they are bound then they point to a Variable associated with a quantifier. This serves as an implicit way of connecting similar Variables. This can be used by rules of inference to easily find all occurrences of a variable, which otherwise would have to traverse the whole tree of a sentence to find each occurrence.
+After parsing, all variables are either free or bound. If they are free then they point to a Variable that is stored in the map, if they are bound then they point to a Variable associated with a quantifier. This serves as an explicit way of connecting similar Variables. This can be used by rules of inference to easily find all occurrences of a particular variable, which otherwise would have to traverse the whole tree of a sentence to find each occurrence individually.
 
